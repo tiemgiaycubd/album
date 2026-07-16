@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiệm Giày Cũ Bình Dương | Only Authentic</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Editorial Luxury Look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: {
+                            50: '#FDFDFD',
+                            100: '#FBFBFA',
+                            200: '#F4F4F0',
+                            300: '#EBEBE5',
+                            900: '#1A1A1A'
+                        },
+                        navy: {
+                            50: '#F0F4F8',
+                            700: '#1E3A8A',
+                            800: '#1E40AF',
+                            900: '#0A1128'
+                        },
+                        gold: {
+                            50: '#FDFCF7',
+                            400: '#F6E05E',
+                            500: '#D4AF37'
+                        },
+                        brandRed: '#C23B22' /* Signature dark red */
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both',
+                        'fade-in': 'fadeIn 0.6s ease-out both',
+                        'scale-up': 'scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+                        'float': 'float 6s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'track-in': 'trackIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/css">
+        @keyframes trackIn {
+            0% { letter-spacing: -0.05em; opacity: 0; filter: blur(10px); transform: translateY(20px); }
+            100% { letter-spacing: 0.1em; opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+            0% { transform: translateY(40px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes scaleUp {
+            0% { transform: scale(0.95); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .stagger-1 { animation-delay: 50ms; }
+        .stagger-2 { animation-delay: 150ms; }
+        .stagger-3 { animation-delay: 250ms; }
+        .stagger-4 { animation-delay: 350ms; }
+        .stagger-5 { animation-delay: 450ms; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .smooth-transition { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-cream-50 via-cream-100 to-cream-200 text-cream-900 font-sans min-h-screen selection:bg-brandRed selection:text-white">
+
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- MAIN CUSTOMER WEBSITE INTERFACE -->
+    <div id="customerApp" class="block min-h-screen flex flex-col justify-between">
+        
+        <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-cream-200 py-4 px-6 md:px-12 flex justify-between items-center smooth-transition shadow-sm">
+            <a href="#" class="flex items-center group select-none">
+                <div class="flex flex-col">
+                    <span class="font-serif text-lg md:text-2xl tracking-[0.15em] text-black uppercase font-bold transition-all group-hover:tracking-[0.2em] duration-700">Tiệm giày cũ</span>
+                    <span class="text-[9px] md:text-[10px] tracking-[0.35em] text-brandRed uppercase -mt-1 font-black">
+                        Bình Dương
+                    </span>
+                </div>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="https://zalo.me/0378155320" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#0068FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0040A0] text-white px-5 md:px-6 py-2.5 rounded-full text-xs font-bold tracking-widest transition-all duration-500 shadow-md hover:shadow-xl hover:-translate-y-1">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    TƯ VẤN NGAY
+                </a>
+            </div>
+        </header>
+
+        <main class="flex-grow py-10 px-4 md:px-12 max-w-[1400px] mx-auto w-full">
+            
+            <section class="text-center mb-16 mt-8 flex flex-col items-center justify-center">
+                <div class="overflow-hidden py-2">
+                    <h2 class="font-sans text-4xl md:text-6xl lg:text-7xl uppercase text-black font-black animate-track-in inline-block drop-shadow-sm">
+                        ONLY AUTHENTIC
+                    </h2>
+                </div>
+                <div class="w-12 h-1.5 bg-brandRed mx-auto my-6 animate-scale-up stagger-3"></div>
+                <p class="max-w-2xl mx-auto text-xs md:text-sm text-black tracking-widest leading-loose font-bold px-4 animate-fade-up stagger-4">
+                    <span class="text-brandRed font-black">#</span> CAM KẾT CHÍNH HÃNG TRỌN ĐỜI <span class="mx-2 text-neutral-300">|</span> BẢO HÀNH KEO ĐẾ 3 THÁNG
+                    <br>
+                    <span class="font-medium text-neutral-500 mt-1 inline-block text-[11px] md:text-xs">CHUYÊN GIÀY THỂ THAO SNEAKER VỚI HƠN 6 NĂM KINH NGHIỆM</span>
+                </p>
+            </section>
+
+            <section class="sticky top-[73px] z-30 bg-white/80 backdrop-blur-md py-4 mb-12 border-y border-cream-200 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)] rounded-3xl px-2 md:px-4">
+                <div class="flex items-center justify-between px-2 mb-3 text-[10px] text-navy-700 uppercase tracking-widest font-bold">
+                    <span class="flex items-center gap-1.5"><i data-lucide="sliders-horizontal" class="w-3.5 h-3.5 text-brandRed"></i> CHỌN SIZE CỦA BẠN</span>
+                    <span id="activeSizeLabel" class="text-brandRed bg-red-50 px-3 py-1 rounded-full border border-red-100">Đang xem: Tất cả size</span>
+                </div>
+                <div class="flex flex-wrap justify-center md:justify-start gap-2.5 py-2 px-1" id="sizeFilterSlider">
+                    <!-- Dynamic Buttons Generated by JavaScript -->
+                </div>
+            </section>
+
+            <div class="flex justify-between items-center mb-6 px-2 text-xs uppercase tracking-widest font-bold text-navy-700">
+                <span id="catalogCategoryTitle" class="flex items-center gap-2"><i data-lucide="layout-grid" class="w-4 h-4 text-gold-500"></i> TẤT CẢ TÁC PHẨM</span>
+                <span id="productCountLabel" class="bg-navy-50 text-navy-800 px-3 py-1 rounded-lg border border-navy-100">0 SẢN PHẨM</span>
+            </div>
+
+            <section class="mb-24">
+                <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 lg:gap-8 min-h-[400px]">
+                    <!-- Dynamic Grid Items Generated by JavaScript -->
+                </div>
+                
+                <div id="emptyState" class="hidden text-center py-24 animate-fade-in bg-white rounded-3xl border-2 border-dashed border-cream-300">
+                    <div class="w-20 h-20 bg-cream-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                        <i data-lucide="package-open" class="w-10 h-10 text-brandRed animate-bounce-slow"></i>
+                    </div>
+                    <h4 class="font-serif text-2xl font-bold text-navy-900 tracking-wide">Kho Hàng Trống</h4>
+                    <p class="text-sm text-navy-600 mt-2 font-medium">Hiện tại không có sản phẩm nào. Vui lòng chọn size khác hoặc chờ đợt hàng mới!</p>
+                </div>
+            </section>
+
+            <section class="border-t border-cream-300 pt-16 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 animate-fade-in">
+                
+                <!-- Card 1: Về Chúng Tôi -->
+                <div class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-lg hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 border border-neutral-100 relative overflow-hidden group">
+                    <div class="w-12 h-1.5 bg-brandRed mb-6 transition-all duration-500 group-hover:w-24"></div>
+                    <h3 class="font-serif text-2xl md:text-3xl font-black uppercase tracking-widest text-black mb-8">Tiệm Giày Cũ<br><span class="text-brandRed">Bình Dương</span></h3>
+                    
+                    <div class="space-y-6 text-sm text-neutral-800 leading-relaxed font-medium relative z-10">
+                        <p class="flex items-start gap-4">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-black mt-0.5 shrink-0"></i>
+                            <span><strong>Địa chỉ:</strong> 22 Ngô Chí Quốc, Thủ Dầu Một, Bình Dương</span>
+                        </p>
+                        <p class="flex items-start gap-4">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-black mt-0.5 shrink-0"></i>
+                            <span>Giày thể thao Sneaker Secondhand tuyển chọn chất lượng cao và hàng New Chính Hãng.</span>
+                        </p>
+                        <p class="flex items-start gap-4">
+                            <i data-lucide="phone" class="w-5 h-5 text-black mt-0.5 shrink-0"></i>
+                            <span><strong>Hotline / Zalo:</strong> <a href="tel:0378155320" class="underline hover:text-brandRed font-bold text-lg transition-colors">0378155320</a></span>
+                        </p>
+                        <p class="flex items-start gap-4">
+                            <i data-lucide="truck" class="w-5 h-5 text-black mt-0.5 shrink-0"></i>
+                            <span><strong>Dịch vụ:</strong> Giao hàng COD toàn quốc, kiểm tra và thử giày trước khi thanh toán.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Mạng Xã Hội -->
+                <div class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-lg hover:shadow-2xl hover:shadow-black/5 transition-all duration-500 border border-neutral-100 flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-1.5 bg-black mb-6 transition-all duration-500 group-hover:w-24"></div>
+                        <h3 class="font-serif text-2xl md:text-3xl font-black uppercase tracking-widest text-black mb-4">Kết Nối Với Tiệm</h3>
+                        <p class="text-sm text-neutral-500 mb-8 font-medium leading-relaxed">
+                            Theo dõi các kênh truyền thông chính thức để cập nhật nhanh nhất những mẫu giày độc bản vừa lên kệ.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-3 relative z-10">
+                        <!-- Zalo -->
+                        <a href="https://zalo.me/0378155320" target="_blank" rel="noopener noreferrer" class="group/btn flex items-center justify-between p-4 rounded-2xl bg-white border border-black hover:bg-black hover:text-white transition-all duration-300">
+                            <div class="flex items-center gap-3 font-bold text-xs uppercase tracking-widest">
+                                <i data-lucide="message-circle" class="w-5 h-5 group-hover/btn:text-brandRed transition-colors"></i>
+                                <span>Zalo Tư Vấn</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 group-hover/btn:translate-y-0 group-hover/btn:text-brandRed transition-all duration-300"></i>
+                        </a>
+                        
+                        <!-- Facebook -->
+                        <a href="https://facebook.com/tiemgiaycuBinhDuong" target="_blank" rel="noopener noreferrer" class="group/btn flex items-center justify-between p-4 rounded-2xl bg-white border border-black hover:bg-black hover:text-white transition-all duration-300">
+                            <div class="flex items-center gap-3 font-bold text-xs uppercase tracking-widest">
+                                <svg class="w-5 h-5 group-hover/btn:text-brandRed transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
+                                <span>Facebook</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 group-hover/btn:translate-y-0 group-hover/btn:text-brandRed transition-all duration-300"></i>
+                        </a>
+
+                        <!-- TikTok -->
+                        <a href="https://tiktok.com/@tiemgiaycubinhduong" target="_blank" rel="noopener noreferrer" class="group/btn flex items-center justify-between p-4 rounded-2xl bg-white border border-black hover:bg-black hover:text-white transition-all duration-300">
+                            <div class="flex items-center gap-3 font-bold text-xs uppercase tracking-widest">
+                                <i data-lucide="music-2" class="w-5 h-5 group-hover/btn:text-brandRed transition-colors"></i>
+                                <span>TikTok</span>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 group-hover/btn:translate-y-0 group-hover/btn:text-brandRed transition-all duration-300"></i>
+                        </a>
+
+                        <!-- IG & Threads Grid -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="https://instagram.com/tiemgiaycubinhduong" target="_blank" rel="noopener noreferrer" class="group/btn flex items-center justify-center gap-2 p-4 rounded-2xl bg-white border border-black hover:bg-black hover:text-white transition-all duration-300">
+                                <svg class="w-5 h-5 group-hover/btn:text-brandRed transition-colors" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/></svg>
+                                <span class="font-bold text-xs uppercase tracking-widest">Instagram</span>
+                            </a>
+                            <a href="https://threads.net/@tiemgiaycubinhduong" target="_blank" rel="noopener noreferrer" class="group/btn flex items-center justify-center gap-2 p-4 rounded-2xl bg-white border border-black hover:bg-black hover:text-white transition-all duration-300">
+                                <i data-lucide="at-sign" class="w-5 h-5 group-hover/btn:text-brandRed transition-colors"></i>
+                                <span class="font-bold text-xs uppercase tracking-widest">Threads</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="bg-black text-white py-12 px-6 text-center border-t-4 border-brandRed">
+            <p class="text-[10px] md:text-xs tracking-[0.2em] font-medium uppercase text-neutral-400">
+                © 2026 TIỆM GIÀY CŨ BÌNH DƯƠNG. ALL RIGHTS RESERVED.
+            </p>
+        </footer>
+
+    </div>
+
+    <div id="imageLightbox" class="fixed inset-0 z-50 hidden bg-navy-900/90 backdrop-blur-xl items-center justify-center p-4 md:p-8 animate-fade-in">
+        <div class="absolute inset-0 cursor-zoom-out" onclick="closeLightbox()"></div>
+        
+        <div class="relative max-w-5xl w-full bg-white rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row h-[92vh] md:h-auto max-h-[92vh] animate-scale-up z-10 border-4 border-white/20">
+            
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-12 h-12 rounded-full bg-red-100 hover:bg-red-600 text-red-600 hover:text-white flex items-center justify-center transition-all shadow-lg">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Image Container -->
+            <div class="w-full md:w-3/5 bg-gradient-to-br from-cream-50 to-cream-100 flex items-center justify-center p-8 border-b md:border-b-0 md:border-r border-cream-200 relative h-1/2 md:h-[650px] shadow-inner">
+                <img id="lightboxImg" src="" alt="Sản phẩm" class="max-w-full max-h-full object-contain smooth-transition animate-float drop-shadow-xl">
+            </div>
+
+            <!-- Details & Actions Area -->
+            <div class="w-full md:w-2/5 p-8 md:p-10 flex flex-col justify-between bg-white h-1/2 md:h-[650px] overflow-y-auto">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-gold-500"></i>
+                        <h3 id="lightboxTitle" class="font-serif text-xl md:text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-brandRed to-red-500 uppercase leading-tight">TÊN GIÀY</h3>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8 bg-cream-50 p-6 rounded-3xl border border-cream-100 shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-navy-100 flex items-center justify-center text-navy-700"><i data-lucide="ruler" class="w-5 h-5"></i></div>
+                            <p id="lightboxProductSize" class="text-sm font-extrabold text-navy-800 tracking-wider">SIZE: --</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600"><i data-lucide="tag" class="w-5 h-5"></i></div>
+                            <p id="lightboxProductPrice" class="text-xl font-black text-emerald-600 tracking-wide">GIÁ: --</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                            <p id="lightboxProductCondition" class="text-xs font-bold text-amber-700 tracking-widest uppercase">TÌNH TRẠNG: --</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-2xl mb-8 border border-blue-100">
+                        <div id="desktopAlert" class="hidden md:flex items-start gap-4 text-sm text-blue-800 leading-relaxed font-medium">
+                            <i data-lucide="download-cloud" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5"></i>
+                            <span>Lưu ảnh chất lượng gốc xuống máy tính bằng nút bên dưới hoặc gửi hình trực tiếp qua Zalo để tiệm tư vấn.</span>
+                        </div>
+                        <div id="mobileAlert" class="flex md:hidden items-start gap-4 text-sm text-blue-800 leading-relaxed font-medium">
+                            <i data-lucide="camera" class="w-6 h-6 text-blue-600 shrink-0 mt-0.5 animate-pulse"></i>
+                            <span>Bạn đang truy cập bằng điện thoại. <strong>Vui lòng chụp ảnh màn hình gửi cho tiệm nhé!</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-4 mt-auto">
+                    <a id="zaloCheckoutBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-5 px-6 bg-gradient-to-r from-[#0068FF] to-[#0052CC] hover:from-[#0052CC] hover:to-[#0040A0] text-white rounded-2xl text-sm font-black tracking-widest uppercase text-center flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                        HỎI MUA TRÊN ZALO
+                    </a>
+
+                    <button id="downloadBtn" onclick="downloadCurrentImage()" class="hidden md:flex w-full py-4 px-6 bg-navy-900 hover:bg-black text-white rounded-2xl text-xs font-bold tracking-widest uppercase items-center justify-center gap-3 transition-all shadow-md">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        TẢI ẢNH XUỐNG MÁY TÍNH
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="adminApp" class="hidden min-h-screen bg-navy-50 p-4 md:p-8 flex flex-col font-sans">
+        
+        <header class="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10 border-b border-navy-200 pb-6">
+            <div>
+                <div class="flex items-center gap-3">
+                    <span class="p-2.5 rounded-xl bg-brandRed text-white shadow-md"><i data-lucide="shield-check" class="w-6 h-6"></i></span>
+                    <h1 class="font-serif text-3xl font-black uppercase tracking-widest text-navy-900">Admin Control</h1>
+                </div>
+                <p class="text-sm text-navy-500 mt-2 font-medium"><i data-lucide="server" class="w-4 h-4 inline mr-1"></i> Hệ thống quản lý Data & Upload ImgBB</p>
+            </div>
+            <button onclick="logoutAdmin()" class="px-6 py-2.5 bg-navy-900 hover:bg-black text-white rounded-xl text-xs font-bold uppercase transition-all tracking-wider shadow flex items-center gap-2">
+                <i data-lucide="log-out" class="w-4 h-4"></i> Thoát Admin
+            </button>
+        </header>
+
+        <div id="adminPasswordGate" class="flex-grow flex items-center justify-center py-20">
+            <div class="max-w-md w-full bg-white rounded-3xl p-10 border border-navy-100 shadow-2xl text-center">
+                <div class="w-20 h-20 rounded-full bg-navy-50 text-navy-900 flex items-center justify-center mx-auto mb-8 shadow-inner">
+                    <i data-lucide="lock-keyhole" class="w-10 h-10 text-brandRed"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold uppercase text-navy-900 mb-3">Truy Cập Quản Trị</h3>
+                <p class="text-sm text-navy-500 mb-8 leading-relaxed">Nhập mật khẩu để mở khóa hệ thống đăng bài.</p>
+                <div class="space-y-5">
+                    <input type="password" id="gatePass" placeholder="Nhập mật khẩu (Mặc định: admin)" class="w-full px-5 py-4 rounded-2xl border border-navy-200 bg-navy-50 text-center text-base focus:outline-none focus:ring-2 focus:ring-brandRed transition-all font-semibold">
+                    <button onclick="tryUnlockGate()" class="w-full py-4 bg-gradient-to-r from-navy-900 to-navy-700 hover:to-black text-white rounded-2xl text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                        <i data-lucide="key" class="w-5 h-5"></i> Mở Khóa Hệ Thống
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminMainContent" class="hidden max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <div class="lg:col-span-5 space-y-8">
+                
+                <div class="bg-white rounded-3xl p-8 border border-navy-100 shadow-sm">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-navy-50">
+                        <div class="p-2 bg-navy-100 rounded-lg"><i data-lucide="settings-2" class="w-5 h-5 text-navy-700"></i></div>
+                        <h3 class="font-bold uppercase tracking-widest text-navy-900 text-sm">Cấu Hình Kết Nối API</h3>
+                    </div>
+                    <div class="space-y-5 text-sm">
+                        <div>
+                            <label class="block font-bold text-navy-700 mb-2 text-xs tracking-wider">MẬT KHẨU ADMIN</label>
+                            <input type="password" id="cfgPassword" placeholder="Đổi mật khẩu..." class="w-full px-4 py-3 rounded-xl border border-navy-200 bg-navy-50 focus:ring-2 focus:ring-navy-500 font-medium">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-navy-700 mb-2 text-xs tracking-wider">API KEY IMGBB <span class="text-red-500">*</span></label>
+                            <input type="text" id="cfgImgBBApi" placeholder="Nhập API Key từ api.imgbb.com" class="w-full px-4 py-3 rounded-xl border border-navy-200 bg-navy-50 focus:ring-2 focus:ring-navy-500 font-mono">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-navy-700 mb-2 text-xs tracking-wider">LINK ZALO TƯ VẤN</label>
+                            <input type="text" id="cfgZaloLink" placeholder="https://zalo.me/..." class="w-full px-4 py-3 rounded-xl border border-navy-200 bg-navy-50 focus:ring-2 focus:ring-navy-500">
+                        </div>
+                        <button onclick="saveAdminSettings()" class="w-full py-3 bg-navy-900 hover:bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase transition-all mt-2 flex justify-center items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i> Lưu Cấu Hình
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-navy-100 shadow-sm border-t-4 border-t-blue-500">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-navy-50">
+                        <div class="p-2 bg-blue-100 rounded-lg"><i data-lucide="upload-cloud" class="w-5 h-5 text-blue-600"></i></div>
+                        <h3 class="font-bold uppercase tracking-widest text-navy-900 text-sm">Đăng Sản Phẩm Mới</h3>
+                    </div>
+                    <div class="space-y-5 text-sm">
+                        
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-2xl border border-blue-100 space-y-4">
+                            <p class="font-bold text-[11px] text-blue-800 uppercase tracking-widest flex items-center gap-2"><i data-lucide="edit-3" class="w-4 h-4"></i> 1. Thiết lập thông tin chung</p>
+                            <div>
+                                <label class="block font-bold text-navy-700 mb-2 text-[10px] tracking-wider">TÊN THƯƠNG HIỆU / DÒNG GIÀY</label>
+                                <input type="text" id="batchProdName" placeholder="VD: TIGER MEXICO 66" class="w-full px-4 py-3 rounded-xl border border-white bg-white focus:ring-2 focus:ring-blue-500 font-bold uppercase text-brandRed shadow-sm">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block font-bold text-navy-700 mb-2 text-[10px] tracking-wider">GIÁ BÁN</label>
+                                    <input type="text" id="batchProdPrice" placeholder="VD: 1.200.000" class="w-full px-4 py-3 rounded-xl border border-white bg-white focus:ring-2 focus:ring-blue-500 shadow-sm font-semibold text-emerald-600">
+                                </div>
+                                <div>
+                                    <label class="block font-bold text-navy-700 mb-2 text-[10px] tracking-wider">TÌNH TRẠNG</label>
+                                    <select id="batchProdCondition" class="w-full px-4 py-3 rounded-xl border border-white bg-white focus:ring-2 focus:ring-blue-500 shadow-sm font-semibold text-amber-600">
+                                        <option value="USED">USED</option>
+                                        <option value="NEW 100%">NEW 100%</option>
+                                        <option value="LIKE NEW">LIKE NEW</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-navy-700 mb-3 text-[11px] tracking-wider flex items-center gap-2"><i data-lucide="ruler" class="w-4 h-4"></i> 2. CHỌN SIZE ÁP DỤNG <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-5 gap-2" id="adminSizeSelector"></div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-navy-700 mb-3 text-[11px] tracking-wider flex items-center gap-2"><i data-lucide="image-plus" class="w-4 h-4"></i> 3. CHỌN ẢNH TỪ MÁY (MULTI)</label>
+                            <input type="file" id="batchFiles" multiple accept="image/*" class="w-full text-sm text-navy-500 file:mr-4 file:py-3 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-gradient-to-r file:from-blue-600 file:to-blue-500 file:text-white hover:file:opacity-90 cursor-pointer">
+                        </div>
+
+                        <div id="uploadProgressContainer" class="hidden bg-white border border-navy-100 shadow-inner p-4 rounded-xl">
+                            <div class="flex justify-between items-center mb-2 text-xs font-bold text-navy-600">
+                                <span id="progressText">Đang tải lên: 0 / 0</span>
+                                <span id="percentText">0%</span>
+                            </div>
+                            <div class="w-full bg-navy-100 h-2.5 rounded-full overflow-hidden">
+                                <div id="progressBar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full w-0 smooth-transition"></div>
+                            </div>
+                        </div>
+
+                        <button id="startBatchUploadBtn" onclick="executeBatchUpload()" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-sm font-bold tracking-widest uppercase transition-all shadow-lg hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                            <i data-lucide="upload" class="w-5 h-5"></i> Upload Lên ImgBB
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 border border-navy-100 shadow-sm border-t-4 border-t-emerald-500">
+                    <div class="flex items-center gap-3 mb-4 pb-4 border-b border-navy-50">
+                        <div class="p-2 bg-emerald-100 rounded-lg"><i data-lucide="github" class="w-5 h-5 text-emerald-600"></i></div>
+                        <h3 class="font-bold uppercase tracking-widest text-navy-900 text-sm">Xuất Code Lên GitHub</h3>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <button onclick="exportDatabaseJson()" class="w-full py-4 bg-navy-900 hover:bg-black text-white rounded-xl text-sm font-bold tracking-widest uppercase transition-all shadow-md hover:-translate-y-0.5 flex justify-center items-center gap-2">
+                            <i data-lucide="code" class="w-5 h-5"></i> Tạo Mã JSON Data
+                        </button>
+
+                        <div id="jsonOutputArea" class="hidden mt-4 space-y-3">
+                            <textarea id="jsonText" readonly rows="6" class="w-full p-4 font-mono text-xs bg-navy-900 text-emerald-400 rounded-xl focus:outline-none focus:ring-0 shadow-inner" onclick="this.select()"></textarea>
+                            <button onclick="copyExportedJson()" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white rounded-xl text-xs font-bold uppercase transition-all flex items-center justify-center gap-2 shadow-md">
+                                <i data-lucide="copy" class="w-4 h-4"></i> Copy Mã JSON Thành Công
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-7 bg-white rounded-3xl p-8 border border-navy-100 shadow-sm flex flex-col h-[85vh]">
+                <div class="flex items-center justify-between mb-6 pb-4 border-b border-navy-50">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-purple-100 rounded-lg"><i data-lucide="database" class="w-5 h-5 text-purple-700"></i></div>
+                        <h3 class="font-bold uppercase tracking-widest text-navy-900 text-sm">Quản Lý Kho Hàng</h3>
+                    </div>
+                    <span id="adminTotalItems" class="text-xs font-bold bg-navy-100 px-4 py-1.5 rounded-full text-navy-800 border border-navy-200 shadow-sm flex items-center gap-1"><i data-lucide="layers" class="w-3 h-3"></i> 0 sản phẩm</span>
+                </div>
+
+                <div id="adminGroupedItemsList" class="flex-grow overflow-y-auto space-y-8 pr-2 no-scrollbar">
+                    <!-- Dynamic List of Size Categories generated by JavaScript -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Changed key to force clear old cache on client machines
+        const SNEAKERS_DB_KEY = "sneaker_catalog_db_v2_clean"; 
+        const CONFIG_DB_KEY = "sneaker_config_db_v2";
+        const DEFAULT_ZALO = "https://zalo.me/0378155320";
+        const ADMIN_PASS_KEY = "admin_access_pass";
+        const SIZES_POOL = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+
+        let products = [];
+        let config = { zalo: DEFAULT_ZALO, imgbbKey: "", secretHash: "admin" };
+        let activeSizeFilter = null;
+        let activeAdminSizeSelected = 38;
+        let selectedProductForView = null;
+
+        // Cleared Mock Data to start fresh as requested
+        const initialMockProducts = [];
+
+        window.onload = function() {
+            lucide.createIcons();
+            loadSettings();
+            loadProducts();
+            handleRouting();
+            window.addEventListener('hashchange', handleRouting);
+        };
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 px-5 py-4 rounded-2xl text-sm font-bold shadow-2xl border animate-fade-up cursor-pointer bg-white ${
+                type === 'success' ? 'border-emerald-400 text-emerald-700' : 'border-brandRed text-brandRed'
+            }`;
+            toast.innerHTML = `<i data-lucide="${type === 'success' ? 'check-circle' : 'alert-triangle'}" class="w-5 h-5 shrink-0"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            toast.onclick = () => toast.remove();
+            setTimeout(() => { toast.classList.add('opacity-0', 'transition-opacity', 'duration-500'); setTimeout(() => toast.remove(), 500); }, 3000);
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem(CONFIG_DB_KEY);
+            if (saved) config = JSON.parse(saved);
+            else localStorage.setItem(CONFIG_DB_KEY, JSON.stringify(config));
+            document.getElementById('cfgZaloLink').value = config.zalo;
+            document.getElementById('cfgImgBBApi').value = config.imgbbKey;
+        }
+
+        function loadProducts() {
+            const saved = localStorage.getItem(SNEAKERS_DB_KEY);
+            if (saved) products = JSON.parse(saved);
+            else { products = initialMockProducts; saveProductsToLocalStorage(); }
+        }
+        
+        function saveProductsToLocalStorage() { localStorage.setItem(SNEAKERS_DB_KEY, JSON.stringify(products)); }
+
+        function handleRouting() {
+            const isSecretAdmin = window.location.hash === '#admin';
+            if (isSecretAdmin) {
+                document.getElementById('customerApp').classList.add('hidden');
+                document.getElementById('adminApp').classList.remove('hidden');
+                checkAdminState();
+            } else {
+                document.getElementById('adminApp').classList.add('hidden');
+                document.getElementById('customerApp').classList.remove('hidden');
+                renderCustomerSite();
+            }
+        }
+
+        function renderCustomerSite() {
+            renderSizeFilters();
+            renderCatalogGrid();
+        }
+
+        function renderSizeFilters() {
+            const container = document.getElementById('sizeFilterSlider');
+            container.innerHTML = "";
+
+            const allBtn = document.createElement('button');
+            allBtn.className = `flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold tracking-widest transition-all duration-300 shadow-sm border ${
+                activeSizeFilter === null 
+                ? 'bg-gradient-to-br from-navy-900 to-navy-700 text-gold-400 border-navy-900 shadow-lg' 
+                : 'bg-white text-navy-800 hover:bg-gold-50 border-cream-200 hover:border-gold-300'
+            }`;
+            allBtn.innerHTML = `<i data-lucide="layers" class="w-4 h-4"></i> TẤT CẢ`;
+            allBtn.onclick = () => { activeSizeFilter = null; document.getElementById('activeSizeLabel').innerText = "Đang xem: Tất cả size"; renderCustomerSite(); };
+            container.appendChild(allBtn);
+
+            SIZES_POOL.forEach(sz => {
+                const btn = document.createElement('button');
+                const isSelected = activeSizeFilter === sz;
+                btn.className = `w-14 h-11 rounded-full text-sm font-black transition-all duration-300 shadow-sm shrink-0 border flex items-center justify-center ${
+                    isSelected 
+                    ? 'bg-gradient-to-br from-navy-900 to-navy-700 text-gold-400 border-navy-900 scale-105 shadow-lg' 
+                    : 'bg-white text-navy-800 hover:bg-gold-50 border-cream-200 hover:border-gold-300'
+                }`;
+                btn.innerText = sz;
+                btn.onclick = () => { activeSizeFilter = sz; document.getElementById('activeSizeLabel').innerText = `Đang xem: Size ${sz}`; renderCustomerSite(); };
+                container.appendChild(btn);
+            });
+            lucide.createIcons();
+        }
+
+        function renderCatalogGrid() {
+            const grid = document.getElementById('productGrid');
+            const empty = document.getElementById('emptyState');
+            grid.innerHTML = "";
+
+            const viewItems = activeSizeFilter ? products.filter(x => parseInt(x.size) === activeSizeFilter) : products;
+            document.getElementById('productCountLabel').innerText = `${viewItems.length} SẢN PHẨM`;
+
+            if (viewItems.length === 0) { grid.classList.add('hidden'); empty.classList.remove('hidden'); return; }
+            grid.classList.remove('hidden'); empty.classList.add('hidden');
+
+            viewItems.forEach((item, idx) => {
+                const delayClass = `stagger-${(idx % 6) + 1}`;
+                const col = document.createElement('div');
+                
+                col.className = `group bg-white rounded-[2rem] overflow-hidden border border-cream-200 hover:border-gold-300 hover:shadow-2xl hover:shadow-gold-500/10 transition-all duration-500 cursor-zoom-in animate-fade-up ${delayClass} flex flex-col`;
+                col.onclick = () => openLightbox(item);
+
+                const itemName = item.name || "AUTHENTIC SNEAKER";
+                const itemPrice = item.price || "Liên hệ";
+                const itemCondition = item.condition || "USED";
+
+                // Setup Colors based on Condition
+                const isNew = itemCondition.includes("NEW");
+                const conditionColor = isNew ? "bg-emerald-50 text-emerald-600 border-emerald-200" : "bg-amber-50 text-amber-600 border-amber-200";
+                const conditionIcon = isNew ? "sparkles" : "history";
+
+                col.innerHTML = `
+                    <div class="w-full pb-[100%] h-0 relative bg-white overflow-hidden border-b border-cream-100 rounded-t-[2rem]">
+                        <img src="${item.image}" alt="${itemName}" class="absolute inset-0 w-full h-full p-5 sm:p-6 object-contain transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        
+                        <div class="absolute top-4 right-4 ${conditionColor} border px-3 py-1.5 rounded-full text-[9px] font-black tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="${conditionIcon}" class="w-3.5 h-3.5"></i> ${itemCondition}
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col items-center justify-center text-center space-y-3 bg-gradient-to-b from-white to-cream-50 rounded-b-[2rem] flex-grow">
+                        <h4 class="font-sans text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-brandRed to-red-600 tracking-widest uppercase line-clamp-1 w-full drop-shadow-sm">${itemName}</h4>
+                        <div class="flex flex-col items-center space-y-2 w-full">
+                            <p class="text-[11px] sm:text-xs font-bold text-navy-700 tracking-wider flex items-center justify-center gap-1.5 bg-navy-50 px-3 py-1 rounded-lg border border-navy-100 w-3/4">
+                                <i data-lucide="ruler" class="w-3.5 h-3.5 text-navy-500"></i> Size: ${item.size}
+                            </p>
+                            <p class="text-sm sm:text-base font-extrabold text-emerald-600 tracking-wide flex items-center justify-center gap-1.5">
+                                <i data-lucide="tag" class="w-4 h-4 text-emerald-500"></i> ${itemPrice}
+                            </p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(col);
+            });
+            lucide.createIcons();
+        }
+
+        function openLightbox(product) {
+            selectedProductForView = product;
+            const itemName = product.name || "AUTHENTIC SNEAKER";
+            const isNew = (product.condition || "").includes("NEW");
+            
+            document.getElementById('lightboxImg').src = product.image;
+            document.getElementById('lightboxTitle').innerText = itemName;
+            document.getElementById('lightboxProductSize').innerText = `SIZE: ${product.size}`;
+            document.getElementById('lightboxProductPrice').innerText = `GIÁ: ${product.price || "Liên hệ"}`;
+            
+            const conditionEl = document.getElementById('lightboxProductCondition');
+            conditionEl.innerText = `TÌNH TRẠNG: ${product.condition || "USED"}`;
+            conditionEl.className = `text-xs font-bold tracking-widest uppercase ${isNew ? 'text-emerald-700' : 'text-amber-700'}`;
+
+            const encodedName = encodeURIComponent(`${itemName} - Size ${product.size}`);
+            document.getElementById('zaloCheckoutBtn').href = `${config.zalo}?text=Tôi%20muốn%20mua%20${encodedName}%20hình%20ảnh%20${encodeURIComponent(product.image)}`;
+
+            const modal = document.getElementById('imageLightbox');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('imageLightbox');
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+            document.body.style.overflow = '';
+            selectedProductForView = null;
+        }
+
+        function downloadCurrentImage() {
+            if (!selectedProductForView) return;
+            const link = document.createElement('a');
+            link.href = selectedProductForView.image; link.target = "_blank"; link.download = `Giay_Size_${selectedProductForView.size}.jpg`;
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            showToast("Hình ảnh gốc được mở tải về!");
+        }
+
+        function checkAdminState() {
+            if (sessionStorage.getItem(ADMIN_PASS_KEY) === "true") {
+                document.getElementById('adminPasswordGate').classList.add('hidden');
+                document.getElementById('adminMainContent').classList.remove('hidden');
+                renderAdminControlCenter();
+            } else {
+                document.getElementById('adminPasswordGate').classList.remove('hidden');
+                document.getElementById('adminMainContent').classList.add('hidden');
+            }
+        }
+
+        function tryUnlockGate() {
+            if (document.getElementById('gatePass').value === config.secretHash) {
+                sessionStorage.setItem(ADMIN_PASS_KEY, "true"); showToast("Mở khóa thành công!"); checkAdminState();
+            } else showToast("Sai mật khẩu!", "error");
+        }
+        function logoutAdmin() { sessionStorage.removeItem(ADMIN_PASS_KEY); window.location.hash = ""; }
+
+        function renderAdminControlCenter() {
+            renderAdminSizeSelector(); renderAdminGroupedList();
+            document.getElementById('cfgPassword').value = config.secretHash;
+            document.getElementById('adminTotalItems').innerHTML = `<i data-lucide="layers" class="w-3 h-3"></i> ${products.length} sản phẩm`;
+            lucide.createIcons();
+        }
+
+        function renderAdminSizeSelector() {
+            const container = document.getElementById('adminSizeSelector');
+            container.innerHTML = "";
+            SIZES_POOL.forEach(sz => {
+                const btn = document.createElement('button');
+                btn.className = `py-3 rounded-xl text-xs font-bold text-center border transition-all shadow-sm ${
+                    activeAdminSizeSelected === sz ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white border-transparent shadow-lg scale-105' : 'bg-white text-navy-700 border-navy-200 hover:bg-blue-50 hover:border-blue-300'
+                }`;
+                btn.innerText = sz; btn.onclick = () => { activeAdminSizeSelected = sz; renderAdminSizeSelector(); };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderAdminGroupedList() {
+            const container = document.getElementById('adminGroupedItemsList');
+            container.innerHTML = "";
+
+            const sizeGroupMap = {}; SIZES_POOL.forEach(sz => sizeGroupMap[sz] = []);
+            products.forEach(p => { if (sizeGroupMap[p.size]) sizeGroupMap[p.size].push(p); });
+
+            SIZES_POOL.forEach(sz => {
+                const itemsInSize = sizeGroupMap[sz];
+                if (itemsInSize.length === 0) return;
+
+                const card = document.createElement('div');
+                card.className = "bg-gradient-to-br from-navy-50 to-white rounded-2xl p-5 border border-navy-100 shadow-sm";
+                
+                const header = document.createElement('div');
+                header.className = "flex justify-between items-center mb-4 pb-3 border-b border-navy-100";
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = "px-4 py-2 bg-red-100 hover:bg-red-600 hover:text-white text-red-600 rounded-xl text-[10px] font-bold uppercase transition-all flex items-center gap-1.5 shadow-sm";
+                deleteBtn.innerHTML = `<i data-lucide="trash" class="w-3.5 h-3.5"></i> Xóa tất cả size ${sz}`;
+                
+                let isConfirming = false, timer = null;
+                deleteBtn.onclick = () => {
+                    if (!isConfirming) {
+                        isConfirming = true; deleteBtn.innerHTML = `<i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> XÁC NHẬN XÓA?`; deleteBtn.classList.add('bg-red-600', 'text-white', 'animate-pulse');
+                        timer = setTimeout(() => { isConfirming = false; deleteBtn.innerHTML = `<i data-lucide="trash" class="w-3.5 h-3.5"></i> Xóa tất cả size ${sz}`; deleteBtn.classList.remove('bg-red-600', 'text-white', 'animate-pulse'); }, 4000);
+                    } else { clearTimeout(timer); executeDeleteAllInSize(sz); }
+                };
+
+                header.innerHTML = `<div class="flex items-center gap-3"><span class="w-10 h-10 rounded-xl bg-gradient-to-br from-navy-800 to-navy-900 text-gold-400 text-sm font-black flex items-center justify-center shadow-lg border border-navy-700">${sz}</span><span class="text-xs font-bold text-navy-600 flex items-center gap-1.5"><i data-lucide="box" class="w-4 h-4"></i> ${itemsInSize.length} đôi</span></div>`;
+                header.appendChild(deleteBtn); card.appendChild(header);
+
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 gap-3";
+                itemsInSize.forEach(p => {
+                    const cell = document.createElement('div');
+                    cell.className = "relative group aspect-square rounded-xl overflow-hidden border border-navy-200 bg-white p-2 flex items-center justify-center shadow-sm hover:shadow-md transition-all";
+                    cell.innerHTML = `
+                        <img src="${p.image}" class="max-w-full max-h-full object-contain" />
+                        <div class="absolute bottom-1 right-1 bg-black/80 text-[8px] text-gold-400 px-1.5 py-0.5 rounded font-bold uppercase backdrop-blur-sm border border-black/50">${p.name ? p.name.substring(0,8) : 'SNEAKER'}</div>
+                        <button onclick="executeSingleDelete('${p.id}')" class="absolute inset-0 bg-red-600/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-xl backdrop-blur-sm"><i data-lucide="trash-2" class="w-6 h-6"></i></button>
+                    `;
+                    grid.appendChild(cell);
+                });
+                card.appendChild(grid); container.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function executeDeleteAllInSize(sz) { products = products.filter(x => parseInt(x.size) !== parseInt(sz)); saveProductsToLocalStorage(); showToast(`Đã xóa sạch size ${sz}`); renderAdminControlCenter(); }
+        function executeSingleDelete(id) { products = products.filter(x => x.id !== id); saveProductsToLocalStorage(); showToast("Đã xóa sản phẩm!"); renderAdminControlCenter(); }
+
+        function saveAdminSettings() {
+            config.zalo = document.getElementById('cfgZaloLink').value || DEFAULT_ZALO;
+            config.imgbbKey = document.getElementById('cfgImgBBApi').value;
+            const newPass = document.getElementById('cfgPassword').value;
+            if (newPass) config.secretHash = newPass;
+            localStorage.setItem(CONFIG_DB_KEY, JSON.stringify(config));
+            showToast("Đã lưu cấu hình kết nối!"); renderAdminControlCenter();
+        }
+
+        async function executeBatchUpload() {
+            const files = document.getElementById('batchFiles').files;
+            if (!config.imgbbKey) return showToast("Cần nhập API Key ImgBB trước!", "error");
+            if (!activeAdminSizeSelected) return showToast("Chưa chọn Size!", "error");
+            if (files.length === 0) return showToast("Chưa chọn ảnh nào!", "error");
+
+            const inputName = document.getElementById('batchProdName').value.trim();
+            const inputPrice = document.getElementById('batchProdPrice').value.trim();
+            const inputCondition = document.getElementById('batchProdCondition').value;
+
+            const pContainer = document.getElementById('uploadProgressContainer'), pBar = document.getElementById('progressBar'), pText = document.getElementById('progressText'), pPercent = document.getElementById('percentText'), btn = document.getElementById('startBatchUploadBtn');
+            pContainer.classList.remove('hidden'); btn.disabled = true; btn.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Đang xử lý...`;
+            lucide.createIcons();
+
+            let successCount = 0; const total = files.length;
+            for (let i = 0; i < total; i++) {
+                pText.innerText = `Đang tải: ${i + 1} / ${total}`;
+                const pct = Math.round((i / total) * 100); pBar.style.width = `${pct}%`; pPercent.innerText = `${pct}%`;
+                
+                const uploadUrl = await uploadImageWithRetries(files[i], config.imgbbKey);
+                if (uploadUrl) {
+                    products.unshift({
+                        id: "p_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5),
+                        name: inputName, price: inputPrice, condition: inputCondition, size: parseInt(activeAdminSizeSelected), image: uploadUrl
+                    });
+                    successCount++;
+                }
+            }
+
+            pBar.style.width = "100%"; pPercent.innerText = "100%";
+            saveProductsToLocalStorage();
+            showToast(`Thành công ${successCount}/${total} ảnh!`);
+            document.getElementById('batchFiles').value = "";
+            pContainer.classList.add('hidden'); btn.disabled = false; btn.innerHTML = `<i data-lucide="upload" class="w-5 h-5"></i> Upload Lên ImgBB`;
+            renderAdminControlCenter();
+        }
+
+        async function uploadImageWithRetries(file, key, retries = 3) {
+            const formData = new FormData(); formData.append("image", file);
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const res = await fetch(`https://api.imgbb.com/1/upload?key=${key}`, { method: "POST", body: formData });
+                    if (res.ok) { const data = await res.json(); if (data.success) return data.data.url; }
+                } catch (e) { await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000)); }
+            } return null;
+        }
+
+        function exportDatabaseJson() {
+            const cleanData = products.map(p => ({ id: p.id, name: p.name, price: p.price, condition: p.condition, size: parseInt(p.size), image: p.image }));
+            document.getElementById('jsonText').value = JSON.stringify(cleanData, null, 2);
+            document.getElementById('jsonOutputArea').classList.remove('hidden');
+            showToast("Đã tạo JSON thành công!");
+        }
+        
+        function copyExportedJson() {
+            document.getElementById('jsonText').select(); document.execCommand('copy');
+            showToast("Đã copy JSON. Hãy dán lên GitHub!");
+        }
+    </script>
+</body>
+</html>
