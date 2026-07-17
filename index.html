@@ -1,503 +1,26 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tiệm Giày Cũ Bình Dương | Only Authentic</title>
-    
-    <!-- Lấy Font chữ cao cấp -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBdv7KLbOSlQSlMFJkjcHXyH4fISUlQPeU",
-            authDomain: "catalog-39ca0.firebaseapp.com",
-            projectId: "catalog-39ca0",
-            storageBucket: "catalog-39ca0.firebasestorage.app",
-            messagingSenderId: "525432002337",
-            appId: "1:525432002337:web:e910cd671c97ee81a85060"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        // Gắn Firebase vào Window để dùng chung
-        window.db = db;
-        window.collection = collection;
-        window.addDoc = addDoc;
-        window.getDocs = getDocs;
-        window.query = query;
-        window.orderBy = orderBy;
-        window.deleteDoc = deleteDoc;
-        window.doc = doc;
-        window.serverTimestamp = serverTimestamp;
-    </script>
-
-    <style>
-        :root {
-            --primary-color: #FFFFFF;
-            --secondary-color: #D30000;
-            --accent-color: #D4AF37; /* Vàng Gold chuẩn */
-            --bg-color: #F5F7FA;
-            --text-dark: #1A1A1A;
-            --text-light: #FFFFFF;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-        }
-
-        .logo-container {
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .brand-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .brand-name span { color: var(--secondary-color); }
-
-        .brand-sub {
-            font-size: 0.65rem;
-            color: var(--accent-color);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: block;
-            margin-top: 2px;
-        }
-
-        /* Tabs menu thay vì Icon nhỏ */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 15px 0;
-            background: #fff;
-            border-bottom: 1px solid #eee;
-        }
-
-        .tab-btn {
-            padding: 8px 16px;
-            border: none;
-            background: none;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-        }
-
-        .tab-btn.active {
-            color: var(--accent-color);
-        }
-
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent-color);
-        }
-
-        /* Lọc Size cố định từ 36 -> 45 */
-        .filter-container {
-            background-color: var(--primary-color);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            position: sticky;
-            top: 70px;
-            z-index: 99;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-
-        .size-btn {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            border: 1px solid transparent;
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .size-btn.active, .size-btn:hover {
-            background-color: var(--text-dark);
-            color: var(--text-light);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .catalog-container, .admin-container {
-            padding: 20px;
-            min-height: 50vh;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: none; /* Ẩn đi chờ JS kích hoạt */
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        
-        .active-section {
-            display: block !important;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        }
-
-        .product-card {
-            background: var(--primary-color);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-        }
-
-        .product-img {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-img { transform: scale(1.05); }
-        
-        .card-details {
-            padding: 12px;
-            text-align: center;
-            background: #fff;
-            border-top: 1px solid #f0f0f0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .card-price {
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--secondary-color);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .size-tag-img {
-             position: absolute;
-             top: 10px;
-             right: 10px;
-             background-color: rgba(255, 255, 255, 0.95);
-             color: var(--text-dark);
-             padding: 5px 10px;
-             border-radius: 20px;
-             font-size: 0.75rem;
-             font-weight: 700;
-             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-             font-family: 'Montserrat', sans-serif;
-             z-index: 2;
-        }
-
-        .delete-btn {
-            position: absolute; top: 10px; left: 10px;
-            background: rgba(211, 0, 0, 0.9); color: white;
-            border: none; width: 30px; height: 30px; border-radius: 50%;
-            font-size: 1rem; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 10;
-        }
-
-        /* Banner Liên Hệ Sang Trọng */
-        .contact-banner {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            position: relative;
-            overflow: hidden;
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 2px solid var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-            margin-top: 20px;
-        }
-
-        .contact-banner::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 250px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0; pointer-events: none;
-        }
-
-        .contact-banner-content {
-            position: relative; z-index: 1; max-width: 600px; margin: 0 auto;
-        }
-
-        .contact-title {
-            color: var(--accent-color);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem; font-weight: 800; letter-spacing: 2px;
-            margin-bottom: 25px; text-transform: uppercase;
-        }
-
-        .btn-zalo-premium {
-            background-color: var(--primary-color);
-            color: var(--text-dark);
-            border: 2px solid var(--accent-color);
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 12px 30px; border-radius: 30px;
-            font-size: 1rem; font-weight: 700; text-decoration: none;
-            margin-bottom: 15px; position: relative; overflow: hidden;
-            transition: transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
-        }
-
-        .btn-zalo-premium::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(212, 175, 55, 0.3) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg); animation: shine 3s infinite;
-        }
-        .btn-zalo-premium:hover, .btn-zalo-premium:active { transform: scale(0.95); }
-
-        .social-links-premium {
-            display: flex; justify-content: center; gap: 15px; margin-top: 15px;
-        }
-
-        .social-btn-glass {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--primary-color);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            text-decoration: none; width: 45px; height: 45px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; transition: all 0.3s ease; backdrop-filter: blur(5px);
-        }
-
-        .social-btn-glass:hover {
-            background: var(--accent-color); color: var(--text-dark);
-            transform: translateY(-5px); border-color: var(--accent-color);
-            box-shadow: 0 5px 15px rgba(212,175,55,0.3);
-        }
-
-        /* Footer 2 cột + Maps */
-        footer {
-            background-color: #111; color: #ccc;
-            padding: 40px 20px 30px;
-            display: grid; grid-template-columns: 1fr; gap: 30px;
-        }
-
-        @media (min-width: 768px) {
-            footer { grid-template-columns: 1fr 1fr; max-width: 1200px; margin: 0 auto; }
-        }
-
-        .footer-col h3 {
-            color: var(--primary-color); font-family: 'Montserrat', sans-serif;
-            font-size: 1rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        .footer-text { font-size: 0.85rem; margin-bottom: 12px; line-height: 1.6; }
-
-        .footer-map-btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            margin-top: 10px; padding: 10px 20px;
-            background: rgba(212, 175, 55, 0.1); color: var(--accent-color);
-            border: 1px solid var(--accent-color); border-radius: 6px;
-            text-decoration: none; font-size: 0.85rem; font-weight: 600;
-            transition: all 0.3s;
-        }
-        .footer-map-btn:hover { background: var(--accent-color); color: var(--text-dark); }
-
-        .copyright {
-            grid-column: 1 / -1; text-align: center; font-size: 0.75rem;
-            padding-top: 20px; border-top: 1px solid #333; margin-top: 10px; color: #666;
-        }
-
-        /* Admin Form */
-        .admin-box {
-            background-color: #fff; margin: 20px auto; max-width: 600px;
-            padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-top: 4px solid var(--accent-color);
-        }
-        .admin-title { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; text-align: center;}
-        
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: #333;}
-        .form-control { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9;}
-        .form-control:focus { outline: none; border-color: var(--accent-color); }
-        
-        .upload-btn {
-            width: 100%; background-color: var(--text-dark); color: var(--accent-color);
-            border: none; padding: 14px; border-radius: 8px; font-weight: 700;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .upload-btn:hover { background-color: #000; }
-        .upload-btn:disabled { background: #ccc; color: #666; cursor: not-allowed; }
-
-        /* Modals (Preview, Confirm, Password) */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 1000;
-            justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px);
-        }
-        .modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        
-        .modal-content {
-            background: #fff; border-radius: 12px; max-width: 400px; width: 100%;
-            overflow: hidden; position: relative; text-align: center;
-        }
-        .preview-img { width: 100%; max-height: 60vh; object-fit: contain; background: #f0f0f0;}
-        .preview-info { padding: 20px; }
-        
-        .close-btn {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(255,255,255,0.9); border: none; width: 32px; height: 32px;
-            border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 10;
-        }
-        .instruction-box {
-            background: #f9f9f9; padding: 12px; border-radius: 8px;
-            border-left: 3px solid var(--accent-color); font-size: 0.85rem; color: #555;
-            margin-top: 15px; text-align: left; line-height: 1.5;
-        }
-
-        /* Toasts */
-        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast {
-            background: #fff; color: #333; padding: 15px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 4px solid #28a745;
-            animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s forwards; display: flex; align-items: center; gap: 10px;
-        }
-        .toast.error { border-left-color: #dc3545; }
-
-        /* Password Prompt CSS */
-        .prompt-box { background: #fff; padding: 30px; border-radius: 12px; width: 90%; max-width: 350px; text-align: center; }
-        .prompt-box input { width: 100%; padding: 12px; margin: 15px 0; border: 1px solid #ddd; border-radius: 6px; text-align: center; font-size: 1.2rem; letter-spacing: 2px;}
-        .prompt-btns { display: flex; gap: 10px; justify-content: center;}
-        .btn-cancel { background: #f1f1f1; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1;}
-        .btn-submit { background: var(--accent-color); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1;}
-
-        /* Animations */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-        .empty-state { text-align: center; padding: 40px 20px; color: #666; font-size: 0.95rem; grid-column: 1 / -1; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <a href="#" class="logo-container">
-            <span class="brand-name">Tiệm Giày Cũ <span>Bình Dương</span></span>
-            <span class="brand-sub">◆ Only Authentic ◆</span>
-        </a>
-    </header>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('catalog-section')">KHO GIÀY</button>
-        <!-- Nút Admin đã được ẩn đi để tăng cường bảo mật -->
-    </div>
-
-    <div id="toast-container"></div>
-
-    <div id="catalog-section" class="catalog-container active-section">
-        <div class="filter-container" id="filter-container">
-            <!-- Nút Lọc Size cố định từ 36 -> 45 sẽ được tạo bởi Javascript -->
-        </div>
-
-        <main>
-            <div id="product-grid" class="product-grid">
-                <div class="empty-state"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu từ máy chủ...</div>
+<!-- ... existing code ... -->
+    <div id="preview-modal" class="modal-overlay" onclick="closePreviewOutside(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closePreview()"><i class="fas fa-times"></i></button>
+            <img id="preview-img-tag" src="" class="preview-img" alt="Preview">
+            <div class="preview-info">
+                <div class="instruction-box" id="preview-text"></div>
             </div>
-        </main>
+        </div>
     </div>
 
+    <div id="confirm-modal" class="modal-overlay">
+<!-- ... existing code ... -->
     <div id="admin-section" class="admin-container">
         <div class="admin-box">
             <div class="admin-title">KHO QUẢN LÝ SẢN PHẨM</div>
             <form onsubmit="uploadShoeToFirebase(event)">
                 <div class="form-group">
-                    <label>Tên / Dòng giày</label>
-                    <input type="text" id="shoe-title" class="form-control" placeholder="VD: Nike Air Force 1 Trắng" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Giá bán (VNĐ)</label>
-                    <input type="text" id="shoe-price" class="form-control" placeholder="VD: 650,000" required>
-                </div>
-
-                <div class="form-group">
                     <label>Size giày</label>
                     <select id="shoe-size" class="form-control" required>
                         <!-- Danh sách size đầy đủ -->
                         <option value="36">Size 36</option>
-                        <option value="37">Size 37</option>
-                        <option value="38">Size 38</option>
-                        <option value="39">Size 39</option>
-                        <option value="40" selected>Size 40</option>
-                        <option value="41">Size 41</option>
-                        <option value="42">Size 42</option>
-                        <option value="43">Size 43</option>
+<!-- ... existing code ... -->
                         <option value="44">Size 44</option>
                         <option value="45">Size 45</option>
                     </select>
@@ -511,215 +34,17 @@
                 <button type="submit" id="upload-btn" class="upload-btn">TẢI LÊN SẢN PHẨM</button>
             </form>
             <div style="text-align: center; margin-top: 20px;">
-                <a href="#" onclick="logoutAdmin()" style="color: #d30000; font-size: 0.85rem; font-weight: bold; text-decoration: none;">Đăng Xuất</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="contact-banner">
-        <div class="contact-banner-content">
-            <div class="contact-title">THÔNG TIN LIÊN HỆ</div>
-            
-            <a href="https://zalo.me/0378155320" target="_blank" class="btn-zalo-premium">
-                <i class="fas fa-comment-dots" style="color: var(--accent-color); font-size: 1.2rem;"></i> NHẮN ZALO NGAY
-            </a>
-            
-            <div class="social-links-premium">
-                <a href="tel:0378155320" class="social-btn-glass" title="Gọi Ngay"><i class="fas fa-phone-alt"></i></a>
-                <a href="https://facebook.com/tiemgiaycuBinhDuong" target="_blank" class="social-btn-glass" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://tiktok.com/@tiemgiaycubinhduong" target="_blank" class="social-btn-glass" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="https://instagram.com/tiemgiaycubinhduong" target="_blank" class="social-btn-glass" title="Instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-col">
-            <h3>Về Cửa Hàng</h3>
-            <div class="footer-text">
-                <strong>Tiệm Giày Cũ Bình Dương</strong><br>
-                Chuyên giày thể thao Sneaker Secondhand và hàng New Chính Hãng với hơn 6 năm kinh nghiệm.
-            </div>
-            <div class="footer-text" style="color: var(--accent-color); font-weight: bold;">
-                ✓ Cam Kết Only Authentic Trọn Đời<br>
-                ✓ Bảo Hành Keo Đế 3 Tháng
-            </div>
-        </div>
-        
-        <div class="footer-col">
-            <h3>Thông Tin Dịch Vụ</h3>
-            <div class="footer-text">📍 22 Ngô Chí Quốc, Thủ Dầu Một, Bình Dương</div>
-            <a href="https://maps.app.goo.gl/kYyvLWVAcCDuW6yd8" target="_blank" class="footer-map-btn">
-                <i class="fas fa-map-marked-alt"></i> Xem Bản Đồ Chỉ Đường
-            </a>
-            <div class="footer-text" style="margin-top: 15px;">
-                🚚 Hỗ trợ giao hàng COD toàn quốc.<br>
-                📦 Kiểm tra và thử giày thoải mái trước khi thanh toán.
-            </div>
-        </div>
-
-        <div class="copyright">
-            © 2024 Tiệm Giày Cũ Bình Dương. All rights reserved.
-        </div>
-    </footer>
-
-    <div id="preview-modal" class="modal-overlay" onclick="closePreviewOutside(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closePreview()"><i class="fas fa-times"></i></button>
-            <img id="preview-img-tag" src="" class="preview-img" alt="Preview">
-            <div class="preview-info">
-                <h3 id="preview-title" class="card-title" style="font-size: 1.1rem; white-space: normal;">Tên Giày</h3>
-                <div id="preview-price" class="card-price" style="font-size: 1.2rem; margin: 5px 0;">0 đ</div>
-                <div class="instruction-box" id="preview-text"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="confirm-modal" class="modal-overlay">
-        <div class="modal-content" style="padding: 20px;">
-            <h3 style="margin-bottom: 15px;">Xác nhận xóa?</h3>
-            <p id="confirm-msg" style="color: #666; margin-bottom: 20px; font-size: 0.9rem;">Bạn có chắc chắn muốn xóa?</p>
-            <div style="display: flex; gap: 10px;">
-                <button onclick="closeConfirm(false)" class="btn-cancel">Hủy</button>
-                <button onclick="closeConfirm(true)" class="btn-submit" style="background:#d30000;">Xóa Ngay</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="password-modal" class="modal-overlay">
-        <div class="prompt-box">
-            <h3>Truy Cập Quản Trị</h3>
-            <p style="color: #666; font-size: 0.85rem; margin-top: 5px;">Vui lòng nhập mã bảo mật</p>
-            <input type="password" id="admin-password" placeholder="Mật khẩu" onkeypress="if(event.key === 'Enter') submitPassword()">
-            <div class="prompt-btns">
-                <button class="btn-cancel" onclick="closePasswordPrompt()">Hủy</button>
-                <button class="btn-submit" onclick="submitPassword()">Xác nhận</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let isAdmin = false;
-        let currentFilter = 'all';
-        let confirmCallback = null;
-        const FULL_SIZES = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
-
-        // 1. Helpers
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            const icon = type === 'success' ? '<i class="fas fa-check-circle" style="color:#28a745;"></i>' : '<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i>';
-            toast.innerHTML = `${icon} <span>${message}</span>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // 2. Tab Navigation & Admin Auth
-        function switchTab(tabId) {
-            document.querySelectorAll('.catalog-container, .admin-container').forEach(el => el.classList.remove('active-section'));
-            document.getElementById(tabId).classList.add('active-section');
-            
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            if(tabId === 'catalog-section' && document.querySelectorAll('.tab-btn').length > 0) {
-                document.querySelectorAll('.tab-btn')[0].classList.add('active');
-            }
-        }
-
-        function openAdminPrompt() {
-            if(isAdmin) { switchTab('admin-section'); return; }
-            document.getElementById('admin-password').value = '';
-            document.getElementById('password-modal').classList.add('active');
-            setTimeout(() => document.getElementById('admin-password').focus(), 100);
-        }
-
-        function closePasswordPrompt() { document.getElementById('password-modal').classList.remove('active'); }
-
-        function submitPassword() {
-            const pass = document.getElementById('admin-password').value;
-            if(pass === '3119') {
-                isAdmin = true;
-                closePasswordPrompt();
-                switchTab('admin-section');
-                showToast("Đã mở khóa Quản trị viên");
-                loadShoes(currentFilter); // Reload để hiện nút Xóa
-            } else {
-                showToast("Sai mã bảo mật!", "error");
-            }
-        }
-
-        function logoutAdmin() {
-            isAdmin = false;
-            // Xóa chữ #admin khỏi thanh địa chỉ URL khi đăng xuất
-            window.history.replaceState(null, null, window.location.pathname); 
-            switchTab('catalog-section');
-            showToast("Đã đóng chế độ quản trị");
-            loadShoes(currentFilter); // Reload để ẩn nút Xóa
-        }
-
-        // 3. Render Lọc Size Cố Định (36 -> 45)
-        function renderSizeFilters(activeSize) {
-            const container = document.getElementById('filter-container');
-            let html = `<button class="size-btn ${activeSize === 'all' ? 'active' : ''}" onclick="filterShoes('all')">Tất Cả Size</button>`;
-            
-            FULL_SIZES.forEach(size => {
-                html += `<button class="size-btn ${activeSize === size ? 'active' : ''}" onclick="filterShoes('${size}')">Size ${size}</button>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function filterShoes(size) {
-            currentFilter = size;
-            renderSizeFilters(size);
-            loadShoes(size);
-        }
-
-        // 4. Lấy dữ liệu từ Firebase
-        async function loadShoes(sizeFilter = 'all') {
-            if(!window.db) { setTimeout(() => loadShoes(sizeFilter), 300); return; }
-            
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i> Đang tải dữ liệu...</div>';
-
-            try {
-                const shoesRef = window.collection(window.db, "shoes");
-                let q = window.query(shoesRef, window.orderBy("createdAt", "desc"));
-                const querySnapshot = await window.getDocs(q);
-                
-                grid.innerHTML = '';
-                let delay = 0;
-                let count = 0;
-
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    if (sizeFilter === 'all' || sizeFilter === data.size) {
-                        renderCard(grid, data, doc.id, delay);
-                        delay += 0.05;
-                        count++;
-                    }
-                });
-
-                if(count === 0) {
-                    grid.innerHTML = `<div class="empty-state">Hiện tại chưa có sản phẩm nào ở size này.</div>`;
-                }
-
-            } catch (error) {
-                console.error("Firebase Error:", error);
-                grid.innerHTML = `<div class="empty-state" style="color:red;">Lỗi tải dữ liệu: ${error.message}</div>`;
-            }
+<!-- ... existing code ... -->
         }
 
         function renderCard(grid, data, docId, delay) {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.style.animationDelay = `${delay}s`;
-            
-            const displayTitle = data.title || "Giày Sneaker Authentic";
-            const displayPrice = data.price ? `${data.price} đ` : "Liên hệ";
 
             card.onclick = (e) => {
                 if(!e.target.classList.contains('delete-btn') && !e.target.closest('.delete-btn')) {
-                    openPreview(data.imageUrl, displayTitle, displayPrice);
+                    openPreview(data.imageUrl);
                 }
             };
             
@@ -728,48 +53,24 @@
             card.innerHTML = `
                 ${deleteBtnHtml}
                 <div class="size-tag-img">SIZE ${data.size}</div>
-                <img src="${data.imageUrl}" alt="${displayTitle}" class="product-img" loading="lazy">
-                <div class="card-details">
-                    <div class="card-title">${displayTitle}</div>
-                    <div class="card-price">${displayPrice}</div>
-                </div>
+                <img src="${data.imageUrl}" alt="Giày Size ${data.size}" class="product-img" loading="lazy">
             `;
             grid.appendChild(card);
         }
 
         // 5. Tính năng Xóa
-        function requestDelete(docId) {
-            document.getElementById('confirm-modal').classList.add('active');
-            confirmCallback = async (confirmed) => {
-                if(confirmed) {
-                    try {
-                        await window.deleteDoc(window.doc(window.db, "shoes", docId));
-                        showToast("Đã xóa sản phẩm thành công!");
-                        loadShoes(currentFilter);
-                    } catch (error) {
-                        showToast("Lỗi khi xóa", "error");
-                    }
-                }
-            };
-        }
-        function closeConfirm(result) {
-            document.getElementById('confirm-modal').classList.remove('active');
-            if(confirmCallback) confirmCallback(result);
-        }
-
+<!-- ... existing code ... -->
         // 6. Preview Modal
-        function openPreview(imgUrl, title, price) {
+        function openPreview(imgUrl) {
             document.getElementById('preview-img-tag').src = imgUrl;
-            document.getElementById('preview-title').innerText = title;
-            document.getElementById('preview-price').innerText = price;
             
             document.getElementById('preview-modal').classList.add('active');
             const textEl = document.getElementById('preview-text');
             
             if (window.innerWidth <= 768) {
-                textEl.innerHTML = `<b>Mẹo:</b> Bạn hãy chụp lại màn hình điện thoại bức ảnh này và gửi Zalo cho tiệm để nhận tư vấn nhanh nhất nhé!`;
+                textEl.innerHTML = `<b>Mẹo:</b> Bạn hãy chụp lại màn hình điện thoại bức ảnh này và gửi Zalo cho tiệm để nhận báo giá nhanh nhất nhé!`;
             } else {
-                textEl.innerHTML = `<a href="${imgUrl}" target="_blank" style="color:var(--accent-color); font-weight:bold; text-decoration:none;"><i class="fas fa-download"></i> Bấm vào đây để xem ảnh gốc</a> và gửi cho chúng tôi qua Zalo nhé!`;
+                textEl.innerHTML = `<a href="${imgUrl}" target="_blank" style="color:var(--accent-color); font-weight:bold; text-decoration:none;"><i class="fas fa-download"></i> Bấm vào đây để xem ảnh gốc</a> và gửi cho chúng tôi qua Zalo để nhận báo giá nhé!`;
             }
         }
         function closePreview() { document.getElementById('preview-modal').classList.remove('active'); }
@@ -780,8 +81,6 @@
             e.preventDefault();
             const files = document.getElementById('shoe-image').files;
             const size = document.getElementById('shoe-size').value;
-            const title = document.getElementById('shoe-title').value;
-            const price = document.getElementById('shoe-price').value;
             const btn = document.getElementById('upload-btn');
 
             if (files.length === 0) return;
@@ -789,27 +88,12 @@
             let successCount = 0;
 
             // CẤU HÌNH CLOUDINARY
-            const cloudName = 'joyvtqad';
-            const uploadPreset = 'tiemgiay';
-            const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-
-            try {
-                for (let i = 0; i < files.length; i++) {
-                    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Đang tải ảnh ${i + 1}/${files.length}...`;
-                    
-                    const formData = new FormData();
-                    formData.append('file', files[i]);
-                    formData.append('upload_preset', uploadPreset);
-
-                    // 1. Gửi ảnh lên Cloudinary
-                    const res = await fetch(uploadUrl, { method: 'POST', body: formData });
+<!-- ... existing code ... -->
                     const cloudinaryData = await res.json();
 
                     if (cloudinaryData.secure_url) {
                         // 2. Lưu Link ảnh + Thông tin vào Firebase của bạn
                         await window.addDoc(window.collection(window.db, "shoes"), {
-                            title: files.length > 1 ? `${title} (Ảnh ${i+1})` : title,
-                            price: price,
                             size: size,
                             imageUrl: cloudinaryData.secure_url,
                             createdAt: window.serverTimestamp()
@@ -821,11 +105,9 @@
                 }
 
                 if(successCount > 0) {
-                    showToast(`Tuyệt vời! Đã tải lên và lưu ${successCount} sản phẩm!`, "success");
+                    showToast(`Tuyệt vời! Đã tải lên và lưu ${successCount} ảnh!`, "success");
                     // Đặt lại form nhưng giữ lại Size vừa tải
                     document.getElementById('shoe-image').value = '';
-                    document.getElementById('shoe-title').value = '';
-                    document.getElementById('shoe-price').value = '';
                     
                     // Cập nhật giao diện tự động nhảy sang Size vừa up
                     filterShoes(size);
@@ -833,30 +115,4 @@
                 }
 
             } catch (error) {
-                console.error("Upload process error:", error);
-                showToast(`Lỗi kết nối: ${error.message}`, "error");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = "TẢI LÊN SẢN PHẨM";
-            }
-        }
-
-        // Xử lý khi người dùng nhập thủ công link có đuôi #admin
-        function checkAdminHash() {
-            if(window.location.hash === '#admin') {
-                openAdminPrompt();
-            }
-        }
-
-        // Lắng nghe sự thay đổi trên thanh địa chỉ
-        window.addEventListener('hashchange', checkAdminHash);
-
-        // Init
-        window.onload = () => {
-            renderSizeFilters('all');
-            loadShoes();
-            checkAdminHash(); // Kiểm tra ngay khi vừa tải trang xong
-        };
-    </script>
-</body>
-</html>
+<!-- ... existing code ... -->
