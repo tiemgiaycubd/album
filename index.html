@@ -1,118 +1,519 @@
-<!-- ... existing code ... -->
-    <div id="preview-modal" class="modal-overlay" onclick="closePreviewOutside(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closePreview()"><i class="fas fa-times"></i></button>
-            <img id="preview-img-tag" src="" class="preview-img" alt="Preview">
-            <div class="preview-info">
-                <div class="instruction-box" id="preview-text"></div>
-            </div>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiệm Giày Cũ Bình Dương - Premium Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --dark: #121212;
+        }
 
-    <div id="confirm-modal" class="modal-overlay">
-<!-- ... existing code ... -->
-    <div id="admin-section" class="admin-container">
-        <div class="admin-box">
-            <div class="admin-title">KHO QUẢN LÝ SẢN PHẨM</div>
-            <form onsubmit="uploadShoeToFirebase(event)">
-                <div class="form-group">
-                    <label>Size giày</label>
-                    <select id="shoe-size" class="form-control" required>
-                        <!-- Danh sách size đầy đủ -->
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .text-gold { color: var(--gold); }
+        .bg-gold { background-color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
+
+        /* Banner Gradient Liên Hệ */
+        .premium-banner {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1f1f1f 100%);
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Hiệu ứng vầng sáng cho banner */
+        .premium-banner::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+
+        /* Nút Zalo tráng gương */
+        .btn-zalo {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-zalo::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(212,175,55,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        /* Ẩn thanh cuộn */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 text-center">
+            <h1 class="text-2xl font-bold uppercase tracking-wider text-gray-900 cursor-pointer" onclick="window.location.hash=''">
+                Tiệm Giày Cũ <span class="text-gold">Bình Dương</span>
+            </h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        
+        <!-- ADMIN SECTION (Chỉ hiện khi có #admin) -->
+        <div id="admin-section" class="hidden mb-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+            <div class="flex justify-between items-center mb-6 border-b pb-4">
+                <h2 class="text-xl font-bold text-gray-800"><i class="fas fa-lock text-gold mr-2"></i>Kho Quản Trị</h2>
+                <button onclick="logoutAdmin()" class="text-sm text-red-500 hover:text-red-700 font-semibold flex items-center gap-1">
+                    <i class="fas fa-sign-out-alt"></i> Thoát
+                </button>
+            </div>
+            
+            <form id="upload-form" onsubmit="handleUpload(event)" class="space-y-5">
+                <!-- Chỉ giữ lại chọn Size và chọn Ảnh -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Chọn Size Giày</label>
+                    <select id="shoe-size" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" required>
                         <option value="36">Size 36</option>
-<!-- ... existing code ... -->
+                        <option value="37">Size 37</option>
+                        <option value="38">Size 38</option>
+                        <option value="39" selected>Size 39</option>
+                        <option value="40">Size 40</option>
+                        <option value="41">Size 41</option>
+                        <option value="42">Size 42</option>
+                        <option value="43">Size 43</option>
                         <option value="44">Size 44</option>
                         <option value="45">Size 45</option>
                     </select>
                 </div>
-                
-                <div class="form-group">
-                    <label>Chọn Ảnh (Tải lên qua Cloudinary - Có thể chọn nhiều ảnh)</label>
-                    <input type="file" id="shoe-image" accept="image/*" multiple class="form-control" required>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Chọn Ảnh (Cloudinary - Nhận nhiều ảnh)</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gold transition bg-gray-50">
+                        <input type="file" id="shoe-images" accept="image/*" multiple required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 cursor-pointer">
+                        <p class="text-xs text-gray-400 mt-2">Bôi đen để chọn nhiều ảnh chụp từ điện thoại cùng lúc.</p>
+                    </div>
                 </div>
-                
-                <button type="submit" id="upload-btn" class="upload-btn">TẢI LÊN SẢN PHẨM</button>
+
+                <button type="submit" id="btn-submit" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center gap-2 shadow-md">
+                    <i class="fas fa-cloud-upload-alt"></i> <span>Tải Lên Cửa Hàng</span>
+                </button>
             </form>
-            <div style="text-align: center; margin-top: 20px;">
-<!-- ... existing code ... -->
+        </div>
+
+        <!-- CATALOG SECTION -->
+        <div id="catalog-section">
+            <!-- Size Filters -->
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-2 justify-center" id="filter-container">
+                    <!-- Nút lọc size sẽ được JS tạo ra ở đây -->
+                </div>
+            </div>
+
+            <!-- Product Grid (Lookbook Style) -->
+            <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5">
+                <!-- Hình ảnh sản phẩm sẽ được JS tạo ra ở đây -->
+            </div>
+            
+            <div id="empty-state" class="hidden text-center py-16">
+                <i class="fas fa-box-open text-5xl text-gray-300 mb-4"></i>
+                <p class="text-gray-500 font-medium">Chưa có mẫu giày nào ở size này.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Premium Contact Banner -->
+    <section class="premium-banner py-12 px-4 mt-auto">
+        <div class="container mx-auto text-center relative z-10">
+            <h2 class="text-white text-xl md:text-2xl font-bold uppercase tracking-widest mb-8">Liên Hệ Mua Hàng</h2>
+            
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <!-- Nút Zalo -->
+                <a href="https://zalo.me/0123456789" target="_blank" class="btn-zalo bg-white text-gray-900 border-2 border-gold font-bold py-3 px-8 rounded-full flex items-center gap-2 hover:bg-gold hover:text-white transition group shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                    <i class="fas fa-comment-dots text-gold group-hover:text-white text-xl"></i> Nhắn Zalo Chốt Đơn
+                </a>
+                
+                <!-- Các nút MXH khác -->
+                <div class="flex gap-3">
+                    <a href="tel:0123456789" title="Gọi Điện" class="w-12 h-12 rounded-full border border-gold/50 bg-white/5 flex items-center justify-center text-white hover:bg-gold hover:text-black hover:scale-110 transition duration-300 backdrop-blur-sm">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                    <a href="#" title="Facebook" class="w-12 h-12 rounded-full border border-gold/50 bg-white/5 flex items-center justify-center text-white hover:bg-gold hover:text-black hover:scale-110 transition duration-300 backdrop-blur-sm">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" title="Instagram" class="w-12 h-12 rounded-full border border-gold/50 bg-white/5 flex items-center justify-center text-white hover:bg-gold hover:text-black hover:scale-110 transition duration-300 backdrop-blur-sm">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" title="Tiktok" class="w-12 h-12 rounded-full border border-gold/50 bg-white/5 flex items-center justify-center text-white hover:bg-gold hover:text-black hover:scale-110 transition duration-300 backdrop-blur-sm">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-10">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+            <!-- Cột Trái -->
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Hệ thống cửa hàng</h4>
+                <p class="text-gray-600 text-sm mb-3"><i class="fas fa-map-marker-alt w-5 text-gray-400"></i> 22 Ngô Chí Quốc, Thủ Dầu Một, Bình Dương</p>
+                <div class="mt-4 flex justify-center md:justify-start">
+                    <a href="https://maps.app.goo.gl/kYyvLWVAcCDuW6yd8" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-gold text-gray-800 rounded-lg text-sm font-bold hover:bg-gold hover:text-white transition group">
+                        <i class="fas fa-map text-gold group-hover:text-white"></i> Xem Bản Đồ Chỉ Đường
+                    </a>
+                </div>
+            </div>
+            <!-- Cột Phải -->
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Chính sách khách hàng</h4>
+                <ul class="text-gray-600 text-sm space-y-3">
+                    <li class="flex items-center justify-center md:justify-start gap-2"><i class="fas fa-truck text-gold"></i> Hỗ trợ COD toàn quốc</li>
+                    <li class="flex items-center justify-center md:justify-start gap-2"><i class="fas fa-box-open text-gold"></i> Kiểm tra hàng trước khi thanh toán</li>
+                    <li class="flex items-center justify-center md:justify-start gap-2"><i class="fas fa-sync-alt text-gold"></i> Đổi trả trong 3 ngày nếu lỗi</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 bg-black/95 z-50 hidden flex-col items-center justify-center p-4 backdrop-blur-md transition-opacity">
+        <button onclick="closeModal('preview-modal')" class="absolute top-4 right-4 text-white bg-white/10 hover:bg-white/30 rounded-full w-12 h-12 flex items-center justify-center transition">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+        
+        <img id="modal-img" src="" alt="Preview" class="max-w-full max-h-[70vh] object-contain rounded-lg shadow-2xl mb-6">
+        
+        <div class="bg-white rounded-xl p-5 max-w-sm w-full text-center shadow-lg">
+            <h3 class="font-bold text-xl mb-3">Mã Size: <span id="modal-size" class="text-gold"></span></h3>
+            <p id="modal-instruction" class="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg border-l-4 border-gold text-left leading-relaxed"></p>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center transform transition-all">
+            <i class="fas fa-shield-alt text-5xl text-gold mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Xác Thực Quản Trị</h3>
+            <p class="text-sm text-gray-500 mb-6">Khu vực dành riêng cho chủ tiệm.</p>
+            <input type="password" id="admin-pass" class="w-full text-center p-3 border-2 border-gray-200 rounded-xl mb-6 text-xl tracking-widest focus:border-gold outline-none transition" placeholder="****" onkeypress="if(event.key === 'Enter') checkPassword()">
+            <div class="flex gap-3">
+                <button onclick="closePasswordModal()" class="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition">Hủy</button>
+                <button onclick="checkPassword()" class="flex-1 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-black transition shadow-md">Mở Khóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 z-[100] transform transition-all duration-300 translate-x-[150%] opacity-0 bg-white border-l-4 border-green-500 shadow-xl rounded-lg px-5 py-4 flex items-center gap-3">
+        <i id="toast-icon" class="fas fa-check-circle text-green-500 text-xl"></i>
+        <p id="toast-msg" class="text-gray-800 font-medium"></p>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/joyvtqad/image/upload';
+        const UPLOAD_PRESET = 'tiemgiay';
+        const ADMIN_PASS = '3119';
+        
+        let currentFilter = 'all';
+        let isAdmin = false;
+        
+        // Database Tạm thời (Lưu ở LocalStorage để web luôn chạy mượt)
+        let catalogData = JSON.parse(localStorage.getItem('tiemgiay_db_v2')) || [
+            { id: '1', size: '39', imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80', timestamp: Date.now() },
+            { id: '2', size: '42', imageUrl: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=500&q=80', timestamp: Date.now()-1000 }
+        ];
+
+        // --- 2. INITIALIZATION ---
+        function init() {
+            renderFilters();
+            renderGrid();
+            checkUrlHash();
+            window.addEventListener('hashchange', checkUrlHash);
         }
 
-        function renderCard(grid, data, docId, delay) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.style.animationDelay = `${delay}s`;
-
-            card.onclick = (e) => {
-                if(!e.target.classList.contains('delete-btn') && !e.target.closest('.delete-btn')) {
-                    openPreview(data.imageUrl);
+        // --- 3. ROUTING & AUTH ---
+        function checkUrlHash() {
+            if (window.location.hash === '#admin') {
+                if (!isAdmin) {
+                    document.getElementById('password-modal').classList.remove('hidden');
+                    document.getElementById('password-modal').classList.add('flex');
+                    setTimeout(() => document.getElementById('admin-pass').focus(), 100);
+                } else {
+                    showAdminUI(true);
                 }
-            };
-            
-            let deleteBtnHtml = isAdmin ? `<button class="delete-btn" onclick="requestDelete('${docId}')" title="Xóa ảnh"><i class="fas fa-trash"></i></button>` : '';
-
-            card.innerHTML = `
-                ${deleteBtnHtml}
-                <div class="size-tag-img">SIZE ${data.size}</div>
-                <img src="${data.imageUrl}" alt="Giày Size ${data.size}" class="product-img" loading="lazy">
-            `;
-            grid.appendChild(card);
-        }
-
-        // 5. Tính năng Xóa
-<!-- ... existing code ... -->
-        // 6. Preview Modal
-        function openPreview(imgUrl) {
-            document.getElementById('preview-img-tag').src = imgUrl;
-            
-            document.getElementById('preview-modal').classList.add('active');
-            const textEl = document.getElementById('preview-text');
-            
-            if (window.innerWidth <= 768) {
-                textEl.innerHTML = `<b>Mẹo:</b> Bạn hãy chụp lại màn hình điện thoại bức ảnh này và gửi Zalo cho tiệm để nhận báo giá nhanh nhất nhé!`;
             } else {
-                textEl.innerHTML = `<a href="${imgUrl}" target="_blank" style="color:var(--accent-color); font-weight:bold; text-decoration:none;"><i class="fas fa-download"></i> Bấm vào đây để xem ảnh gốc</a> và gửi cho chúng tôi qua Zalo để nhận báo giá nhé!`;
+                showAdminUI(false);
             }
         }
-        function closePreview() { document.getElementById('preview-modal').classList.remove('active'); }
-        function closePreviewOutside(e) { if(e.target.id === 'preview-modal') closePreview(); }
 
-        // 7. UPLOAD CLOUDINARY + FIREBASE
-        async function uploadShoeToFirebase(e) {
+        function checkPassword() {
+            const input = document.getElementById('admin-pass').value;
+            if (input === ADMIN_PASS) {
+                isAdmin = true;
+                document.getElementById('admin-pass').value = '';
+                closeModal('password-modal');
+                showAdminUI(true);
+                showToast('Đăng nhập quản trị thành công!', 'success');
+                renderGrid(); // Hiện nút xóa
+            } else {
+                showToast('Sai mật khẩu!', 'error');
+            }
+        }
+
+        function closePasswordModal() {
+            closeModal('password-modal');
+            history.replaceState(null, null, ' '); // Xóa #admin
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            history.replaceState(null, null, ' ');
+            showAdminUI(false);
+            showToast('Đã thoát quản trị', 'success');
+            renderGrid(); // Ẩn nút xóa
+        }
+
+        function showAdminUI(show) {
+            const adminSec = document.getElementById('admin-section');
+            if(show) {
+                adminSec.classList.remove('hidden');
+                document.getElementById('catalog-section').classList.add('hidden'); // Ẩn kho giày khi đang up đồ
+            } else {
+                adminSec.classList.add('hidden');
+                document.getElementById('catalog-section').classList.remove('hidden'); // Hiện kho giày
+            }
+        }
+
+        // --- 4. UI HELPERS ---
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            el.classList.add('hidden');
+            el.classList.remove('flex');
+        }
+
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            
+            document.getElementById('toast-msg').textContent = msg;
+            
+            if(type === 'error') {
+                toast.classList.replace('border-green-500', 'border-red-500');
+                icon.className = 'fas fa-exclamation-circle text-red-500 text-xl';
+            } else {
+                toast.classList.replace('border-red-500', 'border-green-500');
+                icon.className = 'fas fa-check-circle text-green-500 text-xl';
+            }
+
+            toast.classList.remove('translate-x-[150%]', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-x-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- 5. RENDER LOGIC ---
+        function renderFilters() {
+            // Lấy tất cả các size đang có thật trong kho
+            let availableSizes = [...new Set(catalogData.map(item => item.size))].sort((a,b) => a-b);
+            
+            // Hoặc có thể hiển thị cố định dải 36-45. Ở đây ta ưu tiên hiện những size CÓ HÀNG.
+            if(availableSizes.length === 0) availableSizes = ['39', '40', '41', '42']; // mockup if empty
+
+            const container = document.getElementById('filter-container');
+            
+            let html = `<button onclick="setFilter('all')" class="px-5 py-2 rounded-full font-bold transition text-sm shadow-sm ${currentFilter === 'all' ? 'bg-gray-900 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:border-gray-900'}">Tất cả Size</button>`;
+            
+            availableSizes.forEach(size => {
+                const isActive = currentFilter === size;
+                html += `<button onclick="setFilter('${size}')" class="px-5 py-2 rounded-full font-bold transition text-sm shadow-sm ${isActive ? 'bg-gold text-white border-gold' : 'bg-white border border-gray-200 text-gray-600 hover:border-gold'}">Size ${size}</button>`;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function setFilter(size) {
+            currentFilter = size;
+            renderFilters();
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('product-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+            
+            let filtered = catalogData;
+            if (currentFilter !== 'all') {
+                filtered = catalogData.filter(item => item.size === currentFilter);
+            }
+            
+            // Sắp xếp mới nhất lên đầu
+            filtered.sort((a, b) => b.timestamp - a.timestamp);
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                grid.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                grid.classList.remove('hidden');
+                
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'relative group cursor-pointer bg-white rounded-xl shadow-sm overflow-hidden aspect-square border border-gray-100';
+                    
+                    let deleteBtn = isAdmin ? `<button onclick="deleteItem('${item.id}', event)" class="absolute top-2 right-2 bg-red-500/90 hover:bg-red-600 text-white w-8 h-8 rounded-full flex justify-center items-center z-20 transition shadow-md"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+
+                    card.innerHTML = `
+                        ${deleteBtn}
+                        <div class="absolute top-2 left-2 bg-black/80 backdrop-blur-sm text-yellow-400 font-bold px-2 py-1 text-xs rounded z-10 border border-yellow-500/30">
+                            SIZE ${item.size}
+                        </div>
+                        <div class="w-full h-full overflow-hidden" onclick="openPreview('${item.imageUrl}', '${item.size}')">
+                            <img src="${item.imageUrl}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" loading="lazy" alt="Giày Size ${item.size}">
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        // --- 6. PREVIEW & DELETE ---
+        function openPreview(imgUrl, size) {
+            document.getElementById('modal-img').src = imgUrl;
+            document.getElementById('modal-size').textContent = size;
+            
+            const inst = document.getElementById('modal-instruction');
+            if(/Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+                inst.innerHTML = '📸 <b>Mẹo nhanh:</b> Hãy chụp màn hình ảnh này và gửi Zalo cho shop để kiểm tra tình trạng kho nhé!';
+            } else {
+                inst.innerHTML = `💻 <a href="${imgUrl}" target="_blank" class="font-bold text-gold underline"><i class="fas fa-external-link-alt"></i> Bấm vào đây để xem ảnh gốc</a>, sau đó gửi qua Zalo cho shop nhé!`;
+            }
+            
+            const modal = document.getElementById('preview-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function deleteItem(id, event) {
+            event.stopPropagation();
+            if(confirm('Bạn có chắc chắn muốn xóa mẫu giày này?')) {
+                catalogData = catalogData.filter(item => item.id !== id);
+                saveDatabase();
+                renderFilters();
+                renderGrid();
+                showToast('Đã xóa thành công', 'success');
+            }
+        }
+
+        // --- 7. UPLOAD CLOUDINARY LOGIC ---
+        async function handleUpload(e) {
             e.preventDefault();
-            const files = document.getElementById('shoe-image').files;
+            const files = document.getElementById('shoe-images').files;
             const size = document.getElementById('shoe-size').value;
-            const btn = document.getElementById('upload-btn');
-
+            const btn = document.getElementById('btn-submit');
+            
             if (files.length === 0) return;
+
             btn.disabled = true;
             let successCount = 0;
 
-            // CẤU HÌNH CLOUDINARY
-<!-- ... existing code ... -->
-                    const cloudinaryData = await res.json();
+            try {
+                for (let i = 0; i < files.length; i++) {
+                    btn.innerHTML = `<span class="loader"></span> <span>Đang xử lý ảnh ${i+1}/${files.length}...</span>`;
+                    
+                    const fd = new FormData();
+                    fd.append('file', files[i]);
+                    fd.append('upload_preset', UPLOAD_PRESET);
 
-                    if (cloudinaryData.secure_url) {
-                        // 2. Lưu Link ảnh + Thông tin vào Firebase của bạn
-                        await window.addDoc(window.collection(window.db, "shoes"), {
+                    const res = await fetch(CLOUDINARY_URL, {
+                        method: 'POST',
+                        body: fd
+                    });
+                    
+                    const data = await res.json();
+                    
+                    if (data.secure_url) {
+                        const newItem = {
+                            id: Date.now().toString() + i,
                             size: size,
-                            imageUrl: cloudinaryData.secure_url,
-                            createdAt: window.serverTimestamp()
-                        });
+                            imageUrl: data.secure_url,
+                            timestamp: Date.now()
+                        };
+                        catalogData.push(newItem);
                         successCount++;
                     } else {
-                        showToast(`Lỗi ảnh ${i+1}: ${cloudinaryData.error?.message}`, "error");
+                        showToast(`Lỗi ảnh ${i+1}: ${data.error?.message || 'Không thể tải lên'}`, 'error');
                     }
                 }
 
-                if(successCount > 0) {
-                    showToast(`Tuyệt vời! Đã tải lên và lưu ${successCount} ảnh!`, "success");
-                    // Đặt lại form nhưng giữ lại Size vừa tải
-                    document.getElementById('shoe-image').value = '';
+                if (successCount > 0) {
+                    saveDatabase();
+                    showToast(`Tuyệt vời! Đã nhập thành công ${successCount} mẫu giày!`, 'success');
+                    document.getElementById('upload-form').reset();
+                    document.getElementById('shoe-size').value = size; // Giữ lại size vừa up
                     
-                    // Cập nhật giao diện tự động nhảy sang Size vừa up
-                    filterShoes(size);
-                    switchTab('catalog-section');
+                    // Cập nhật giao diện và chuyển về trang chủ xem thành quả
+                    renderFilters();
+                    setFilter(size); 
+                    logoutAdmin(); // Tự động thoát Admin để xem kho
                 }
 
             } catch (error) {
-<!-- ... existing code ... -->
+                console.error(error);
+                showToast('Lỗi mạng lưới, vui lòng kiểm tra lại Wifi/4G!', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> <span>Tải Lên Cửa Hàng</span>`;
+            }
+        }
+
+        function saveDatabase() {
+            localStorage.setItem('tiemgiay_db_v2', JSON.stringify(catalogData));
+        }
+
+        // --- Bắt đầu chạy App ---
+        window.onload = init;
+    </script>
+</body>
+</html>
