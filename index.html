@@ -253,6 +253,7 @@
         // --- 1. CONFIGURATION ---
         const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/joyvtqad/image/upload';
         const UPLOAD_PRESET = 'tiemgiay';
+        const IMGBB_API_KEY = '7c324c53133e672a4a10bfdabc96ff4a'; // Kích hoạt máy chủ dự phòng
         const ADMIN_PASS = '3119';
         
         let currentFilter = 'all';
@@ -446,7 +447,7 @@
             }
         }
 
-        // --- 7. UPLOAD CLOUDINARY LOGIC ---
+        // --- 7. UPLOAD LOGIC CHỐNG LỖI ---
         async function handleUpload(e) {
             e.preventDefault();
             const files = document.getElementById('shoe-images').files;
@@ -462,50 +463,99 @@
                 for (let i = 0; i < files.length; i++) {
                     btn.innerHTML = `<span class="loader"></span> <span>Đang xử lý ảnh ${i+1}/${files.length}...</span>`;
                     
-                    const fd = new FormData();
-                    fd.append('file', files[i]);
-                    fd.append('upload_preset', UPLOAD_PRESET);
+                    let uploadedUrl = null;
 
-                    const res = await fetch(CLOUDINARY_URL, {
-                        method: 'POST',
-                        body: fd
-                    });
-                    
-                    const data = await res.json();
-                    
-                    if (data.secure_url) {
+                    // CÁCH 1: Ưu tiên thử tải lên Cloudinary trước
+                    try {
+                        const fd = new FormData();
+                        fd.append('file', files[i]);
+                        fd.append('upload_preset', UPLOAD_PRESET);
+
+                        const res = await fetch(CLOUDINARY_URL, {
+                            method: 'POST',
+                            body: fd
+                        });
+                        const data = await res.json();
+                        
+                        if (data.secure_url) {
+                            uploadedUrl = data.secure_url;
+                        } else {
+                            throw new Error('Cloudinary từ chối');
+                        }
+                    } catch (cloudError) {
+                        console.warn('Cloudinary thất bại, kích hoạt máy chủ dự phòng ImgBB...');
+                        
+                        // CÁCH 2: Dự phòng ImgBB (Mã hóa Base64)
+                        try {
+                            uploadedUrl = await uploadToImgBB(files[i]);
+                        } catch (imgbbError) {
+                            showToast(`Lỗi ảnh ${i+1}: Vui lòng kiểm tra lại mạng!`, 'error');
+                            continue; // Bỏ qua ảnh lỗi, up tiếp ảnh sau
+                        }
+                    }
+
+                    if (uploadedUrl) {
                         const newItem = {
                             id: Date.now().toString() + i,
                             size: size,
-                            imageUrl: data.secure_url,
+                            imageUrl: uploadedUrl,
                             timestamp: Date.now()
                         };
                         catalogData.push(newItem);
                         successCount++;
-                    } else {
-                        showToast(`Lỗi ảnh ${i+1}: ${data.error?.message || 'Không thể tải lên'}`, 'error');
                     }
+
+                    // Tạm nghỉ 1 giây để tránh nghẽn mạng
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                 }
 
                 if (successCount > 0) {
                     saveDatabase();
                     showToast(`Tuyệt vời! Đã nhập thành công ${successCount} mẫu giày!`, 'success');
                     document.getElementById('upload-form').reset();
-                    document.getElementById('shoe-size').value = size; // Giữ lại size vừa up
+                    document.getElementById('shoe-size').value = size;
                     
-                    // Cập nhật giao diện và chuyển về trang chủ xem thành quả
                     renderFilters();
                     setFilter(size); 
-                    logoutAdmin(); // Tự động thoát Admin để xem kho
+                    logoutAdmin();
                 }
 
             } catch (error) {
                 console.error(error);
-                showToast('Lỗi mạng lưới, vui lòng kiểm tra lại Wifi/4G!', 'error');
+                showToast('Lỗi hệ thống, vui lòng thử lại sau!', 'error');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = `<i class="fas fa-cloud-upload-alt"></i> <span>Tải Lên Cửa Hàng</span>`;
             }
+        }
+
+        // Hàm dự phòng tải lên ImgBB bằng Base64 an toàn
+        function uploadToImgBB(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = async () => {
+                    const base64data = reader.result.split(',')[1];
+                    const fd = new FormData();
+                    fd.append('image', base64data);
+                    
+                    try {
+                        const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                            method: 'POST',
+                            body: fd
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            resolve(data.data.url);
+                        } else {
+                            reject(new Error("ImgBB cũng bị lỗi"));
+                        }
+                    } catch (e) {
+                        reject(e);
+                    }
+                };
+                reader.onerror = () => reject(new Error("Không thể đọc file ảnh"));
+            });
         }
 
         function saveDatabase() {
