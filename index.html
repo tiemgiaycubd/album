@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- TIÊU ĐỀ TRANG -->
     <title>Tiệm Giày Cũ Bình Dương - Premium Catalog</title>
+    
+    <!-- THẺ META CHIA SẺ ZALO, FACEBOOK -->
+    <meta name="description" content="Tiệm giày cũ Bình Dương - REAL & 2HAND REAL SNEAKER - ALBUM ẢNH GIÀY THEO SIZE TẠI ĐÂY">
+    <meta property="og:title" content="Tiệm Giày Cũ Bình Dương">
+    <meta property="og:description" content="Tiệm giày cũ Bình Dương - REAL & 2HAND REAL SNEAKER - ALBUM ẢNH GIÀY THEO SIZE TẠI ĐÂY">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tiệm Giày Cũ Bình Dương">
+
+    <!-- THƯ VIỆN & CÔNG CỤ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     
@@ -119,7 +130,7 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Chọn Ảnh (Tải lên siêu tốc)</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Chọn Ảnh (Tải lên qua Cloudinary)</label>
                     <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gold transition bg-gray-50">
                         <input type="file" id="shoe-images" accept="image/*" multiple required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 cursor-pointer">
                         <p class="text-xs text-gray-400 mt-2">Có thể bôi đen chọn hàng loạt nhiều ảnh cùng lúc.</p>
@@ -189,39 +200,47 @@
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
             <div>
                 <h4 class="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Thông tin cửa hàng</h4>
-                <p class="text-gray-600 text-sm mb-3"><i class="fas fa-store w-5 text-gray-400"></i> Tiệm Giày Cũ Bình Dương</p>
+                <p class="text-gray-600 text-sm mb-3 font-semibold"><i class="fas fa-store w-5 text-gray-400"></i> Tiệm Giày Cũ Bình Dương</p>
                 <p class="text-gray-600 text-sm mb-3"><i class="fas fa-map-marker-alt w-5 text-gray-400"></i> 22 Ngô Chí Quốc, Thủ Dầu Một, Bình Dương</p>
                 <p class="text-gray-600 text-sm mb-3"><i class="fas fa-phone-alt w-5 text-gray-400"></i> Hotline / Zalo tư vấn: <strong>0378155320</strong></p>
-                <p class="text-gray-600 text-sm mb-3"><i class="fas fa-clock w-5 text-gray-400"></i> Giờ mở cửa: 9:00 Sáng - 9:00 Tối</p>
+                <p class="text-gray-600 text-sm mb-5"><i class="fas fa-clock w-5 text-gray-400"></i> Giờ mở cửa: 9:00 Sáng - 9:00 Tối</p>
+                <a href="https://maps.app.goo.gl/qJtzqMvR31PzX35Y9" target="_blank" class="inline-block border border-gold text-gold hover:bg-gold hover:text-white px-5 py-2.5 rounded-full text-sm font-bold transition">
+                    <i class="fas fa-map-marked-alt mr-1"></i> Xem Bản Đồ Chỉ Đường
+                </a>
             </div>
             <div>
                 <h4 class="font-bold text-gray-900 mb-4 uppercase text-sm tracking-wider">Sản phẩm & Dịch vụ</h4>
                 <ul class="text-gray-600 text-sm space-y-3 text-justify md:text-left">
                     <li class="flex items-start justify-center md:justify-start gap-2"><i class="fas fa-medal text-gold mt-1"></i> <span>Chuyên giày thể thao Sneaker Secondhand và hàng New Chính Hãng với hơn 6 năm kinh nghiệm.</span></li>
-                    <li class="flex items-start justify-center md:justify-start gap-2"><i class="fas fa-shield-alt text-gold mt-1"></i> <span>Cam kết chỉ bán hàng chính hãng (100% Authentic) trọn đời, bảo hành keo đế 3 tháng.</span></li>
-                    <li class="flex items-start justify-center md:justify-start gap-2"><i class="fas fa-truck text-gold mt-1"></i> <span>Hỗ trợ tư vấn trực tuyến 24/7, giao hàng COD toàn quốc, thử giày thoải mái tại nhà trước khi thanh toán.</span></li>
+                    <li class="flex items-start justify-center md:justify-start gap-2"><i class="fas fa-shield-alt text-gold mt-1"></i> <span>Cam kết chỉ bán hàng chính hãng (Only Authentic / 100% Authentic) trọn đời, bảo hành keo đế 3 tháng.</span></li>
+                    <li class="flex items-start justify-center md:justify-start gap-2"><i class="fas fa-truck text-gold mt-1"></i> <span>Hỗ trợ tư vấn trực tuyến 24/7, hỗ trợ giao hàng COD toàn quốc, cho phép mở hộp kiểm tra và thử giày thoải mái tại nhà trước khi thanh toán.</span></li>
                 </ul>
             </div>
         </div>
     </footer>
 
     <!-- Image Preview Modal (Cinematic Dark Mode) -->
-    <div id="preview-modal" class="fixed inset-0 bg-black/95 z-50 hidden flex-col items-center justify-center p-4 transition-opacity duration-300 opacity-0 backdrop-blur-md" onclick="if(event.target === this) closeModal('preview-modal')">
-        <button onclick="closeModal('preview-modal')" class="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-10 h-10 flex items-center justify-center transition backdrop-blur-sm z-50">
+    <div id="preview-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex-col items-center justify-center p-0 transition-opacity duration-300 opacity-0" onclick="if(event.target === this) closeModal('preview-modal')">
+        <!-- Nút Tắt -->
+        <button onclick="closeModal('preview-modal')" class="absolute top-4 right-4 text-white/50 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-10 h-10 flex items-center justify-center transition backdrop-blur-sm z-50">
             <i class="fas fa-times text-xl"></i>
         </button>
         
-        <img id="modal-img" src="" alt="Preview" class="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl mb-6 transition-transform duration-300 scale-95 z-10">
+        <!-- Ảnh -->
+        <div class="w-full h-full p-4 md:p-8 flex items-center justify-center">
+            <img id="modal-img" src="" alt="Preview" class="max-w-full max-h-full object-contain drop-shadow-2xl transition-transform duration-300 scale-95 z-10">
+        </div>
         
-        <div id="modal-controls-container" class="w-full max-w-sm transition-all duration-300 translate-y-4 opacity-0 z-10">
-            <div id="modal-controls">
-                <!-- Nút bấm hiển thị ở đây -->
+        <!-- Cụm Nút (Floating Dock) -->
+        <div id="modal-controls-container" class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 w-[90%] max-w-sm transition-all duration-300 translate-y-8 opacity-0 z-50">
+            <div id="modal-controls" class="flex flex-col gap-3 p-1">
+                <!-- Nút Render JS -->
             </div>
         </div>
     </div>
 
     <!-- Password Modal -->
-    <div id="password-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
+    <div id="password-modal" class="fixed inset-0 bg-black/80 z-[110] hidden items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center transform transition-all">
             <i class="fas fa-shield-alt text-5xl text-gold mb-4"></i>
             <h3 class="text-xl font-bold mb-2">Xác Thực Quản Trị</h3>
@@ -235,14 +254,14 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed top-4 right-4 z-[100] transform transition-all duration-300 translate-x-[150%] opacity-0 bg-white border-l-4 border-green-500 shadow-xl rounded-lg px-5 py-4 flex items-center gap-3">
-        <i id="toast-icon" class="fas fa-check-circle text-green-500 text-xl"></i>
+    <div id="toast" class="fixed top-4 right-4 z-[120] transform transition-all duration-300 translate-x-[150%] opacity-0 bg-white border-l-4 shadow-xl rounded-lg px-5 py-4 flex items-center gap-3">
+        <i id="toast-icon" class="text-xl"></i>
         <p id="toast-msg" class="text-gray-800 font-medium"></p>
     </div>
 
     <script>
         // =========================================================================
-        // CẤU HÌNH FIREBASE CỦA BẠN (Đã được tích hợp tự động)
+        // BỘ NÃO LƯU TRỮ DỮ LIỆU CỦA TIỆM GIÀY (ĐÃ TÍCH HỢP CODE CỦA BẠN)
         // =========================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyBdv7KLbOSlQSlMFJkjcHXyH4fISUlQPeU",
@@ -263,16 +282,13 @@
         let catalogData = [];
         let db;
 
-        // Khởi tạo hệ thống
         function init() {
             checkUrlHash();
             window.addEventListener('hashchange', checkUrlHash);
 
-            // Kết nối Firebase Real-time
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
             
-            // Lắng nghe dữ liệu thay đổi liên tục
             db.collection("shoes").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
                 catalogData = [];
                 snapshot.forEach((doc) => {
@@ -283,7 +299,6 @@
             });
         }
 
-        // --- AUTH & ROUTING ---
         function checkUrlHash() {
             if (window.location.hash === '#admin') {
                 if (!isAdmin) {
@@ -334,7 +349,6 @@
             }
         }
 
-        // --- UI HELPERS ---
         function showToast(msg, type = 'success') {
             const toast = document.getElementById('toast');
             const icon = document.getElementById('toast-icon');
@@ -342,17 +356,19 @@
             document.getElementById('toast-msg').textContent = msg;
             
             if(type === 'error') {
-                toast.classList.replace('border-green-500', 'border-red-500');
+                toast.classList.add('border-red-500');
+                toast.classList.remove('border-green-500');
                 icon.className = 'fas fa-exclamation-circle text-red-500 text-xl';
             } else {
-                toast.classList.replace('border-red-500', 'border-green-500');
+                toast.classList.add('border-green-500');
+                toast.classList.remove('border-red-500');
                 icon.className = 'fas fa-check-circle text-green-500 text-xl';
             }
 
             toast.classList.remove('translate-x-[150%]', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-x-[150%]', 'opacity-0');
-            }, 3500);
+            }, 4000);
         }
 
         function closeModal(id) {
@@ -361,7 +377,7 @@
                 el.classList.remove('opacity-100');
                 el.classList.add('opacity-0');
                 document.getElementById('modal-img').classList.add('scale-95');
-                document.getElementById('modal-controls-container').classList.add('translate-y-4', 'opacity-0');
+                document.getElementById('modal-controls-container').classList.add('translate-y-8', 'opacity-0');
                 
                 setTimeout(() => {
                     el.classList.add('hidden');
@@ -373,7 +389,6 @@
             }
         }
 
-        // --- RENDER ---
         function renderFilters() {
             let availableSizes = [...new Set(catalogData.map(item => item.size))].sort((a,b) => a-b);
             if(availableSizes.length === 0) availableSizes = ['36','37','38','39','40','41','42','43','44','45']; 
@@ -422,6 +437,7 @@
                 filtered.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'relative group cursor-pointer bg-white rounded-xl shadow-sm overflow-hidden aspect-square border border-gray-100';
+                    
                     let deleteBtn = isAdmin ? `<button onclick="deleteItem('${item.id}', event)" class="absolute top-2 right-2 bg-red-500/90 hover:bg-red-600 text-white w-8 h-8 rounded-full flex justify-center items-center z-20 transition shadow-md"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
 
                     card.innerHTML = `
@@ -435,7 +451,6 @@
             }
         }
 
-        // --- PREVIEW & DELETE ---
         function openPreview(imgUrl) {
             document.getElementById('modal-img').src = imgUrl;
             
@@ -444,21 +459,21 @@
             
             if (isMobile) {
                 controls.innerHTML = `
-                    <div class="text-center px-4 mb-4">
-                        <p class="text-[15px] text-white/90 leading-relaxed font-medium tracking-wide drop-shadow-md">
+                    <div class="text-center px-4 mb-2 drop-shadow-lg">
+                        <p class="text-[14px] text-white/90 leading-relaxed font-medium tracking-wide">
                             <i class="fas fa-camera text-gold mr-1"></i> Hãy <b>chụp màn hình</b> ảnh này<br>và gửi Zalo cho tiệm nhé!
                         </p>
                     </div>
-                    <a href="https://zalo.me/0378155320" target="_blank" class="w-full bg-[#0068FF] hover:bg-[#0054cc] text-white font-bold py-3.5 px-4 rounded-xl transition duration-300 flex justify-center items-center gap-2 shadow-[0_4px_15px_rgba(0,104,255,0.4)] backdrop-blur-md border border-white/10">
+                    <a href="https://zalo.me/0378155320" target="_blank" class="w-full bg-[#0068FF] hover:bg-[#0054cc] text-white font-bold py-3.5 px-4 rounded-2xl transition duration-300 flex justify-center items-center gap-2 shadow-[0_8px_20px_rgba(0,104,255,0.4)] backdrop-blur-md border border-white/10">
                         <i class="fas fa-comment-dots text-xl"></i> Gửi ảnh này qua Zalo
                     </a>
                 `;
             } else {
                 controls.innerHTML = `
-                    <a href="${imgUrl}" download="giay_tiemgiaycu.jpg" target="_blank" class="w-full flex justify-center items-center gap-2 py-3 px-4 bg-white/10 hover:bg-white/20 text-white rounded-xl font-semibold transition-all duration-300 mb-3 border border-white/20 backdrop-blur-md">
+                    <a href="${imgUrl}" download="giay_tiemgiaycu.jpg" target="_blank" class="w-full flex justify-center items-center gap-2 py-3 px-4 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-semibold transition-all duration-300 backdrop-blur-md border border-white/20">
                         <i class="fas fa-download"></i> Tải ảnh về máy
                     </a>
-                    <a href="https://zalo.me/0378155320" target="_blank" class="w-full bg-[#0068FF] hover:bg-[#0054cc] text-white font-bold py-3.5 px-4 rounded-xl transition duration-300 flex justify-center items-center gap-2 shadow-[0_4px_15px_rgba(0,104,255,0.4)] backdrop-blur-md border border-white/10">
+                    <a href="https://zalo.me/0378155320" target="_blank" class="w-full bg-[#0068FF] hover:bg-[#0054cc] text-white font-bold py-3.5 px-4 rounded-2xl transition duration-300 flex justify-center items-center gap-2 shadow-[0_8px_20px_rgba(0,104,255,0.4)] backdrop-blur-md border border-white/10">
                         <i class="fas fa-comment-dots text-xl"></i> Gửi ảnh này qua Zalo
                     </a>
                 `;
@@ -472,7 +487,7 @@
                 modal.classList.remove('opacity-0');
                 modal.classList.add('opacity-100');
                 document.getElementById('modal-img').classList.remove('scale-95');
-                document.getElementById('modal-controls-container').classList.remove('translate-y-4', 'opacity-0');
+                document.getElementById('modal-controls-container').classList.remove('translate-y-8', 'opacity-0');
             }, 10);
         }
 
@@ -510,7 +525,6 @@
             }
         }
 
-        // --- UPLOAD LOGIC ---
         async function handleUpload(e) {
             e.preventDefault();
             if(!db) return showToast('Bạn cần cài đặt Firebase trước khi tải ảnh!', 'error');
@@ -533,15 +547,15 @@
                     fd.append('file', file);
                     fd.append('upload_preset', UPLOAD_PRESET);
 
-                    // 1. Tải lên Cloudinary
                     const res = await fetch(CLOUDINARY_URL, { method: 'POST', body: fd });
+                    
                     if (!res.ok) {
                         const errData = await res.json();
-                        throw new Error(`Lỗi Cloudinary: ${errData.error?.message}`);
+                        throw new Error(`Lỗi Cloudinary: ${errData.error?.message || 'Bị từ chối'}`);
                     }
+                    
                     const data = await res.json();
                     
-                    // 2. Lưu link vào Firebase
                     await db.collection("shoes").add({
                         size: size,
                         imageUrl: data.secure_url,
@@ -552,7 +566,7 @@
                 }
 
                 if (successCount > 0) {
-                    showToast(`Tuyệt vời! Đã tải lên và lưu trữ vĩnh viễn ${successCount} tấm ảnh!`, 'success');
+                    showToast(`Đã tải lên và lưu trữ thành công ${successCount} ảnh!`, 'success');
                     document.getElementById('upload-form').reset();
                     document.getElementById('shoe-size').value = size; 
                     setFilter(size); 
