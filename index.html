@@ -91,14 +91,22 @@
     </header>
 
     <!-- Thanh Lọc theo Size (Đã chuyển sang flex-wrap để tự xuống dòng, thân thiện với người lớn tuổi) -->
-    <div class="max-w-4xl mx-auto px-4 md:px-12 mb-10 w-full">
+    <div id="size-filters-wrapper" class="max-w-4xl mx-auto px-4 md:px-12 mb-10 w-full">
         <div id="size-filters" class="flex flex-wrap gap-2.5 md:gap-3 justify-center items-center">
             <button class="filter-btn active px-6 py-2 md:py-2.5 border border-black bg-black text-white rounded-full text-sm font-medium transition" data-size="all">Tất cả</button>
             <!-- Javascript sẽ tự động điền các nút size vào đây -->
         </div>
     </div>
 
-    <main class="flex-grow px-4 md:px-12 max-w-6xl mx-auto w-full">
+    <main class="flex-grow px-4 md:px-12 max-w-6xl mx-auto w-full relative">
+        
+        <!-- Khung thông báo bảo trì (Mặc định ẩn) -->
+        <div id="maintenance-overlay" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#fcfcfc] pb-32">
+            <svg class="w-16 h-16 text-gray-300 mb-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <h2 class="text-xl md:text-2xl font-serif font-bold text-gray-800 mb-2">Đang Sắp Xếp Kho Hàng</h2>
+            <p class="text-gray-500 text-sm">Cửa hàng đang cập nhật mẫu mới. Quý khách vui lòng quay lại sau nhé!</p>
+        </div>
+
         <!-- Loader -->
         <div id="loader" class="text-center text-sm text-gray-400 py-20 flex flex-col items-center justify-center">
             <svg class="animate-spin h-6 w-6 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -138,11 +146,11 @@
                         HOTLINE / ZALO: <span class="font-semibold text-black">0378 155 320</span>
                     </a>
                 </p>
-                <!-- Thêm Map -->
-                <p class="mt-2">
-                    <a href="https://maps.app.goo.gl/FeXB3QtmY7dwWrf97" target="_blank" class="inline-flex items-center justify-center gap-1.5 hover:text-black transition duration-300">
-                        <svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        BẢN ĐỒ: <span class="font-medium text-black underline underline-offset-4 decoration-1">Chỉ đường tới Tiệm</span>
+                <!-- Thêm Map Nổi Bật -->
+                <p class="mt-4 flex justify-center">
+                    <a href="https://maps.app.goo.gl/FeXB3QtmY7dwWrf97" target="_blank" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300 group">
+                        <svg class="w-4 h-4 text-black group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span class="font-medium text-[11px] md:text-xs tracking-widest uppercase">Chỉ đường tới Tiệm</span>
                     </a>
                 </p>
             </div>
@@ -209,6 +217,13 @@
             
             <h2 class="font-serif text-2xl md:text-3xl font-bold mb-8 text-center uppercase tracking-widest border-b pb-6">Quản Trị Kho Hàng</h2>
             
+            <!-- Nút bật/tắt bảo trì -->
+            <div class="mb-8 flex justify-center">
+                <button id="toggle-maintenance-btn" class="px-6 py-2.5 rounded text-[11px] md:text-xs font-bold uppercase tracking-widest transition border shadow-sm w-full md:w-auto bg-gray-50 border-gray-200 text-gray-500">
+                    Đang tải trạng thái...
+                </button>
+            </div>
+
             <!-- Đăng sản phẩm (Cho phép chọn nhiều file) -->
             <div class="mb-12 bg-gray-50 p-6 md:p-8 rounded-lg border border-gray-200 shadow-sm">
                 <h3 class="font-medium mb-4 text-xs uppercase tracking-widest text-gray-500">1. Tải ảnh sản phẩm (Có thể chọn nhiều ảnh)</h3>
@@ -263,7 +278,7 @@
     <script type="module">
         // Import Firebase (v11)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Cấu hình Firebase
         const firebaseConfig = {
@@ -313,11 +328,72 @@
         const adminProductList = document.getElementById('admin-product-list');
         const adminSizeFilters = document.getElementById('admin-size-filters');
 
+        // Khai báo biến Bảo trì
+        const toggleMaintenanceBtn = document.getElementById('toggle-maintenance-btn');
+        const maintenanceOverlay = document.getElementById('maintenance-overlay');
+        const sizeFiltersWrapper = document.getElementById('size-filters-wrapper');
+        let isMaintenance = false;
+
+        async function checkMaintenance() {
+            try {
+                const docRef = doc(db, "settings", "general");
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    isMaintenance = docSnap.data().maintenance || false;
+                }
+                updateMaintenanceUI();
+            } catch(e) { console.error("Lỗi check bảo trì:", e); }
+        }
+
+        function updateMaintenanceUI() {
+            if (isMaintenance) {
+                if (maintenanceOverlay) maintenanceOverlay.classList.remove('hidden');
+                if (sizeFiltersWrapper) sizeFiltersWrapper.classList.add('hidden');
+                if (catalogGrid) catalogGrid.classList.add('hidden');
+                if (loader) loader.classList.add('hidden');
+                
+                if (toggleMaintenanceBtn) {
+                    toggleMaintenanceBtn.innerHTML = 'Khách: <span class="text-red-600 font-bold ml-1">ĐANG BỊ CHẶN</span>';
+                    toggleMaintenanceBtn.className = "px-6 py-2.5 rounded text-[11px] md:text-xs font-bold uppercase tracking-widest transition border border-red-200 bg-red-50 hover:bg-red-100 shadow-sm w-full md:w-auto";
+                }
+            } else {
+                if (maintenanceOverlay) maintenanceOverlay.classList.add('hidden');
+                if (sizeFiltersWrapper) sizeFiltersWrapper.classList.remove('hidden');
+                
+                if (toggleMaintenanceBtn) {
+                    toggleMaintenanceBtn.innerHTML = 'Khách: <span class="text-green-600 font-bold ml-1">TRUY CẬP BÌNH THƯỜNG</span>';
+                    toggleMaintenanceBtn.className = "px-6 py-2.5 rounded text-[11px] md:text-xs font-bold uppercase tracking-widest transition border border-green-200 bg-green-50 hover:bg-green-100 shadow-sm w-full md:w-auto";
+                }
+            }
+        }
+
+        if(toggleMaintenanceBtn) {
+            toggleMaintenanceBtn.addEventListener('click', async () => {
+                toggleMaintenanceBtn.innerHTML = "Đang xử lý...";
+                toggleMaintenanceBtn.disabled = true;
+                
+                try {
+                    const newStatus = !isMaintenance;
+                    // setDoc kèm merge: true giúp tạo file nếu db rỗng mà không bị lỗi
+                    await setDoc(doc(db, "settings", "general"), { maintenance: newStatus }, { merge: true });
+                    isMaintenance = newStatus;
+                    updateMaintenanceUI();
+                    
+                    if(!isMaintenance && shoesData.length > 0) renderCatalog();
+                } catch(e) {
+                    console.error("Lỗi đổi trạng thái:", e);
+                    alert("Lỗi khi đổi trạng thái. Hãy kiểm tra kết nối mạng.");
+                }
+                toggleMaintenanceBtn.disabled = false;
+            });
+        }
+
         // Khởi tạo
         async function init() {
             try {
+                await checkMaintenance();
                 await fetchShoes();
-                renderCatalog();
+                if(!isMaintenance) renderCatalog();
             } catch (error) {
                 console.error("Lỗi khởi tạo:", error);
                 loader.innerText = "Lỗi kết nối máy chủ. Vui lòng thử lại sau.";
@@ -361,6 +437,8 @@
 
         // Render Trang Chủ (Chỉ in ảnh, bỏ tag size)
         function renderCatalog() {
+            if (isMaintenance) return; // Nếu đang bảo trì thì dừng kết xuất
+
             loader.classList.add('hidden');
             catalogGrid.classList.remove('hidden');
             catalogGrid.innerHTML = '';
@@ -381,8 +459,9 @@
                 card.style.animationDelay = `${index * 0.08}s`;
                 
                 // Card bây giờ chỉ chứa 100% Ảnh, kèm hiệu ứng Shimmer loading lúc chờ
+                // Đổi aspect-[4/5] thành aspect-square để thành hình vuông 1:1
                 card.innerHTML = `
-                    <div class="relative overflow-hidden bg-gray-100 rounded aspect-[4/5] flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative overflow-hidden bg-gray-100 rounded aspect-square flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
                         <div class="skeleton-shimmer"></div>
                         <img src="${shoe.imageUrl}" alt="Giày Cũ Bình Dương" class="w-full h-full object-cover relative z-10 img-hover-zoom opacity-0" loading="lazy" onload="this.classList.remove('opacity-0'); this.previousElementSibling.remove();">
                     </div>
