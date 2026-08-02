@@ -556,7 +556,7 @@
         });
 
         // Hàm nén ảnh tự động trước khi tải lên
-        async function compressImage(file, maxWidth = 1200, quality = 0.8) {
+        async function compressImage(file, maxWidth = 1000, quality = 0.7) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -583,7 +583,7 @@
             });
         }
 
-        // Tích hợp upload nhiều file song song lên Firebase Storage
+        // Tích hợp upload nhiều file XẾP HÀNG (Tránh đứng máy khi up > 10 ảnh)
         uploadBtn.addEventListener('click', async () => {
             const files = imageInput.files;
             if (files.length === 0) {
@@ -599,30 +599,40 @@
 
             try {
                 uploadBtn.disabled = true;
-                uploadStatus.innerHTML = `<span class="text-blue-600">⏳ Đang nén và tải lên <b>${files.length} ảnh</b> cùng lúc...</span>`;
                 
-                // Chạy đa luồng tải ảnh lên Firebase Storage siêu tốc
-                const uploadPromises = Array.from(files).map(async (file, index) => {
-                    const compressedBlob = await compressImage(file);
-                    
-                    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1000) + '.jpg';
-                    const storagePath = `shoes/${uniqueName}`;
-                    const storageRef = ref(storage, storagePath);
-                    
-                    await uploadBytes(storageRef, compressedBlob, { contentType: 'image/jpeg' });
-                    const downloadURL = await getDownloadURL(storageRef);
-                    
-                    return addDoc(collection(db, "shoes"), {
-                        imageUrl: downloadURL,
-                        storagePath: storagePath,
-                        sizes: selectedSizes,
-                        createdAt: serverTimestamp() 
-                    });
-                });
+                let successCount = 0;
 
-                await Promise.all(uploadPromises);
+                // Xử lý LẦN LƯỢT từng ảnh thay vì nhồi 1 cục để tránh tràn RAM
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Cập nhật UI ngay lập tức
+                    uploadStatus.innerHTML = `<span class="text-blue-600">⏳ Đang xử lý & tải lên ảnh <b>${i + 1} / ${files.length}</b>...</span>`;
+                    
+                    try {
+                        const compressedBlob = await compressImage(file, 1000, 0.7); // Nén tối ưu về ~150KB
+                        
+                        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1000) + '.jpg';
+                        const storagePath = `shoes/${uniqueName}`;
+                        const storageRef = ref(storage, storagePath);
+                        
+                        await uploadBytes(storageRef, compressedBlob, { contentType: 'image/jpeg' });
+                        const downloadURL = await getDownloadURL(storageRef);
+                        
+                        await addDoc(collection(db, "shoes"), {
+                            imageUrl: downloadURL,
+                            storagePath: storagePath,
+                            sizes: selectedSizes,
+                            createdAt: serverTimestamp() 
+                        });
+                        
+                        successCount++;
+                    } catch (err) {
+                        console.error("Lỗi ở ảnh thứ " + (i+1), err);
+                    }
+                }
 
-                uploadStatus.innerHTML = `<span class="text-green-600 font-bold">✅ Xong! Đã đăng thành công ${files.length} sản phẩm.</span>`;
+                uploadStatus.innerHTML = `<span class="text-green-600 font-bold">✅ Xong! Đã đăng thành công ${successCount}/${files.length} sản phẩm.</span>`;
                 
                 imageInput.value = '';
                 document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
