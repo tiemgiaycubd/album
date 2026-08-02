@@ -25,7 +25,7 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Grid Ảnh - 2 cột Mobile, 4 cột PC */
+        /* Grid Ảnh - 2 cột Mobile, 4 cột PC (Cấu trúc vuông chuẩn) */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -206,7 +206,7 @@
         </div>
     </div>
 
-    <!-- Khung Xác nhận Xóa chung (Thay thế cho Alert) -->
+    <!-- Khung Xác nhận Xóa chung -->
     <div id="custom-confirm-modal" class="fixed inset-0 z-[90] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white p-6 md:p-8 rounded shadow-2xl max-w-sm w-full text-center animate-fade-in">
             <h3 class="text-lg font-bold text-red-600 mb-2 uppercase tracking-wide">Cảnh báo</h3>
@@ -261,7 +261,6 @@
             <div class="mt-10">
                 <h3 class="text-xl md:text-2xl mb-6 text-center font-bold tracking-wide uppercase">Quản lý kho hiện tại</h3>
                 
-                <!-- Lọc size trong Admin -->
                 <div class="mb-6">
                     <label class="block text-xs font-medium text-gray-500 mb-3 text-center uppercase tracking-widest">Lọc tìm theo Size</label>
                     <div id="admin-size-filters" class="flex flex-wrap gap-2 justify-center">
@@ -269,7 +268,6 @@
                     </div>
                 </div>
 
-                <!-- Lưới hiển thị dạng ô vuông -->
                 <div id="admin-product-list" class="image-grid max-h-[70vh] overflow-y-auto py-6 border-y border-gray-100">
                     <!-- Ảnh admin chèn vào đây -->
                 </div>
@@ -281,7 +279,7 @@
                     Xóa toàn bộ dữ liệu (Nguy hiểm)
                 </button>
                 <div id="delete-confirm-area" class="hidden mt-4 p-5 md:p-6 bg-red-50 rounded border border-red-200 text-center shadow-inner">
-                    <p class="text-sm md:text-base text-red-700 mb-5 font-medium">Bạn có chắc chắn muốn xóa SẠCH TOÀN BỘ GIÀY? Hình ảnh trên Firebase cũng sẽ bị xóa sạch!</p>
+                    <p class="text-sm md:text-base text-red-700 mb-5 font-medium">Bạn có chắc chắn muốn xóa SẠCH TOÀN BỘ GIÀY? Toàn bộ hình ảnh trên ImageKit cũng sẽ bị xóa vĩnh viễn!</p>
                     <div class="flex gap-3">
                         <button id="cancel-delete-btn" class="flex-1 px-4 py-3 bg-white border border-gray-300 hover:bg-gray-100 transition rounded text-sm font-medium">Hủy</button>
                         <button id="confirm-delete-btn" class="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 transition text-white rounded text-sm font-bold shadow-md">Chắc chắn xóa</button>
@@ -295,21 +293,24 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
+        // Cấu hình Database Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBdv7KLbOSlQSlMFJkjcHXyH4fISUlQPeU",
             authDomain: "catalog-39ca0.firebaseapp.com",
             projectId: "catalog-39ca0",
-            storageBucket: "catalog-39ca0.firebasestorage.app",
             messagingSenderId: "525432002337",
             appId: "1:525432002337:web:e910cd671c97ee81a85060"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app); 
         
+        // --- CẤU HÌNH IMAGEKIT.IO ---
+        const IK_PRIVATE_KEY = "private_R/QQ/6eXtl+XkpN60ArXfztLHL8="; // Key bạn vừa cấp
+        const IK_UPLOAD_ENDPOINT = "https://upload.imagekit.io/api/v1/files/upload";
+        const IK_DELETE_ENDPOINT = "https://api.imagekit.io/v1/files/";
+        const IK_AUTH = btoa(IK_PRIVATE_KEY + ":"); // Mã hóa chuẩn API ImageKit
+
         let shoesData = [];
         let isMaintenance = false;
 
@@ -349,7 +350,7 @@
         const maintenanceOverlay = document.getElementById('maintenance-overlay');
         const sizeFiltersWrapper = document.getElementById('size-filters-wrapper');
 
-        // Custom UI Alert/Confirm
+        // Custom UI Alerts
         const customAlertModal = document.getElementById('custom-alert-modal');
         const customAlertMsg = document.getElementById('custom-alert-msg');
         const customAlertOk = document.getElementById('custom-alert-ok');
@@ -377,7 +378,6 @@
             if(confirmActionCallback) confirmActionCallback();
         });
 
-        // Config Size
         const sizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
         let currentFilter = 'all';
         let currentAdminFilter = 'all';
@@ -386,9 +386,7 @@
             try {
                 const docRef = doc(db, "settings", "general");
                 const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    isMaintenance = docSnap.data().maintenance || false;
-                }
+                if (docSnap.exists()) { isMaintenance = docSnap.data().maintenance || false; }
                 updateMaintenanceUI();
             } catch(e) { console.error("Lỗi lấy thông tin bảo trì:", e); }
         }
@@ -420,9 +418,7 @@
                 isMaintenance = newStatus;
                 updateMaintenanceUI();
                 if(!isMaintenance && shoesData.length > 0) renderCatalog();
-            } catch(e) {
-                showAlert("Lỗi đổi trạng thái bảo trì!");
-            }
+            } catch(e) { showAlert("Lỗi đổi trạng thái bảo trì!"); }
             toggleMaintenanceBtn.disabled = false;
         });
 
@@ -431,18 +427,13 @@
                 await checkMaintenance();
                 await fetchShoes();
                 if(!isMaintenance) renderCatalog();
-            } catch (error) {
-                loader.innerText = "Lỗi tải dữ liệu. Vui lòng thử lại.";
-            }
+            } catch (error) { loader.innerText = "Lỗi tải dữ liệu. Vui lòng thử lại."; }
         }
 
         async function fetchShoes() {
             const querySnapshot = await getDocs(collection(db, "shoes"));
             shoesData = [];
-            querySnapshot.forEach((document) => {
-                shoesData.push({ id: document.id, ...document.data() });
-            });
-            // Sắp xếp mới nhất lên đầu
+            querySnapshot.forEach((document) => { shoesData.push({ id: document.id, ...document.data() }); });
             shoesData.sort((a, b) => {
                 const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
                 const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
@@ -451,35 +442,24 @@
         }
 
         sizes.forEach(size => {
-            // Nút Size trang chủ
             const btn = document.createElement('button');
             btn.className = 'filter-btn px-5 md:px-6 py-2 md:py-2.5 border border-gray-300 bg-white text-gray-700 rounded-full text-sm font-medium hover:border-black hover:text-black transition duration-300';
-            btn.dataset.size = size;
-            btn.innerText = size;
+            btn.dataset.size = size; btn.innerText = size;
             filterContainer.appendChild(btn);
 
-            // Checkbox form Admin
             const div = document.createElement('div');
-            div.innerHTML = `
-                <input type="checkbox" id="size-${size}" value="${size}" class="size-checkbox hidden">
-                <label for="size-${size}" class="cursor-pointer inline-block px-4 md:px-5 py-2 md:py-2.5 border border-gray-300 rounded text-sm font-medium text-gray-700 transition hover:bg-gray-100">${size}</label>
-            `;
+            div.innerHTML = `<input type="checkbox" id="size-${size}" value="${size}" class="size-checkbox hidden"><label for="size-${size}" class="cursor-pointer inline-block px-4 md:px-5 py-2 md:py-2.5 border border-gray-300 rounded text-sm font-medium text-gray-700 transition hover:bg-gray-100">${size}</label>`;
             sizeOptionsContainer.appendChild(div);
 
-            // Nút Size filter Admin
             const adminBtn = document.createElement('button');
             adminBtn.className = 'admin-filter-btn px-4 py-1.5 border border-gray-300 bg-white text-gray-600 rounded-full text-xs font-medium hover:border-black hover:text-black transition';
-            adminBtn.dataset.size = size;
-            adminBtn.innerText = size;
+            adminBtn.dataset.size = size; adminBtn.innerText = size;
             adminSizeFilters.appendChild(adminBtn);
         });
 
-        // Xử lý click lọc size trang chủ
         filterContainer.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON' && e.target.classList.contains('filter-btn')) {
-                document.querySelectorAll('#size-filters .filter-btn').forEach(btn => {
-                    btn.className = 'filter-btn px-5 md:px-6 py-2 md:py-2.5 border border-gray-300 bg-white text-gray-700 rounded-full text-sm font-medium hover:border-black hover:text-black transition duration-300';
-                });
+                document.querySelectorAll('#size-filters .filter-btn').forEach(btn => btn.className = 'filter-btn px-5 md:px-6 py-2 md:py-2.5 border border-gray-300 bg-white text-gray-700 rounded-full text-sm font-medium hover:border-black hover:text-black transition duration-300');
                 e.target.className = 'filter-btn active px-5 md:px-6 py-2 md:py-2.5 border border-black bg-black text-white rounded-full text-sm font-medium transition duration-300 shadow-md';
                 currentFilter = e.target.dataset.size;
                 renderCatalog();
@@ -492,9 +472,7 @@
             catalogGrid.classList.remove('hidden');
             catalogGrid.innerHTML = '';
 
-            const filteredShoes = currentFilter === 'all' 
-                ? shoesData 
-                : shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentFilter)));
+            const filteredShoes = currentFilter === 'all' ? shoesData : shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentFilter)));
 
             if(filteredShoes.length === 0) {
                 catalogGrid.innerHTML = '<p class="text-center text-gray-400 text-sm col-span-full py-16 font-medium">Không tìm thấy mẫu giày nào ở size này.</p>';
@@ -506,32 +484,29 @@
                 card.className = 'group animate-fade-up cursor-pointer';
                 card.style.animationDelay = `${index * 0.05}s`;
                 
-                // Đã đổi sang tỷ lệ vuông (aspect-square) và ẩn đi các tag size
+                // Ép URL của ImageKit để cắt vuông ảnh chuẩn, nén siêu nhẹ
+                const optimizedUrl = shoe.imageUrl + "?tr=w-600,h-600,fo-auto,f-webp,q-80";
+                
                 card.innerHTML = `
                     <div class="relative overflow-hidden bg-gray-50 rounded aspect-square flex items-center justify-center shadow-sm">
                         <div class="skeleton-shimmer"></div>
-                        <img src="${shoe.imageUrl}" alt="Giày Cũ Bình Dương" class="w-full h-full object-cover relative z-10 img-hover-zoom opacity-0" loading="lazy" onload="this.classList.remove('opacity-0'); this.previousElementSibling.remove();">
+                        <img src="${optimizedUrl}" alt="Giày Cũ Bình Dương" class="w-full h-full object-cover relative z-10 img-hover-zoom opacity-0" loading="lazy" onload="this.classList.remove('opacity-0'); this.previousElementSibling.remove();">
                     </div>
                 `;
 
                 card.addEventListener('click', () => {
-                    modalImg.src = shoe.imageUrl;
+                    // Mở Modal: Ảnh to nét và đẹp hơn
+                    modalImg.src = shoe.imageUrl + "?tr=w-1000,fo-auto,f-webp,q-90";
                     productModal.classList.remove('hidden');
                 });
                 catalogGrid.appendChild(card);
             });
         }
 
-        closeModalBtn.addEventListener('click', () => {
-            productModal.classList.add('hidden');
-            modalImg.src = '';
-        });
+        closeModalBtn.addEventListener('click', () => { productModal.classList.add('hidden'); modalImg.src = ''; });
 
         adminTriggerBtn.addEventListener('click', () => {
-            passwordModal.classList.remove('hidden');
-            passInput.value = '';
-            passError.classList.add('hidden');
-            passInput.focus();
+            passwordModal.classList.remove('hidden'); passInput.value = ''; passError.classList.add('hidden'); passInput.focus();
         });
         cancelPassBtn.addEventListener('click', () => passwordModal.classList.add('hidden'));
         submitPassBtn.addEventListener('click', checkPass);
@@ -539,9 +514,7 @@
 
         function checkPass() {
             if (passInput.value === '3119') {
-                passwordModal.classList.add('hidden');
-                adminSection.classList.remove('hidden');
-                renderAdminList();
+                passwordModal.classList.add('hidden'); adminSection.classList.remove('hidden'); renderAdminList();
             } else { passError.classList.remove('hidden'); }
         }
         closeAdminBtn.addEventListener('click', () => adminSection.classList.add('hidden'));
@@ -555,104 +528,83 @@
             }
         });
 
-        // Hàm nén ảnh tự động trước khi tải lên
-        async function compressImage(file, maxWidth = 1000, quality = 0.7) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = (event) => {
-                    const img = new Image();
-                    img.src = event.target.result;
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        if (width > height) {
-                            if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
-                        } else {
-                            if (height > maxWidth) { width = Math.round((width * maxWidth) / height); height = maxWidth; }
-                        }
-                        canvas.width = width; canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        canvas.toBlob((blob) => resolve(blob), 'image/jpeg', quality);
-                    };
-                    img.onerror = reject;
-                };
-                reader.onerror = reject;
+        // Hàm Upload File Đơn lẻ vào ImageKit
+        async function uploadFileToImageKit(file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("fileName", file.name);
+            formData.append("folder", "/tiemgiay");
+
+            const response = await fetch(IK_UPLOAD_ENDPOINT, {
+                method: "POST",
+                headers: { "Authorization": "Basic " + IK_AUTH },
+                body: formData
             });
+
+            if (!response.ok) throw new Error("Upload lên ImageKit bị lỗi.");
+            return await response.json(); // Trả về object chứa url và fileId
         }
 
-        // Tích hợp upload nhiều file XẾP HÀNG (Tránh đứng máy khi up > 10 ảnh)
+        // Hàm Xóa File khỏi kho ImageKit
+        async function deleteFileFromImageKit(fileId) {
+            if (!fileId) return;
+            try {
+                await fetch(IK_DELETE_ENDPOINT + fileId, {
+                    method: "DELETE",
+                    headers: { "Authorization": "Basic " + IK_AUTH }
+                });
+            } catch(e) { console.error("Lỗi xóa file trên ImageKit:", e); }
+        }
+
+        // --- HÀM UPLOAD THEO KIỂU NỐI TIẾP (Sequential) CHỐNG TREO RAM ---
         uploadBtn.addEventListener('click', async () => {
             const files = imageInput.files;
-            if (files.length === 0) {
-                uploadStatus.innerHTML = `<span class="text-red-500">⚠️ Vui lòng chọn ít nhất 1 ảnh.</span>`;
-                return;
-            }
+            if (files.length === 0) { uploadStatus.innerHTML = `<span class="text-red-500">⚠️ Vui lòng chọn ít nhất 1 ảnh.</span>`; return; }
 
             const selectedSizes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(cb => parseInt(cb.value));
-            if (selectedSizes.length === 0) {
-                uploadStatus.innerHTML = `<span class="text-red-500">⚠️ Vui lòng tick chọn ít nhất 1 size.</span>`;
-                return;
-            }
+            if (selectedSizes.length === 0) { uploadStatus.innerHTML = `<span class="text-red-500">⚠️ Vui lòng tick chọn ít nhất 1 size.</span>`; return; }
 
-            try {
-                uploadBtn.disabled = true;
+            uploadBtn.disabled = true;
+            let successCount = 0;
+
+            // Xử lý LẦN LƯỢT TỪNG ẢNH MỘT - Không làm đơ máy, không ngốn RAM
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                uploadStatus.innerHTML = `<span class="text-blue-600 font-medium">⏳ Đang xử lý & tải lên ảnh <b>${i + 1} / ${files.length}</b>...</span>`;
                 
-                let successCount = 0;
-
-                // Xử lý LẦN LƯỢT từng ảnh thay vì nhồi 1 cục để tránh tràn RAM
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
+                try {
+                    // Đẩy thẳng lên ImageKit (máy chủ siêu tốc lo phần nén)
+                    const ikData = await uploadFileToImageKit(file);
                     
-                    // Cập nhật UI ngay lập tức
-                    uploadStatus.innerHTML = `<span class="text-blue-600">⏳ Đang xử lý & tải lên ảnh <b>${i + 1} / ${files.length}</b>...</span>`;
+                    // Lưu thông tin (kèm FileID để sau này xóa) vào Database Firebase
+                    await addDoc(collection(db, "shoes"), {
+                        imageUrl: ikData.url,
+                        imageKitFileId: ikData.fileId,
+                        sizes: selectedSizes,
+                        createdAt: serverTimestamp() 
+                    });
                     
-                    try {
-                        const compressedBlob = await compressImage(file, 1000, 0.7); // Nén tối ưu về ~150KB
-                        
-                        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1000) + '.jpg';
-                        const storagePath = `shoes/${uniqueName}`;
-                        const storageRef = ref(storage, storagePath);
-                        
-                        await uploadBytes(storageRef, compressedBlob, { contentType: 'image/jpeg' });
-                        const downloadURL = await getDownloadURL(storageRef);
-                        
-                        await addDoc(collection(db, "shoes"), {
-                            imageUrl: downloadURL,
-                            storagePath: storagePath,
-                            sizes: selectedSizes,
-                            createdAt: serverTimestamp() 
-                        });
-                        
-                        successCount++;
-                    } catch (err) {
-                        console.error("Lỗi ở ảnh thứ " + (i+1), err);
-                    }
+                    successCount++;
+                } catch (err) {
+                    console.error("Lỗi ở ảnh thứ " + (i+1), err);
                 }
-
-                uploadStatus.innerHTML = `<span class="text-green-600 font-bold">✅ Xong! Đã đăng thành công ${successCount}/${files.length} sản phẩm.</span>`;
-                
-                imageInput.value = '';
-                document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
-                
-                await fetchShoes();
-                renderCatalog();
-                renderAdminList();
-
-                setTimeout(() => { uploadBtn.disabled = false; uploadStatus.innerHTML = ""; }, 3000);
-            } catch (e) {
-                console.error(e);
-                uploadStatus.innerHTML = `<span class="text-red-500">❌ Lỗi mạng, vui lòng thử lại!</span>`;
-                uploadBtn.disabled = false;
             }
+
+            uploadStatus.innerHTML = `<span class="text-green-600 font-bold">✅ Xong! Đã đăng thành công ${successCount}/${files.length} sản phẩm.</span>`;
+            
+            imageInput.value = '';
+            document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
+            
+            await fetchShoes();
+            renderCatalog();
+            renderAdminList();
+
+            setTimeout(() => { uploadBtn.disabled = false; uploadStatus.innerHTML = ""; }, 3000);
         });
 
         function renderAdminList() {
             adminProductList.innerHTML = '';
-            const filteredAdminShoes = currentAdminFilter === 'all' 
-                ? shoesData : shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentAdminFilter)));
+            const filteredAdminShoes = currentAdminFilter === 'all' ? shoesData : shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentAdminFilter)));
 
             if(filteredAdminShoes.length === 0) {
                 adminProductList.innerHTML = '<p class="text-center text-sm text-gray-400 py-10 col-span-full">Kho rỗng ở size này.</p>';
@@ -664,18 +616,15 @@
                 item.className = 'relative group aspect-square bg-gray-50 rounded overflow-hidden shadow-sm border border-gray-100';
                 const sortedSizes = shoe.sizes ? shoe.sizes.sort((a,b)=>a-b) : [];
                 
-                // Giao diện ô vuông, có thẻ tag ở dưới, dấu X màu đỏ ở góc phải
-                item.innerHTML = `
-                    <img src="${shoe.imageUrl}" class="w-full h-full object-cover">
-                    
-                    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                // Tối ưu ảnh admin nhỏ nhẹ
+                const adminThumbUrl = shoe.imageUrl + "?tr=w-300,h-300,fo-auto,f-webp";
 
-                    <!-- Size tags -->
+                item.innerHTML = `
+                    <img src="${adminThumbUrl}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                     <div class="absolute bottom-2 left-2 flex flex-wrap gap-1 max-w-[80%] pointer-events-none">
                         ${sortedSizes.map(s => `<span class="px-1.5 py-0.5 bg-white text-[10px] font-bold text-black rounded shadow-sm">${s}</span>`).join('')}
                     </div>
-
-                    <!-- Nút Xóa (Góc trên phải) -->
                     <button class="delete-single-btn absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-1.5 md:p-2 rounded-full transition-transform hover:scale-110 shadow-lg z-10" title="Xóa ảnh này">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
@@ -683,25 +632,22 @@
 
                 const delBtn = item.querySelector('.delete-single-btn');
                 delBtn.addEventListener('click', () => {
-                    showConfirm("Gỡ đôi giày này khỏi web và XÓA VĨNH VIỄN ảnh trên Firebase?", async () => {
+                    showConfirm("Bạn có chắc chắn muốn xóa vĩnh viễn đôi giày này khỏi hệ thống?", async () => {
                         try {
                             delBtn.innerHTML = '...';
                             delBtn.disabled = true;
                             
-                            // Xóa ảnh gốc trên Storage nếu có path
-                            if (shoe.storagePath) {
-                                await deleteObject(ref(storage, shoe.storagePath)).catch(e => console.log('Không tìm thấy file trên Storage.'));
+                            // 1. Xóa ảnh gốc trên Server ImageKit
+                            if (shoe.imageKitFileId) {
+                                await deleteFileFromImageKit(shoe.imageKitFileId);
                             }
-                            
-                            // Xóa dữ liệu Document
+                            // 2. Xóa dữ liệu Document trong Firebase Database
                             await deleteDoc(doc(db, "shoes", shoe.id));
                             
                             await fetchShoes();
                             renderCatalog();
                             renderAdminList();
-                        } catch(e) { 
-                            showAlert("Lỗi khi xóa: " + e.message); 
-                        }
+                        } catch(e) { showAlert("Lỗi khi xóa: " + e.message); }
                     });
                 });
                 adminProductList.appendChild(item);
@@ -723,20 +669,22 @@
                 confirmDeleteBtn.disabled = true; confirmDeleteBtn.innerText = "Đang dọn dẹp...";
                 cancelDeleteBtn.disabled = true;
                 deleteStatus.classList.remove('hidden');
-                deleteStatus.innerHTML = `<span class="text-blue-600 font-bold">⏳ Đang quét sạch Data và Storage...</span>`;
+                deleteStatus.innerHTML = `<span class="text-blue-600 font-bold">⏳ Đang quét sạch Data và máy chủ ảnh...</span>`;
 
                 const querySnapshot = await getDocs(collection(db, "shoes"));
                 const deletePromises = [];
                 
                 querySnapshot.forEach((document) => {
                     const data = document.data();
-                    if (data.storagePath) {
-                        deletePromises.push(deleteObject(ref(storage, data.storagePath)).catch(() => {})); 
+                    // Đẩy lệnh gọi xóa file trên ImageKit
+                    if (data.imageKitFileId) {
+                        deletePromises.push(deleteFileFromImageKit(data.imageKitFileId)); 
                     }
+                    // Đẩy lệnh gọi xóa Data trên Firebase
                     deletePromises.push(deleteDoc(doc(db, "shoes", document.id)));
                 });
                 
-                await Promise.all(deletePromises);
+                await Promise.all(deletePromises); // Đợi xóa xong 100%
 
                 deleteStatus.innerHTML = `<span class="text-green-600 font-bold">✅ Sạch sẽ! Bắt đầu chặng đường mới nhé!</span>`;
                 
