@@ -64,6 +64,13 @@
             border-color: #000;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
+        
+        .size-checkbox-sale:checked + label {
+            background: linear-gradient(145deg, #dc2626, #991b1b) !important;
+            color: #fff !important;
+            border-color: #991b1b !important;
+            box-shadow: 0 4px 10px rgba(220,38,38,0.3) !important;
+        }
 
         /* --- ANIMATION --- */
         @keyframes fadeUp {
@@ -134,10 +141,10 @@
         <p class="text-gray-500 text-sm md:text-base max-w-lg mx-auto font-medium">Giày New và Secondhand Chính hãng độ mới cao. Cập nhật mẫu mới liên tục mỗi ngày.</p>
     </div>
 
-    <!-- Bộ lọc Size (Chỉ hiển thị các size, mặc định là 36) -->
+    <!-- Bộ lọc Size -->
     <div id="size-filters-wrapper" class="w-full pb-8 px-2 relative z-30">
-        <div id="size-filters" class="max-w-4xl mx-auto flex overflow-x-auto hide-scroll gap-2 md:gap-3 justify-start md:justify-center items-center px-4 py-2">
-            <!-- JS chèn các nút size từ 36 đến 45 -->
+        <div id="size-filters" class="max-w-4xl mx-auto flex flex-col gap-2 md:gap-3 justify-center items-center px-1 md:px-2 py-2">
+            <!-- JS chèn các nút size -->
         </div>
     </div>
 
@@ -288,7 +295,7 @@
                 <h3 class="text-xl md:text-2xl mb-6 text-center font-extrabold tracking-wide uppercase">Kho hiện tại</h3>
                 
                 <div class="mb-8">
-                    <div id="admin-size-filters" class="flex overflow-x-auto hide-scroll gap-2 justify-start md:justify-center px-2 py-2">
+                    <div id="admin-size-filters" class="flex flex-col gap-2 justify-center px-1 md:px-2 py-2">
                         <!-- JS tự chèn nút size admin -->
                     </div>
                 </div>
@@ -339,12 +346,12 @@
         let shoesData = [];
         let isMaintenance = false;
 
-        // Kích thước chuẩn từ 36 đến 45
-        const sizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+        // Kích thước chuẩn có thêm tag Sale và Mới Về
+        const filterOptions = ['Sale', 'Mới Về', 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
         
-        // MẶC ĐỊNH LÀ SIZE 36
-        let currentFilter = '36';
-        let currentAdminFilter = '36';
+        // MẶC ĐỊNH LÀ MỚI VỀ
+        let currentFilter = 'Mới Về';
+        let currentAdminFilter = 'Mới Về';
 
         // DOM Elements
         const loader = document.getElementById('loader');
@@ -420,86 +427,126 @@
             } catch(e) { console.error("Lỗi lấy thông tin bảo trì:", e); }
         }
 
-        function updateMaintenanceUI() {
-            if (isMaintenance) {
-                maintenanceOverlay.classList.remove('hidden');
-                sizeFiltersWrapper.classList.add('hidden');
-                catalogGrid.classList.add('hidden');
-                loader.classList.add('hidden');
-                toggleMaintenanceBtn.innerHTML = 'Trạng thái: <span class="text-red-600 font-black ml-1">ĐÓNG CỬA</span>';
-            } else {
-                maintenanceOverlay.classList.add('hidden');
-                sizeFiltersWrapper.classList.remove('hidden');
-                toggleMaintenanceBtn.innerHTML = 'Trạng thái: <span class="text-green-600 font-black ml-1">MỞ CỬA</span>';
-            }
-        }
+        // Tạo nút filter trang chủ và admin
+        const row1 = document.createElement('div'); row1.className = "flex w-full justify-center gap-1.5 md:gap-3";
+        const row2 = document.createElement('div'); row2.className = "flex w-full justify-center gap-1.5 md:gap-3";
+        
+        const adminRow1 = document.createElement('div'); adminRow1.className = "flex w-full justify-center gap-1.5 md:gap-2";
+        const adminRow2 = document.createElement('div'); adminRow2.className = "flex w-full justify-center gap-1.5 md:gap-2";
 
-        toggleMaintenanceBtn.addEventListener('click', async () => {
-            toggleMaintenanceBtn.innerHTML = "Đang đổi trạng thái...";
-            toggleMaintenanceBtn.disabled = true;
-            try {
-                const newStatus = !isMaintenance;
-                await setDoc(doc(db, "settings", "general"), { maintenance: newStatus }, { merge: true });
-                isMaintenance = newStatus;
-                updateMaintenanceUI();
-                if(!isMaintenance && shoesData.length > 0) renderCatalog();
-            } catch(e) { showAlert("Lỗi đổi trạng thái bảo trì!"); }
-            toggleMaintenanceBtn.disabled = false;
-        });
+        filterOptions.forEach((size, index) => {
+            const isSale = size === 'Sale';
+            const isNew = size === 'Mới Về';
 
-        async function init() {
-            try {
-                await checkMaintenance();
-                await fetchShoes();
-                if(!isMaintenance) renderCatalog();
-            } catch (error) { loader.innerHTML = "<span class='text-red-500 font-bold'>Lỗi kết nối. Vui lòng thử lại.</span>"; }
-        }
-
-        async function fetchShoes() {
-            const querySnapshot = await getDocs(collection(db, "shoes"));
-            shoesData = [];
-            querySnapshot.forEach((document) => { shoesData.push({ id: document.id, ...document.data() }); });
-            shoesData.sort((a, b) => {
-                const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
-                const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
-                return timeB - timeA;
-            });
-        }
-
-        // Tạo nút filter trang chủ và admin (Không có nút "Tất cả")
-        sizes.forEach(size => {
             // Nút khách hàng
             const btn = document.createElement('button');
-            const isActive = size.toString() === currentFilter ? 'active-size-btn' : 'text-gray-700 bg-white border-gray-200';
-            btn.className = `filter-btn px-6 py-2.5 border rounded-full text-sm font-semibold hover:border-black hover:text-black transition-all hover:shadow-md flex-shrink-0 ${isActive}`;
+            const isActive = size.toString() === currentFilter;
+            
+            if (isSale) {
+                if (isActive) {
+                    btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all shadow-md flex-shrink-0 bg-gradient-to-r from-red-600 to-red-800 text-white border-red-700`;
+                } else {
+                    btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all hover:shadow-md flex-shrink-0 text-red-600 bg-white border-red-200 hover:bg-red-50 hover:border-red-600`;
+                }
+                btn.innerText = 'Sale';
+            } else if (isNew) {
+                if (isActive) {
+                    btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all shadow-md flex-shrink-0 bg-gradient-to-r from-teal-500 to-teal-700 text-white border-teal-600`;
+                } else {
+                    btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all hover:shadow-md flex-shrink-0 text-teal-600 bg-white border-teal-200 hover:bg-teal-50 hover:border-teal-500`;
+                }
+                btn.innerText = 'Mới Về';
+            } else {
+                if (isActive) {
+                    btn.className = `filter-btn px-3 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-semibold transition-all shadow-md flex-shrink-0 active-size-btn`;
+                } else {
+                    btn.className = `filter-btn px-3 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-semibold hover:border-black hover:text-black transition-all hover:shadow-md flex-shrink-0 text-gray-700 bg-white border-gray-200`;
+                }
+                btn.innerText = size;
+            }
             btn.dataset.size = size; 
-            btn.innerText = size;
-            filterContainer.appendChild(btn);
+            
+            // Ép vào 2 hàng đều nhau (Mỗi hàng 6 nút)
+            if (index < 6) row1.appendChild(btn);
+            else row2.appendChild(btn);
 
-            // Nút Checkbox lúc Up ảnh
-            const div = document.createElement('div');
-            div.innerHTML = `<input type="checkbox" id="size-${size}" value="${size}" class="size-checkbox hidden"><label for="size-${size}" class="cursor-pointer inline-block px-5 py-2.5 border border-gray-200 rounded-lg text-sm font-bold text-gray-700 transition-all hover:bg-gray-50 hover:shadow-sm">${size}</label>`;
-            sizeOptionsContainer.appendChild(div);
+            // Nút Checkbox lúc Up ảnh (trong Admin) - Bỏ icon
+            if (!isNew) {
+                const div = document.createElement('div');
+                if (isSale) {
+                    div.innerHTML = `<input type="checkbox" id="size-sale" value="Sale" class="size-checkbox size-checkbox-sale hidden"><label for="size-sale" class="cursor-pointer inline-block px-4 py-2 md:px-5 md:py-2.5 border border-red-200 rounded-lg text-xs md:text-sm font-extrabold text-red-600 transition-all hover:bg-red-50 hover:shadow-sm">Sale</label>`;
+                } else {
+                    div.innerHTML = `<input type="checkbox" id="size-${size}" value="${size}" class="size-checkbox hidden"><label for="size-${size}" class="cursor-pointer inline-block px-4 py-2 md:px-5 md:py-2.5 border border-gray-200 rounded-lg text-xs md:text-sm font-bold text-gray-700 transition-all hover:bg-gray-50 hover:shadow-sm">${size}</label>`;
+                }
+                sizeOptionsContainer.appendChild(div);
+            }
 
-            // Nút lọc Admin
+            // Nút lọc trong Admin - Bỏ icon
             const adminBtn = document.createElement('button');
-            const isAdminActive = size.toString() === currentAdminFilter ? 'bg-black text-white' : 'bg-white text-gray-600 border-gray-200';
-            adminBtn.className = `admin-filter-btn px-5 py-2 border rounded-full text-sm font-bold hover:border-black hover:text-black transition flex-shrink-0 ${isAdminActive}`;
+            const isAdminActive = size.toString() === currentAdminFilter;
+            
+            if (isSale) {
+                if (isAdminActive) {
+                    adminBtn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-red-600 text-white border-red-600`;
+                } else {
+                    adminBtn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-white text-red-600 border-red-200 hover:bg-red-50 hover:border-red-600`;
+                }
+                adminBtn.innerText = 'Sale';
+            } else if (isNew) {
+                if (isAdminActive) {
+                    adminBtn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-teal-600 text-white border-teal-600`;
+                } else {
+                    adminBtn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-white text-teal-600 border-teal-200 hover:bg-teal-50 hover:border-teal-600`;
+                }
+                adminBtn.innerText = 'Mới Về';
+            } else {
+                if (isAdminActive) {
+                    adminBtn.className = `admin-filter-btn px-3 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-bold transition flex-shrink-0 bg-black text-white`;
+                } else {
+                    adminBtn.className = `admin-filter-btn px-3 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-bold hover:border-black hover:text-black transition flex-shrink-0 bg-white text-gray-600 border-gray-200`;
+                }
+                adminBtn.innerText = size;
+            }
             adminBtn.dataset.size = size; 
-            adminBtn.innerText = size;
-            adminSizeFilters.appendChild(adminBtn);
+            
+            if (index < 6) adminRow1.appendChild(adminBtn);
+            else adminRow2.appendChild(adminBtn);
         });
+
+        filterContainer.appendChild(row1);
+        filterContainer.appendChild(row2);
+        
+        adminSizeFilters.appendChild(adminRow1);
+        adminSizeFilters.appendChild(adminRow2);
 
         // Xử lý click lọc Khách hàng
         filterContainer.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON' && e.target.classList.contains('filter-btn')) {
-                document.querySelectorAll('#size-filters .filter-btn').forEach(btn => {
-                    btn.classList.remove('active-size-btn');
-                    btn.classList.add('text-gray-700', 'bg-white', 'border-gray-200');
-                });
-                e.target.classList.remove('text-gray-700', 'bg-white', 'border-gray-200');
-                e.target.classList.add('active-size-btn');
                 currentFilter = e.target.dataset.size;
+                
+                document.querySelectorAll('#size-filters .filter-btn').forEach(btn => {
+                    const s = btn.dataset.size;
+                    const isSale = s === 'Sale';
+                    const isNew = s === 'Mới Về';
+                    
+                    if (s === currentFilter) {
+                        if (isSale) {
+                            btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all shadow-md flex-shrink-0 bg-gradient-to-r from-red-600 to-red-800 text-white border-red-700`;
+                        } else if (isNew) {
+                            btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all shadow-md flex-shrink-0 bg-gradient-to-r from-teal-500 to-teal-700 text-white border-teal-600`;
+                        } else {
+                            btn.className = `filter-btn px-3 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-semibold transition-all shadow-md flex-shrink-0 active-size-btn`;
+                        }
+                    } else {
+                        if (isSale) {
+                            btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all hover:shadow-md flex-shrink-0 text-red-600 bg-white border-red-200 hover:bg-red-50 hover:border-red-600`;
+                        } else if (isNew) {
+                            btn.className = `filter-btn px-2.5 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-extrabold transition-all hover:shadow-md flex-shrink-0 text-teal-600 bg-white border-teal-200 hover:bg-teal-50 hover:border-teal-500`;
+                        } else {
+                            btn.className = `filter-btn px-3 md:px-5 py-1.5 md:py-2.5 border rounded-full text-[11px] md:text-sm font-semibold hover:border-black hover:text-black transition-all hover:shadow-md flex-shrink-0 text-gray-700 bg-white border-gray-200`;
+                        }
+                    }
+                });
                 renderCatalog();
             }
         });
@@ -510,10 +557,18 @@
             catalogGrid.classList.remove('hidden');
             catalogGrid.innerHTML = '';
 
-            const filteredShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentFilter)));
+            let filteredShoes = [];
+            
+            if (currentFilter === 'Mới Về') {
+                // Lấy giày không có tag Sale và cắt lấy tối đa 40 đôi
+                filteredShoes = shoesData.filter(shoe => !shoe.sizes || !shoe.sizes.includes('Sale')).slice(0, 40);
+            } else {
+                const parsedFilter = currentFilter === 'Sale' ? 'Sale' : parseInt(currentFilter);
+                filteredShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parsedFilter));
+            }
 
             if(filteredShoes.length === 0) {
-                catalogGrid.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center py-16"><p class="text-center text-gray-400 text-sm font-semibold">Tạm hết hàng ở Size này.</p></div>';
+                catalogGrid.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center py-16"><p class="text-center text-gray-400 text-sm font-semibold">Tạm hết hàng ở mục này.</p></div>';
                 return;
             }
 
@@ -560,13 +615,31 @@
         // Lọc admin
         adminSizeFilters.addEventListener('click', (e) => {
             if (e.target.tagName === 'BUTTON' && e.target.classList.contains('admin-filter-btn')) {
-                document.querySelectorAll('.admin-filter-btn').forEach(btn => {
-                    btn.classList.remove('bg-black', 'text-white');
-                    btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
-                });
-                e.target.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
-                e.target.classList.add('bg-black', 'text-white');
                 currentAdminFilter = e.target.dataset.size;
+
+                document.querySelectorAll('.admin-filter-btn').forEach(btn => {
+                    const s = btn.dataset.size;
+                    const isSale = s === 'Sale';
+                    const isNew = s === 'Mới Về';
+                    
+                    if (s === currentAdminFilter) {
+                         if (isSale) {
+                             btn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-red-600 text-white border-red-600`;
+                         } else if (isNew) {
+                             btn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-teal-600 text-white border-teal-600`;
+                         } else {
+                             btn.className = `admin-filter-btn px-3 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-bold hover:border-black hover:text-black transition flex-shrink-0 bg-black text-white`;
+                         }
+                    } else {
+                         if (isSale) {
+                             btn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-white text-red-600 border-red-200 hover:bg-red-50 hover:border-red-600`;
+                         } else if (isNew) {
+                             btn.className = `admin-filter-btn px-2.5 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-extrabold transition flex-shrink-0 bg-white text-teal-600 border-teal-200 hover:bg-teal-50 hover:border-teal-600`;
+                         } else {
+                             btn.className = `admin-filter-btn px-3 md:px-4 py-1.5 border rounded-full text-[11px] md:text-sm font-bold hover:border-black hover:text-black transition flex-shrink-0 bg-white text-gray-600 border-gray-200`;
+                         }
+                    }
+                });
                 renderAdminList();
             }
         });
@@ -603,7 +676,11 @@
             const files = imageInput.files;
             if (files.length === 0) { showAlert("⚠️ Vui lòng chọn ít nhất 1 ảnh."); return; }
 
-            const selectedSizes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(cb => parseInt(cb.value));
+            // Chuyển Sale thành chữ, Size thành số nguyên
+            const selectedSizes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(cb => {
+                return cb.value === 'Sale' ? 'Sale' : parseInt(cb.value);
+            });
+
             if (selectedSizes.length === 0) { showAlert("⚠️ Vui lòng tick chọn ít nhất 1 size."); return; }
 
             uploadBtn.disabled = true;
@@ -650,7 +727,15 @@
         // Lưới quản lý Admin DẠNG GRID VUÔNG 
         function renderAdminList() {
             adminProductList.innerHTML = '';
-            const filteredAdminShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parseInt(currentAdminFilter)));
+            
+            let filteredAdminShoes = [];
+            
+            if (currentAdminFilter === 'Mới Về') {
+                filteredAdminShoes = shoesData.filter(shoe => !shoe.sizes || !shoe.sizes.includes('Sale')).slice(0, 40);
+            } else {
+                const parsedAdminFilter = currentAdminFilter === 'Sale' ? 'Sale' : parseInt(currentAdminFilter);
+                filteredAdminShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parsedAdminFilter));
+            }
 
             if(filteredAdminShoes.length === 0) {
                 adminProductList.innerHTML = '<p class="text-center text-sm text-gray-400 py-10 col-span-full font-semibold">Kho rỗng ở size này.</p>';
@@ -660,7 +745,13 @@
             filteredAdminShoes.forEach(shoe => {
                 const item = document.createElement('div');
                 item.className = 'relative group aspect-square bg-gray-50 rounded-xl overflow-hidden shadow-sm border border-gray-200';
-                const sortedSizes = shoe.sizes ? shoe.sizes.sort((a,b)=>a-b) : [];
+                
+                // Sắp xếp Size (Sale luôn hiện đầu tiên)
+                const sortedSizes = shoe.sizes ? shoe.sizes.sort((a,b) => {
+                    if (a === 'Sale') return -1;
+                    if (b === 'Sale') return 1;
+                    return a - b;
+                }) : [];
                 
                 const adminThumbUrl = shoe.imageUrl + "?tr=w-300,h-300,fo-auto,f-webp";
 
@@ -669,7 +760,10 @@
                     <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                     
                     <div class="absolute bottom-2 left-2 flex flex-wrap gap-1 max-w-[80%] pointer-events-none">
-                        ${sortedSizes.map(s => `<span class="px-1.5 py-0.5 bg-black text-[10px] font-bold text-white rounded shadow-sm">${s}</span>`).join('')}
+                        ${sortedSizes.map(s => {
+                            if (s === 'Sale') return `<span class="px-1.5 py-0.5 bg-red-600 text-[10px] font-bold text-white rounded shadow-sm">SALE</span>`;
+                            return `<span class="px-1.5 py-0.5 bg-black text-[10px] font-bold text-white rounded shadow-sm">${s}</span>`;
+                        }).join('')}
                     </div>
                     
                     <button class="delete-single-btn absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white p-1.5 md:p-2 rounded-full transition-transform hover:scale-110 shadow-lg z-10" title="Xóa ảnh này">
@@ -746,6 +840,65 @@
                 confirmDeleteBtn.disabled = false; cancelDeleteBtn.disabled = false;
             }
         });
+
+        function updateMaintenanceUI() {
+            if (isMaintenance) {
+                maintenanceOverlay.classList.remove('hidden');
+                loader.classList.add('hidden');
+                catalogGrid.classList.add('hidden');
+                sizeFiltersWrapper.classList.add('hidden');
+                toggleMaintenanceBtn.innerText = "🔴 Đang Khóa Bảo Trì (Bấm Mở)";
+                toggleMaintenanceBtn.classList.add('bg-red-50', 'text-red-600', 'border-red-200');
+                toggleMaintenanceBtn.classList.remove('bg-green-50', 'text-green-600', 'border-green-200');
+            } else {
+                maintenanceOverlay.classList.add('hidden');
+                sizeFiltersWrapper.classList.remove('hidden');
+                toggleMaintenanceBtn.innerText = "🟢 Đang Mở Hoạt Động (Bấm Khóa)";
+                toggleMaintenanceBtn.classList.add('bg-green-50', 'text-green-600', 'border-green-200');
+                toggleMaintenanceBtn.classList.remove('bg-red-50', 'text-red-600', 'border-red-200');
+            }
+        }
+
+        toggleMaintenanceBtn.addEventListener('click', async () => {
+            try {
+                toggleMaintenanceBtn.innerText = "Đang xử lý...";
+                const newState = !isMaintenance;
+                await setDoc(doc(db, "settings", "general"), { maintenance: newState }, { merge: true });
+                isMaintenance = newState;
+                updateMaintenanceUI();
+                if(!isMaintenance) {
+                    await fetchShoes();
+                    renderCatalog();
+                }
+            } catch (error) {
+                showAlert("Lỗi đổi trạng thái: " + error.message);
+            }
+        });
+
+        async function fetchShoes() {
+            try {
+                shoesData = [];
+                const querySnapshot = await getDocs(collection(db, "shoes"));
+                querySnapshot.forEach((doc) => {
+                    shoesData.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Sắp xếp ảnh mới nhất lên đầu
+                shoesData.sort((a, b) => {
+                    const timeA = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0;
+                    const timeB = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0;
+                    return timeB - timeA;
+                });
+            } catch (error) {
+                console.error("Lỗi tải dữ liệu:", error);
+            }
+        }
+
+        async function init() {
+            await checkMaintenance();
+            await fetchShoes();
+            renderCatalog();
+        }
 
         init();
     </script>
