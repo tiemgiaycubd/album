@@ -8,39 +8,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
     
     <style>
-        /* Phong cách Neo-Brutalism */
         body {
             font-family: 'Bricolage Grotesque', sans-serif;
             background-color: #F4F0EA;
-            /* Họa tiết lưới chấm bi cổ điển */
+            /* Họa tiết lưới chấm bi cổ điển (Retro Grid) */
             background-image: radial-gradient(#000 1px, transparent 1px);
             background-size: 20px 20px;
         }
         
-        .brutal-shadow {
-            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
-        }
-        
-        .brutal-shadow-sm {
-            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
-        }
+        /* Hiệu ứng bóng đổ khối cứng (Hard shadows) chuẩn Brutalism */
+        .brutal-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
+        .brutal-shadow-sm { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+        .brutal-shadow-lg { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
 
-        .brutal-shadow-lg {
-            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
-        }
-
-        /* Ẩn thanh cuộn nhưng vẫn vuốt được */
-        .hide-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scroll {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        /* Ẩn thanh cuộn nhưng vẫn vuốt được cho mượt */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="min-h-screen pb-24 text-black">
 
+    <!-- Dòng chữ chạy ngang Marquee Y2K -->
     <div class="w-full bg-[#ccff00] border-b-4 border-black py-2 overflow-hidden whitespace-nowrap flex items-center relative z-20">
         <div class="animate-[marquee_15s_linear_infinite] inline-block font-black uppercase text-sm tracking-widest">
             🔥 CAM KẾT BAO CHECK LEGIT TRỌN ĐỜI • FREESHIP TOÀN QUỐC CHO ĐƠN TRÊN 1 TRIỆU • NHẬN HÀNG KIỂM TRA TRƯỚC KHI THANH TOÁN 🔥
@@ -53,8 +41,8 @@
         </style>
     </div>
 
+    <!-- Header Tiệm -->
     <main class="max-w-xl mx-auto px-4 pt-6">
-        
         <div class="bg-[#FF3B30] border-4 border-black brutal-shadow p-4 text-center mb-6 transform -rotate-1">
             <h1 class="text-3xl font-black text-white uppercase tracking-tighter" style="text-shadow: 2px 2px 0 #000;">
                 TIỆM GIÀY CŨ<br>BÌNH DƯƠNG
@@ -65,47 +53,43 @@
             <p class="font-bold text-sm">Giày New và Secondhand 100% Authentic.</p>
         </div>
 
+        <!-- Bộ lọc Size -->
         <div class="flex gap-2 overflow-x-auto hide-scroll mb-8 pb-2 snap-x" id="filter-container">
-            <!-- Nút Sale nổi bật -->
             <button class="filter-btn shrink-0 bg-[#FF3B30] text-white font-black px-5 py-2 border-4 border-black brutal-shadow-sm rounded-none transition-transform active:translate-y-1 active:translate-x-1 uppercase" data-size="SALE">
                 [SALE]
             </button>
-            
-            <!-- Các nút Size -->
             <div class="flex gap-2" id="size-filters">
-                <!-- Sẽ được render qua JS -->
+                <!-- Nút size được vẽ bằng JS -->
             </div>
         </div>
 
+        <!-- Lưới sản phẩm vuông vức -->
         <div id="catalog-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
             <!-- Sản phẩm sẽ hiện ở đây -->
         </div>
-
     </main>
 
+    <!-- Modal Cửa sổ Windows 95 xem ảnh trực tiếp -->
     <div id="product-modal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-        <!-- Khung Modal -->
         <div class="bg-white border-4 border-black w-full max-w-md brutal-shadow-lg relative flex flex-col">
             
-            <!-- Thanh tiêu đề kiểu Win95 -->
+            <!-- Thanh tiêu đề cửa sổ -->
             <div class="bg-black text-white px-3 py-2 flex justify-between items-center">
-                <span class="font-bold tracking-widest text-xs uppercase">Image_Viewer.exe</span>
+                <span class="font-bold tracking-widest text-xs uppercase">IMAGE_VIEWER.EXE</span>
                 <button id="close-modal-btn" class="bg-[#FF3B30] hover:bg-red-600 text-black border-2 border-black w-6 h-6 flex items-center justify-center text-xs font-black transition-transform active:translate-y-px">
                     X
                 </button>
             </div>
             
-            <!-- Vùng chứa ảnh -->
+            <!-- Khung ảnh chính vuông 100% -->
             <div class="p-3 bg-[#F4F0EA] relative">
-                <!-- Tem check legit -->
+                <!-- Tem check legit góc -->
                 <div class="absolute -top-2 -left-2 bg-[#ccff00] text-black text-[10px] font-black uppercase px-3 py-1 border-2 border-black rotate-[-10deg] z-20 brutal-shadow-sm">
                     ✅ Bao Check Legit
                 </div>
                 
-                <!-- KHUNG ẢNH VỊ TRÍ NÀY ĐÃ ĐƯỢC FIX CỐ ĐỊNH -->
-                <div class="relative bg-white border-4 border-black flex items-center justify-center aspect-square w-full overflow-hidden">
-                    <!-- Ảnh trực tiếp, không opacity, không animation để chống lỗi trắng trang -->
-                    <img id="modal-img" src="" alt="Giày" class="w-full h-full object-contain">
+                <div class="relative bg-white border-4 border-black aspect-square w-full flex items-center justify-center overflow-hidden">
+                    <img id="modal-img" src="" alt="Giày" class="w-full h-full object-cover">
                 </div>
             </div>
             
@@ -121,44 +105,31 @@
         </div>
     </div>
 
+    <!-- Nút Zalo Floating góc phải dưới -->
     <a href="https://zalo.me/0902999999" target="_blank" class="fixed bottom-6 right-6 z-40 group">
         <div class="relative bg-[#0066FF] border-4 border-black rounded-full w-14 h-14 md:w-16 md:h-16 flex items-center justify-center transition-transform active:translate-y-1 active:translate-x-1 brutal-shadow-sm">
-            <!-- Chấm đỏ nhấp nháy -->
+            <!-- Chấm đỏ thông báo -->
             <div class="absolute top-0 right-0 w-4 h-4 bg-[#FF3B30] border-2 border-black rounded-full animate-ping"></div>
             <div class="absolute top-0 right-0 w-4 h-4 bg-[#FF3B30] border-2 border-black rounded-full"></div>
-            
-            <!-- Chữ Zalo -->
             <span class="text-white font-black text-sm md:text-base">Zalo</span>
         </div>
     </a>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-        // Firebase Config Của Bạn (catalog-39ca0)
-        // Nếu bạn chạy trên Github, hãy chắc chắn thay thế phần này bằng Config thực tế của bạn
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            // Thay mã cấu hình của bạn vào đây nếu chạy ngoài hệ thống này
-            projectId: "catalog-39ca0" 
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        // Biến lưu trữ dữ liệu
-        let allShoes = [];
-        let currentFilter = '40'; // MẶC ĐỊNH LÀ SIZE 40
-
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+        
+        // ---- 1. VẼ GIAO DIỆN NÚT BẤM TRƯỚC ----
+        const sizeFiltersContainer = document.getElementById('size-filters');
         const catalogGrid = document.getElementById('catalog-grid');
         const productModal = document.getElementById('product-modal');
         const modalImg = document.getElementById('modal-img');
         const closeModalBtn = document.getElementById('close-modal-btn');
-        const sizeFiltersContainer = document.getElementById('size-filters');
+        
+        let allShoes = [];
+        let currentFilter = '40'; // Mặc định hiển thị size 40
 
-        // Tạo các nút Size từ 36 đến 45
+        // Vẽ các nút từ 36 đến 45
         const sizes = ['36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
         sizes.forEach(size => {
             const btn = document.createElement('button');
@@ -168,16 +139,15 @@
             sizeFiltersContainer.appendChild(btn);
         });
 
-        // Hàm cập nhật trạng thái các nút lọc
+        // Hàm cập nhật trạng thái nút (bấm lún xuống)
         function updateActiveButton() {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.dataset.size === currentFilter) {
                     btn.classList.add('bg-black', 'text-white');
                     btn.classList.remove('bg-white', 'text-black', 'bg-[#FF3B30]');
-                    btn.style.transform = 'translate(2px, 2px)';
-                    btn.style.boxShadow = '2px 2px 0px 0px rgba(0,0,0,1)';
+                    btn.style.transform = 'translate(4px, 4px)';
+                    btn.style.boxShadow = '0px 0px 0px 0px rgba(0,0,0,1)';
                 } else {
-                    // Reset trạng thái
                     btn.classList.remove('bg-black', 'text-white');
                     btn.style.transform = '';
                     if(btn.dataset.size === 'SALE') {
@@ -191,7 +161,7 @@
             });
         }
 
-        // Gắn sự kiện click cho các nút lọc
+        // Bắt sự kiện click cho các nút Size
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 currentFilter = e.target.dataset.size;
@@ -200,19 +170,13 @@
             });
         });
 
-        // Đóng modal
+        // Bắt sự kiện đóng Modal
         closeModalBtn.addEventListener('click', () => { 
             productModal.classList.add('hidden'); 
-            modalImg.src = ""; // Xóa ảnh để dọn đường cho ảnh sau
+            modalImg.src = ""; // Xóa ảnh để lần sau mở lên không bị kẹt ảnh cũ
         });
-        productModal.addEventListener('click', (e) => { 
-            if(e.target === productModal) {
-                productModal.classList.add('hidden');
-                modalImg.src = "";
-            }
-        });
-
-        // Hàm hiển thị sản phẩm ra lưới
+        
+        // Hàm hiển thị sản phẩm
         function renderCatalog() {
             catalogGrid.innerHTML = '';
             
@@ -223,26 +187,21 @@
             });
 
             if (filteredShoes.length === 0) {
-                catalogGrid.innerHTML = `<div class="col-span-2 md:col-span-3 text-center py-10 font-bold border-4 border-black bg-white brutal-shadow">Chưa có đôi nào Size/Tag này!</div>`;
+                catalogGrid.innerHTML = `<div class="col-span-2 md:col-span-3 text-center py-10 font-bold border-4 border-black bg-white brutal-shadow">Chưa có mẫu nào cho tag/size này!</div>`;
                 return;
             }
 
             filteredShoes.forEach(shoe => {
-                // Khung ảnh vuông chuẩn Brutalism
                 const card = document.createElement('div');
                 card.className = "group relative bg-white border-4 border-black aspect-square cursor-pointer transition-transform duration-100 active:translate-y-1 active:translate-x-1 brutal-shadow";
                 
-                // Tối ưu ảnh lúc hiển thị ở ngoài lưới cho nhẹ web (width 400px)
-                const gridImageUrl = shoe.imageUrl + "?tr=w-400,h-400,fo-auto";
+                // Khung ảnh vuông nguyên thủy, gọi link ảnh chất lượng vừa đủ
+                card.innerHTML = `<img src="${shoe.imageUrl}?tr=w-400,h-400,fo-auto" alt="Giày" class="w-full h-full object-cover">`;
 
-                card.innerHTML = `
-                    <img src="${gridImageUrl}" alt="Giày" class="w-full h-full object-cover">
-                `;
-
-                // Cửa sổ Windows 95 bật lên khi click (Sử dụng link gốc hoàn toàn)
+                // Bấm vào khu vực ảnh vuông sẽ bật cửa sổ
                 card.addEventListener('click', () => {
-                    // Truyền link ảnh nguyên bản, KHÔNG dùng ?tr=... để không lỗi trên đt
-                    modalImg.src = shoe.imageUrl; 
+                    // Trực tiếp nạp ảnh chất lượng gốc
+                    modalImg.src = `${shoe.imageUrl}?tr=w-1000,fo-auto`; 
                     productModal.classList.remove('hidden');
                 });
                 
@@ -250,36 +209,40 @@
             });
         }
 
-        // Khởi tạo
-        async function init() {
-            try {
-                // Đăng nhập ẩn danh để đọc dữ liệu (nếu Rules yêu cầu auth)
-                await signInAnonymously(auth);
+        // Chạy ngay khi mở web
+        updateActiveButton();
+        catalogGrid.innerHTML = `<div class="col-span-2 md:col-span-3 text-center py-10 font-bold border-4 border-black bg-white brutal-shadow">Đang tải dữ liệu, chờ chút nhé...</div>`;
 
-                // Lấy dữ liệu (Tự động thích ứng nếu chạy trên Github hay hệ thống này)
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default';
-                const collectionPath = typeof __app_id !== 'undefined' ? `artifacts/${appId}/public/data/giay` : 'giay';
-                
-                const q = query(collection(db, collectionPath));
-                const snapshot = await getDocs(q);
-                
-                allShoes = [];
-                snapshot.forEach(doc => {
-                    allShoes.push({ id: doc.id, ...doc.data() });
-                });
+        // ---- 2. KẾT NỐI FIREBASE ĐÃ SỬA LỖI ----
+        
+        // Đã lấy chính xác mã Config từ ảnh chụp màn hình dự án "doanhthu-73ade" của bạn!
+        const firebaseConfig = {
+          apiKey: "AIzaSyAWRBa3-Q18QG6kfP2J_qzgbpDz2_GJPP8",
+          authDomain: "doanhthu-73ade.firebaseapp.com",
+          projectId: "doanhthu-73ade",
+          storageBucket: "doanhthu-73ade.firebasestorage.app",
+          messagingSenderId: "449682329782",
+          appId: "1:449682329782:web:94974d346a4b49f8651617"
+        };
 
-                // Cập nhật giao diện
-                updateActiveButton();
-                renderCatalog();
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
 
-            } catch (error) {
-                console.error("Lỗi tải dữ liệu:", error);
-                catalogGrid.innerHTML = `<div class="col-span-2 md:col-span-3 text-center text-red-500 font-bold border-4 border-black bg-white p-4">Lỗi kết nối máy chủ! Vui lòng thử lại sau.</div>`;
-            }
+            const q = query(collection(db, "giay"));
+            const snapshot = await getDocs(q);
+            
+            allShoes = [];
+            snapshot.forEach(doc => {
+                allShoes.push({ id: doc.id, ...doc.data() });
+            });
+
+            renderCatalog();
+            
+        } catch (error) {
+            console.error("Lỗi tải dữ liệu:", error);
+            catalogGrid.innerHTML = `<div class="col-span-2 md:col-span-3 text-center text-red-500 font-bold border-4 border-black bg-white p-4">Lỗi kết nối CSDL. Vui lòng F5 lại trang!</div>`;
         }
-
-        // Bắt đầu chạy
-        init();
 
     </script>
 </body>
