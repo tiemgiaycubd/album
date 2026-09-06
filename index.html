@@ -107,10 +107,22 @@
         </div>
     </main>
 
-    <footer class="mt-20 border-t-4 border-black bg-white pt-10 pb-8 px-4 text-center">
+    <footer class="mt-20 border-t-4 border-black bg-white pt-10 pb-6 px-4 text-center relative z-20">
         <h3 class="text-xl font-black uppercase mb-2">Tiệm Giày Cũ Bình Dương</h3>
-        <p class="font-bold text-sm mb-4">📍 22 Ngô Chí Quốc, Phú Cường, Thủ Dầu Một</p>
-        <button id="admin-trigger-btn" class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-gray-400 pb-1 brutal-active">Admin Portal</button>
+        <p class="font-bold text-sm mb-6">📍 22 Ngô Chí Quốc, Phú Cường, Thủ Dầu Một</p>
+        
+        <!-- Các nút liên hệ & Bản đồ -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-12 max-w-md mx-auto">
+            <a href="tel:0378155320" class="w-full sm:w-auto px-6 py-3 bg-[#ccff00] border-2 md:border-4 border-black brutal-shadow-sm brutal-active transition-transform font-black uppercase text-sm flex items-center justify-center gap-2">
+                📞 Gọi: 0378 155 320
+            </a>
+            <a href="https://maps.app.goo.gl/FeXB3QtmY7dwWrf97" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-white border-2 md:border-4 border-black brutal-shadow-sm brutal-active transition-transform font-black uppercase text-sm flex items-center justify-center gap-2">
+                🗺️ Xem Bản Đồ
+            </a>
+        </div>
+
+        <!-- Nút Admin làm mờ -->
+        <button id="admin-trigger-btn" class="text-[10px] font-bold text-gray-300 hover:text-gray-500 uppercase tracking-widest transition-colors duration-300">Admin Portal</button>
     </footer>
 
     <!-- Nút Zalo Nổi -->
