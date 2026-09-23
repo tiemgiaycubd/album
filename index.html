@@ -876,11 +876,17 @@
             }
         }
 
+        // BẢN VÁ LỖI RACE CONDITION KẸT MẠNG 
         async function init() {
-            recordVisit(); 
+            // 1. Ưu tiên load sản phẩm hiển thị ngay cho khách
             await checkMaintenance();
             await fetchShoes();
             renderCatalog();
+            
+            // 2. Chờ 2 giây sau mới kết nối ghi nhận lượt truy cập
+            setTimeout(() => {
+                recordVisit(); 
+            }, 2000);
         }
 
         init();
