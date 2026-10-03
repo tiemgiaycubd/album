@@ -3,98 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Tiệm giày cũ Bình Dương - Giày New và Secondhand Chính hãng">
     
-    <!-- THẺ META ĐỂ HIỂN THỊ CHÚ THÍCH KHI GỬI LINK (ZALO, FACEBOOK, MESSENGER) -->
-    <meta name="description" content="Tiệm giày cũ Bình Dương - Giày New và Secondhand Chính hãng - Album ảnh giày của Tiệm tại đây nhé.">
-    <meta property="og:title" content="Album Ảnh Giày - Tiệm Giày Cũ Bình Dương">
-    <meta property="og:description" content="Tiệm giày cũ Bình Dương - Giày New và Secondhand Chính hãng - Album ảnh giày của Tiệm tại đây nhé.">
+    <!-- Open Graph Data cho Zalo & Facebook -->
+    <meta property="og:title" content="Tiệm Giày Cũ Bình Dương">
+    <meta property="og:description" content="Cam kết chính hãng 100% trọn đời.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://i.ibb.co/qLnLWP7b/Thi-t-k-ch-a-c-t-n.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image" content="https://i.ibb.co/QjDPR1Yr/305134166-500602178737986-522945229238180592-n.jpg">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     
     <title>Tiệm Giày Cũ Bình Dương | Chính Hãng 100%</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS & Font Outfit -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font: Inter (Apple's SF Pro open-source alternative) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Cấu hình Tailwind CSS theo Apple Design System -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'apple-primary': '#0071E3',
-                        'apple-ink': '#1D1D1F',
-                        'apple-inkStrong': '#000000',
-                        'apple-surface': '#FFFFFF',
-                        'apple-surfaceSubtle': '#FAFAFC',
-                        'apple-surfaceAlt': '#E8E8ED',
-                        'apple-muted': '#86868B',
-                        'apple-hairline': '#D2D2D7',
-                        'brand-red': '#8B1A1A'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'soft-shine': 'shine 4s infinite linear',
-                        'fade-up': 'fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                        'fade-in': 'fadeIn 0.4s ease-out forwards',
-                    },
-                    keyframes: {
-                        shine: {
-                            '0%': { backgroundPosition: '200% center' },
-                            '100%': { backgroundPosition: '-200% center' },
-                        },
-                        fadeUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: 0 },
-                            '100%': { opacity: 1 },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --bg-surface: #FAFAFA;
+            --text-primary: #18181B;      
+            --text-muted: #71717A;        
+            --bg-elevated: #F4F4F5;       
+            --border-color: #E4E4E7;      
+            --radius-btn: 9999px;
+        }
+
         body {
-            background-color: #FFFFFF;
-            color: #1D1D1F;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-surface);
+            color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
         }
         
-        .sf-hero { font-weight: 800; letter-spacing: -1.568px; }
-        .sf-nav { font-weight: 600; letter-spacing: -0.12px; }
-        .sf-body-strong { font-weight: 600; letter-spacing: -0.374px; }
+        ::-webkit-scrollbar { width: 0px; height: 0px; display: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #D2D2D7; border-radius: 980px; }
-        ::-webkit-scrollbar-thumb:hover { background: #86868B; }
-
-        /* Grid Ảnh */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px; /* Tỉ lệ gutter của Apple */
+        .product-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
         }
-        @media (min-width: 768px) { .image-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
-        @media (min-width: 1024px) { .image-grid { grid-template-columns: repeat(4, 1fr); gap: 28px; } }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 30px -4px rgba(0, 0, 0, 0.1);
+            border-color: #A1A1AA;
+        }
 
-        /* Skeleton Loading */
+        /* Nút Lọc Size Tinh Tế Căn Giữa */
+        .tag-btn {
+            background-color: #FFFFFF;
+            color: #3F3F46;
+            border-radius: 12px;
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #E4E4E7;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            /* Bỏ flex-shrink: 0 để rớt dòng tự nhiên */
+        }
+        .tag-btn:hover {
+            background-color: #F4F4F5;
+            border-color: #D4D4D8;
+        }
+        .tag-btn.active {
+            background-color: #18181B;
+            color: #FFFFFF;
+            border-color: #18181B;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(24, 24, 27, 0.12);
+            transform: scale(1.02);
+        }
+
+        /* Gradient viền Avatar */
+        .story-ring {
+            background: linear-gradient(45deg, #0071E3 0%, #18181B 100%);
+            padding: 3px;
+            border-radius: 9999px;
+            display: inline-block;
+        }
+
+        /* Animations */
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-fade-up { opacity: 0; animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+        .animate-fade-in { opacity: 0; animation: fadeIn 0.25s forwards; }
+
         @keyframes shimmer { 100% { transform: translateX(100%); } }
         .skeleton-shimmer {
             position: absolute;
@@ -103,244 +112,154 @@
             transform: translateX(-100%);
             animation: shimmer 1.5s infinite;
         }
-
-        /* Hover Zoom Ảnh */
-        .img-hover-zoom { transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .group:hover .img-hover-zoom { transform: scale(1.05); }
-
-        /* Checkbox Admin - Apple Style */
-        .size-checkbox:checked + label {
-            background-color: #1D1D1F;
-            color: #FFFFFF;
-            border-color: #1D1D1F;
-        }
-        .size-checkbox-sale:checked + label {
-            background-color: #8B1A1A;
-            color: #FFFFFF;
-            border-color: #8B1A1A;
-        }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<body class="antialiased min-h-screen flex flex-col relative bg-[#FAFAFA]">
 
-    <!-- Apple's signature 44px translucent navbar with saturate & blur -->
-    <header class="fixed top-0 z-40 w-full h-[44px] bg-white/70 backdrop-blur-[20px] backdrop-saturate-[1.8] flex items-center justify-center cursor-pointer transition duration-300 border-b border-apple-hairline/50" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
-        <h1 class="text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase bg-clip-text text-transparent bg-gradient-to-r from-apple-ink via-[#8B1A1A] to-apple-ink animate-soft-shine transition-all duration-700 hover:tracking-[0.25em]">
-            Tiệm Giày Cũ Bình Dương
-        </h1>
+    <!-- Thanh điều hướng nhỏ phía trên -->
+    <header class="w-full bg-white border-b border-[#E4E4E7] sticky top-0 z-40 px-4 py-3 flex justify-between items-center backdrop-blur-md bg-white/90 shadow-sm">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+            <h1 class="text-lg md:text-xl font-bold tracking-wider uppercase text-zinc-900 flex items-center gap-1.5">
+                Tiệm Giày Cũ BD
+                <svg class="w-4 h-4 text-blue-500 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </h1>
+        </div>
+
+        <a href="https://tiemgiaycubd.github.io/up/" class="p-2 rounded-full hover:bg-zinc-100 transition text-zinc-700" title="Quản trị">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </a>
     </header>
 
-    <!-- Minimalist instructional text -->
-    <div class="w-full pt-[84px] pb-[28px] px-4 text-center animate-fade-in flex flex-col items-center">
-        <h2 class="text-[32px] md:text-[48px] sf-hero tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-apple-ink via-[#8B1A1A] to-apple-ink bg-[length:200%_auto] animate-soft-shine pb-1 drop-shadow-sm leading-[1.15]">
-            Chọn size giày<br class="block md:hidden"> của bạn tại đây.
-        </h2>
-        <div class="mt-3 px-3 py-1.5 bg-apple-surfaceAlt/70 rounded-[980px] text-[12px] sf-nav text-apple-muted flex items-center gap-1.5 animate-pulse shadow-sm">
-            <svg class="w-4 h-4 text-[#8B1A1A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
-            Bấm chọn size bên dưới
-        </div>
-    </div>
-
-    <!-- Bộ lọc Size -->
-    <div id="size-filters-wrapper" class="w-full pb-8 px-2 relative z-30">
-        <div id="size-filters" class="max-w-4xl mx-auto flex flex-col gap-2.5 md:gap-3 justify-center items-center px-1 md:px-2 py-2">
-            <!-- JS chèn các nút size -->
-        </div>
-    </div>
-
-    <main class="flex-grow px-4 md:px-12 max-w-[1400px] mx-auto w-full relative pb-24">
-        
-        <!-- Giao diện Bảo trì -->
-        <div id="maintenance-overlay" class="hidden absolute inset-0 z-30 flex flex-col items-center justify-center bg-white pb-32 animate-fade-in">
-            <div class="relative w-16 h-16 mb-6 flex items-center justify-center">
-                <div class="absolute inset-0 border-[3px] border-apple-surfaceAlt rounded-full"></div>
-                <div class="absolute inset-0 border-[3px] border-apple-ink rounded-full border-t-transparent animate-spin"></div>
-            </div>
-            <h2 class="text-xl md:text-2xl sf-hero text-apple-ink mb-2">Đang cập nhật hệ thống.</h2>
-            <p class="text-apple-muted text-sm text-center px-4">Tiệm đang tải lên lô giày mới nhất. Quý khách vui lòng quay lại sau ít phút.</p>
-        </div>
-
-        <!-- Biểu tượng tải dữ liệu -->
-        <div id="loader" class="text-center text-sm text-apple-muted py-24 flex flex-col items-center justify-center">
-            <div class="w-8 h-8 border-[3px] border-apple-surfaceAlt border-t-apple-muted rounded-full animate-spin mb-4"></div>
-            <span class="sf-nav text-xs uppercase tracking-wider">Đang tải dữ liệu...</span>
-        </div>
-        
-        <!-- Lưới Ảnh Chính -->
-        <div id="catalog-grid" class="image-grid hidden min-h-[50vh]">
-            <!-- JS chèn giày vào đây -->
-        </div>
-    </main>
-
-    <!-- Footer Sang trọng (Apple Footer Style) -->
-    <footer class="mt-auto bg-[#F5F5F7] text-apple-ink pt-16 pb-12 px-4 border-t border-apple-hairline relative z-20">
-        <div class="max-w-2xl mx-auto flex flex-col items-center text-center">
-            <div class="mb-6">
-                <h3 class="text-[14px] md:text-[16px] sf-body-strong text-apple-ink mb-2">
-                    Tiệm Giày Cũ Bình Dương
-                </h3>
-                <p class="text-apple-muted text-[12px] flex items-center justify-center gap-1.5">
-                    <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Cam kết chính hãng 100% trọn đời
-                </p>
+    <!-- Khối Profile (Instagram Style) -->
+    <section class="max-w-3xl mx-auto w-full px-4 pt-6 pb-2 animate-fade-in">
+        <div class="flex items-center gap-5 md:gap-8">
+            <!-- Avatar tròn có viền Story -->
+            <div class="story-ring flex-shrink-0 cursor-pointer">
+                <img src="https://i.ibb.co/QjDPR1Yr/305134166-500602178737986-522945229238180592-n.jpg" alt="Avatar Tiệm" class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-white bg-white">
             </div>
 
-            <div class="text-[12px] md:text-[13px] text-apple-muted leading-relaxed mb-10 flex flex-col items-center space-y-2">
-                <p>📍 22 Ngô Chí Quốc, Phú Cường, Thủ Dầu Một, Bình Dương</p>
-                <p>
-                    <a href="tel:0378155320" class="hover:text-apple-primary transition duration-300 sf-body-strong">
-                        Hotline / Zalo: 0378 155 320
-                    </a>
-                </p>
-                <div class="mt-4 pt-4">
-                    <a href="https://maps.app.goo.gl/FeXB3QtmY7dwWrf97" target="_blank" class="inline-flex items-center justify-center px-5 py-2.5 bg-white border border-apple-hairline text-apple-ink rounded-[980px] hover:bg-apple-surfaceSubtle transition-all duration-300 sf-nav text-[11px] uppercase shadow-sm">
-                        Chỉ đường trên Bản đồ
-                    </a>
+            <!-- Thông số & Thao tác -->
+            <div class="flex-grow">
+                <div class="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 mb-2">
+                    <h2 class="text-xl md:text-2xl font-bold text-zinc-900 tracking-tight">tiemgiaycubinhduong</h2>
+                </div>
+
+                <div class="flex gap-4 md:gap-6 text-[13px] md:text-sm mb-2.5">
+                    <div><span class="font-bold text-zinc-900" id="stat-product-count">0</span> <span class="text-zinc-500">sản phẩm</span></div>
+                    <div><span class="font-bold text-zinc-900">100%</span> <span class="text-zinc-500">Chính Hãng</span></div>
+                </div>
+
+                <div class="text-[13px] md:text-[14px] leading-relaxed text-zinc-700 hidden md:block">
+                    <p class="font-semibold text-zinc-900">Giày New & Secondhand</p>
+                    <p class="text-zinc-500">📍 22 Ngô Chí Quốc, Phú Cường, TDM, Bình Dương</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Nút gọi Admin giấu nhẹm -->
-            <button id="admin-trigger-btn" class="text-[10px] text-apple-hairline hover:text-apple-muted uppercase tracking-widest transition-colors duration-300">Admin Portal</button>
+        <div class="text-[13px] leading-relaxed text-zinc-700 mt-3 md:hidden">
+            <p class="font-semibold text-zinc-900">Giày New & Secondhand</p>
+            <p class="text-zinc-500">📍 22 Ngô Chí Quốc, Phú Cường, TDM, Bình Dương</p>
+        </div>
+
+        <!-- 2 NÚT LIÊN HỆ BẰNG NHAU (TỶ LỆ 1:1) -->
+        <div class="flex gap-3 mt-5 w-full max-w-sm mx-auto md:max-w-none md:mx-0">
+            <a href="https://zalo.me/0378155320" target="_blank" class="flex-1 flex justify-center items-center gap-1.5 bg-zinc-900 text-white font-medium py-2.5 rounded-[12px] text-[14px] hover:bg-zinc-800 transition shadow-sm">
+                Nhắn Zalo
+            </a>
+            <a href="https://www.facebook.com/tiemgiaycuBinhDuong" target="_blank" class="flex-1 flex justify-center items-center gap-1.5 bg-white text-zinc-900 font-medium py-2.5 rounded-[12px] text-[14px] hover:bg-zinc-50 transition border border-zinc-200 shadow-sm">
+                Facebook
+            </a>
+        </div>
+    </section>
+
+    <!-- Thanh Danh Mục / Size Căn Giữa Hoàn Hảo -->
+    <div class="w-full bg-[#FAFAFA] pt-6 pb-2 z-10">
+        <div class="max-w-xl mx-auto w-full px-4">
+            <div class="text-center mb-3 flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                <span class="text-[12px] text-zinc-500 uppercase tracking-widest font-semibold">Lọc Theo Size Giày</span>
+            </div>
+            <!-- Flex-wrap và justify-center giúp các nút rớt dòng gọn gàng ở giữa -->
+            <div id="tags-container" class="flex flex-wrap gap-2.5 items-center justify-center">
+                <!-- JS sẽ chèn Tag Size tại đây -->
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-grow px-4 md:px-8 lg:px-12 max-w-[1905px] mx-auto w-full relative pt-6 pb-24 z-10">
+        
+        <!-- Vòng xoay tải trang -->
+        <div id="loader" class="text-center py-20 flex flex-col items-center justify-center">
+            <svg class="animate-spin h-8 w-8 text-zinc-900 mb-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <p class="text-[13px] text-zinc-500 font-medium tracking-wider uppercase">Đang check kho hàng...</p>
+        </div>
+        
+        <!-- Lưới CSS Grid (Hàng ngang chuẩn E-commerce) -->
+        <div id="catalog-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-5 xl:gap-6 hidden min-h-[50vh]"></div>
+    </main>
+
+    <footer class="mt-auto bg-white border-t border-[#E4E4E7] pt-12 pb-10 px-4 relative z-20">
+        <div class="max-w-3xl mx-auto flex flex-col items-center text-center">
+            <h2 class="text-lg font-bold tracking-tight text-zinc-900 uppercase mb-1">Tiệm Giày Cũ Bình Dương</h2>
+            <p class="text-zinc-500 text-[13px] mb-6 flex items-center justify-center gap-1">
+                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Cam kết chính hãng trọn đời
+            </p>
+
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <a href="https://zalo.me/0378155320" target="_blank" class="p-3 bg-zinc-100 text-zinc-900 rounded-full hover:bg-zinc-200 transition border border-zinc-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                </a>
+                <a href="https://www.facebook.com/tiemgiaycuBinhDuong" target="_blank" class="p-3 bg-zinc-100 text-zinc-900 rounded-full hover:bg-zinc-200 transition border border-zinc-200">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+                </a>
+                <a href="https://maps.app.goo.gl/FeXB3QtmY7dwWrf97" target="_blank" class="p-3 bg-zinc-100 text-zinc-900 rounded-full hover:bg-zinc-200 transition border border-zinc-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </a>
+            </div>
+
+            <p class="text-[12px] text-zinc-400">© 2026 Tiệm Giày Cũ Bình Dương. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Modal Xem Ảnh Kính Mờ Đen -->
+    <!-- Nút Lên Đầu Trang Nổi (Tự hiện khi lướt xuống) -->
+    <button id="scroll-to-top" class="fixed bottom-6 right-6 z-40 bg-white text-zinc-900 w-12 h-12 flex items-center justify-center rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-zinc-200 hover:scale-110 active:scale-95 transition-all duration-300 opacity-0 translate-y-10 pointer-events-none">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path></svg>
+    </button>
+
+    <!-- Modal Xem Chi Tiết Sản Phẩm Kính Mờ Đen -->
     <div id="product-modal" class="fixed inset-0 z-[60] hidden bg-black/80 backdrop-blur-lg flex flex-col items-center justify-center p-4 transition-opacity">
         <button id="close-modal" class="absolute top-6 right-6 text-white/50 hover:text-white z-10 transition-transform hover:scale-110 duration-300 bg-white/10 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         <div class="relative max-w-lg w-full animate-fade-up flex flex-col items-center">
-            <span class="bg-white/20 text-white backdrop-blur px-4 py-1.5 rounded-full text-xs sf-nav mb-4">📸 Chụp màn hình để nhờ tư vấn</span>
-            <div class="w-full bg-white rounded-[28px] p-2 shadow-2xl mb-6">
-                <img id="modal-img" src="" alt="Giày" class="w-full h-auto max-h-[60vh] object-contain rounded-[20px]">
+            <span class="bg-white/20 text-white backdrop-blur px-4 py-1.5 rounded-full text-xs font-medium mb-4">📸 Chụp màn hình gửi Zalo tư vấn</span>
+            <div class="w-full bg-white rounded-3xl p-2 shadow-2xl mb-6">
+                <img id="modal-img" src="" alt="Giày" class="w-full h-auto max-h-[60vh] object-contain rounded-2xl">
             </div>
             
-            <!-- Khu vực 2 nút nhắn tin chia đôi (Pill-shaped) -->
+            <!-- Khu vực 2 nút nhắn tin -->
             <div class="flex gap-3 w-full max-w-sm px-2">
-                <a href="https://zalo.me/0378155320" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-apple-primary text-white sf-body-strong py-3.5 px-2 rounded-[980px] hover:opacity-90 transition-all text-[14px]">
+                <a href="https://zalo.me/0378155320" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-[#0071E3] text-white font-medium py-3.5 px-2 rounded-[12px] hover:bg-blue-600 transition-all text-[14px]">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                     Nhắn Zalo
                 </a>
                 
-                <a href="https://www.facebook.com/tiemgiaycuBinhDuong" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-[#1877F2] text-white sf-body-strong py-3.5 px-2 rounded-[980px] hover:opacity-90 transition-all text-[14px]">
+                <a href="https://www.facebook.com/tiemgiaycuBinhDuong" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-[#1877F2] text-white font-medium py-3.5 px-2 rounded-[12px] hover:bg-blue-700 transition-all text-[14px]">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
                     Facebook
                 </a>
             </div>
         </div>
     </div>
-
-    <!-- Khung Nhập Mật Khẩu Admin -->
-    <div id="password-modal" class="fixed inset-0 z-[70] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-[28px] shadow-2xl max-w-sm w-full text-center animate-fade-in">
-            <h2 class="text-xl sf-hero text-apple-ink mb-5">Mã Bảo Mật</h2>
-            <input type="password" id="pass-input" class="w-full border-b border-apple-hairline px-4 py-3 mb-2 text-center text-3xl tracking-[0.3em] focus:outline-none focus:border-apple-primary transition-colors bg-white rounded-t" placeholder="****">
-            <p id="pass-error" class="text-red-500 text-xs mb-5 sf-nav hidden">Sai mã PIN. Vui lòng thử lại!</p>
-            <div class="flex gap-3 mt-6">
-                <button id="cancel-pass-btn" class="flex-1 py-3 border border-apple-hairline text-apple-ink rounded-[980px] hover:bg-apple-surfaceSubtle transition text-sm sf-body-strong">Hủy</button>
-                <button id="submit-pass-btn" class="flex-1 py-3 bg-apple-ink text-white rounded-[980px] hover:bg-apple-inkStrong transition text-sm sf-body-strong">Truy cập</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Khung Báo Lỗi & Xác nhận (Thay thế Alert mặc định) -->
-    <div id="custom-alert-modal" class="fixed inset-0 z-[90] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-[28px] shadow-2xl max-w-sm w-full text-center animate-fade-in">
-            <h3 class="text-lg sf-body-strong text-apple-ink mb-2">Thông báo</h3>
-            <p id="custom-alert-msg" class="text-apple-muted text-sm mb-6">Nội dung thông báo</p>
-            <button id="custom-alert-ok" class="w-full py-3 bg-apple-primary text-white rounded-[980px] hover:bg-blue-600 transition text-sm sf-body-strong">Đã hiểu</button>
-        </div>
-    </div>
-
-    <div id="custom-confirm-modal" class="fixed inset-0 z-[90] hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-[28px] shadow-2xl max-w-sm w-full text-center animate-fade-in">
-            <h3 class="text-lg sf-body-strong text-brand-red mb-2">Cảnh báo</h3>
-            <p id="custom-confirm-msg" class="text-apple-muted text-sm mb-6">Bạn có chắc chắn muốn thực hiện?</p>
-            <div class="flex gap-3">
-                <button id="custom-confirm-cancel" class="flex-1 py-3 border border-apple-hairline text-apple-ink rounded-[980px] hover:bg-apple-surfaceSubtle transition text-sm sf-body-strong">Hủy</button>
-                <button id="custom-confirm-ok" class="flex-1 py-3 bg-brand-red text-white rounded-[980px] hover:opacity-90 transition text-sm sf-body-strong">Đồng ý</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Trang Admin Chính -->
-    <div id="admin-section" class="fixed inset-0 z-[80] hidden bg-apple-surfaceSubtle overflow-y-auto">
-        <div class="max-w-4xl mx-auto p-4 md:p-8 relative min-h-screen pb-24 animate-fade-up bg-white min-h-screen shadow-xl border-x border-apple-hairline/30">
-            <button id="close-admin" class="absolute top-4 right-4 md:top-6 md:right-6 p-2 text-apple-muted hover:text-apple-ink transition hover:scale-110 bg-apple-surfaceSubtle rounded-full z-10">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            
-            <h2 class="text-2xl md:text-3xl sf-hero mb-8 mt-2 text-center text-apple-ink tracking-tight">Quản Trị Kho Hàng</h2>
-            
-            <div class="mb-8 flex justify-center">
-                <button id="toggle-maintenance-btn" class="px-6 py-2.5 rounded-[980px] text-[12px] sf-nav uppercase tracking-wide transition border shadow-sm w-full md:w-auto">
-                    Đang tải trạng thái...
-                </button>
-            </div>
-
-            <!-- Bảng Thống kê Lưu lượng Truy cập -->
-            <div class="mb-10 grid grid-cols-2 gap-3 md:gap-6">
-                <div class="bg-apple-surfaceSubtle p-5 rounded-[24px] text-center border border-apple-hairline">
-                    <p class="text-[11px] text-apple-muted sf-nav uppercase tracking-wider mb-1">Khách Hôm Nay</p>
-                    <p id="admin-daily-views" class="text-3xl sf-hero text-apple-ink">--</p>
-                </div>
-                <div class="bg-apple-surfaceSubtle p-5 rounded-[24px] text-center border border-apple-hairline">
-                    <p class="text-[11px] text-apple-muted sf-nav uppercase tracking-wider mb-1">Khách Tháng Này</p>
-                    <p id="admin-monthly-views" class="text-3xl sf-hero text-apple-ink">--</p>
-                </div>
-            </div>
-
-            <!-- Khu vực Upload -->
-            <div class="mb-12 bg-white p-6 md:p-8 rounded-[28px] border border-apple-hairline shadow-sm">
-                <h3 class="sf-body-strong mb-4 text-[14px] text-apple-ink">1. Chọn Ảnh từ thiết bị</h3>
-                <input type="file" id="image-input" accept="image/*" multiple class="w-full mb-6 text-sm text-apple-muted file:mr-4 file:py-2.5 file:px-5 file:rounded-[980px] file:border-0 file:text-xs file:font-semibold file:bg-apple-surfaceAlt file:text-apple-ink hover:file:bg-[#D2D2D7] cursor-pointer transition">
-                
-                <h3 class="sf-body-strong mb-3 mt-4 text-[14px] text-apple-ink">2. Đánh dấu Size</h3>
-                <div class="flex flex-wrap gap-2 md:gap-3 mb-8" id="size-options"></div>
-                
-                <button id="upload-btn" class="w-full bg-apple-primary text-white py-3.5 rounded-[980px] text-[15px] sf-body-strong hover:bg-blue-600 transition flex justify-center items-center gap-2 shadow-sm">
-                    Tải ảnh lên hệ thống
-                </button>
-                <div id="upload-status" class="text-center text-sm mt-5 sf-body-strong transition-all min-h-[24px]"></div>
-            </div>
-
-            <!-- Khu vực Lưới Sản Phẩm Admin -->
-            <div class="mt-10 bg-apple-surfaceSubtle rounded-[28px] p-4 md:p-6 border border-apple-hairline">
-                <h3 class="text-xl sf-hero mb-6 text-center text-apple-ink">Kho hiện tại</h3>
-                
-                <div class="mb-8">
-                    <div id="admin-size-filters" class="flex flex-col gap-2 justify-center px-1 py-2">
-                        <!-- JS tự chèn nút size admin -->
-                    </div>
-                </div>
-
-                <div id="admin-product-list" class="image-grid max-h-[70vh] overflow-y-auto p-2">
-                    <!-- Ảnh admin dạng Grid chèn vào đây -->
-                </div>
-            </div>
-
-            <!-- Xóa toàn bộ dữ liệu -->
-            <div class="mt-16 pt-8 border-t border-apple-hairline">
-                <button id="delete-all-btn" class="w-full bg-white border border-brand-red text-brand-red py-3.5 rounded-[980px] text-[14px] sf-body-strong hover:bg-red-50 transition">
-                    Xóa toàn bộ dữ liệu
-                </button>
-                <div id="delete-confirm-area" class="hidden mt-4 p-6 bg-red-50 rounded-[20px] border border-red-200 text-center">
-                    <p class="text-sm text-brand-red mb-5 sf-body-strong">CẢNH BÁO: Hành động này quét sạch Database và file ảnh gốc trên ImageKit!</p>
-                    <div class="flex gap-3">
-                        <button id="cancel-delete-btn" class="flex-1 px-4 py-3 bg-white border border-apple-hairline rounded-[980px] text-sm sf-body-strong">Hủy</button>
-                        <button id="confirm-delete-btn" class="flex-1 px-4 py-3 bg-brand-red text-white rounded-[980px] text-sm sf-body-strong">Chắc chắn xóa</button>
-                    </div>
-                </div>
-                <div id="delete-status" class="text-center text-sm mt-4 sf-body-strong hidden"></div>
-            </div>
-        </div>
-    </div>
-
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, setDoc, getDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Config
+        // Firebase Config của Tiệm
         const firebaseConfig = {
             apiKey: "AIzaSyBdv7KLbOSlQSlMFJkjcHXyH4fISUlQPeU",
             authDomain: "catalog-39ca0.firebaseapp.com",
@@ -351,216 +270,83 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         
-        // ImageKit.io API Config
-        const IK_PRIVATE_KEY = "private_R/QQ/6eXtl+XkpN60ArXfztLHL8="; 
-        const IK_UPLOAD_ENDPOINT = "https://upload.imagekit.io/api/v1/files/upload";
-        const IK_DELETE_ENDPOINT = "https://api.imagekit.io/v1/files/";
-        const IK_AUTH = btoa(IK_PRIVATE_KEY + ":");
-
+        // Cấu hình Size chuẩn, Đã xóa tag "Tất cả"
+        const SIZE_OPTIONS = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
+        
         let shoesData = [];
-        let isMaintenance = false;
-
-        const filterOptions = ['Sale', 'Mới Về', 36, 37, 38, 39, 40, 41, 42, 43, 44, 45];
-        let currentFilter = 'Mới Về';
-        let currentAdminFilter = 'Mới Về';
+        let currentFilter = '36'; // Mặc định hiển thị size 36
 
         const loader = document.getElementById('loader');
         const catalogGrid = document.getElementById('catalog-grid');
-        const filterContainer = document.getElementById('size-filters');
+        const tagsContainer = document.getElementById('tags-container');
         
         const productModal = document.getElementById('product-modal');
         const modalImg = document.getElementById('modal-img');
         const closeModalBtn = document.getElementById('close-modal');
-        
-        const adminTriggerBtn = document.getElementById('admin-trigger-btn');
-        const passwordModal = document.getElementById('password-modal');
-        const passInput = document.getElementById('pass-input');
-        const submitPassBtn = document.getElementById('submit-pass-btn');
-        const cancelPassBtn = document.getElementById('cancel-pass-btn');
-        const passError = document.getElementById('pass-error');
-        
-        const adminSection = document.getElementById('admin-section');
-        const closeAdminBtn = document.getElementById('close-admin');
-        const sizeOptionsContainer = document.getElementById('size-options');
-        const uploadBtn = document.getElementById('upload-btn');
-        const imageInput = document.getElementById('image-input');
-        const uploadStatus = document.getElementById('upload-status');
-        
-        const adminProductList = document.getElementById('admin-product-list');
-        const adminSizeFilters = document.getElementById('admin-size-filters');
-        
-        const deleteAllBtn = document.getElementById('delete-all-btn');
-        const deleteConfirmArea = document.getElementById('delete-confirm-area');
-        const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-        const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
-        const deleteStatus = document.getElementById('delete-status');
+        const scrollTopBtn = document.getElementById('scroll-to-top');
 
-        const toggleMaintenanceBtn = document.getElementById('toggle-maintenance-btn');
-        const maintenanceOverlay = document.getElementById('maintenance-overlay');
-        const sizeFiltersWrapper = document.getElementById('size-filters-wrapper');
-
-        const customAlertModal = document.getElementById('custom-alert-modal');
-        const customAlertMsg = document.getElementById('custom-alert-msg');
-        const customAlertOk = document.getElementById('custom-alert-ok');
-        
-        const customConfirmModal = document.getElementById('custom-confirm-modal');
-        const customConfirmMsg = document.getElementById('custom-confirm-msg');
-        const customConfirmCancel = document.getElementById('custom-confirm-cancel');
-        const customConfirmOk = document.getElementById('custom-confirm-ok');
-        let confirmActionCallback = null;
-
-        function showAlert(message) {
-            customAlertMsg.innerText = message;
-            customAlertModal.classList.remove('hidden');
-        }
-        customAlertOk.addEventListener('click', () => customAlertModal.classList.add('hidden'));
-
-        function showConfirm(message, callback) {
-            customConfirmMsg.innerText = message;
-            confirmActionCallback = callback;
-            customConfirmModal.classList.remove('hidden');
-        }
-        customConfirmCancel.addEventListener('click', () => customConfirmModal.classList.add('hidden'));
-        customConfirmOk.addEventListener('click', () => {
-            customConfirmModal.classList.add('hidden');
-            if(confirmActionCallback) confirmActionCallback();
+        // JS Điều khiển nút cuộn Lên Đầu Trang
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                scrollTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }
         });
 
-        async function checkMaintenance() {
-            try {
-                const docRef = doc(db, "settings", "general");
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) { isMaintenance = docSnap.data().maintenance || false; }
-                updateMaintenanceUI();
-            } catch(e) { console.error("Lỗi lấy thông tin bảo trì:", e); }
-        }
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
-        const row1 = document.createElement('div'); row1.className = "flex w-full justify-center gap-1.5 md:gap-2.5";
-        const row2 = document.createElement('div'); row2.className = "flex w-full justify-center gap-1.5 md:gap-2.5";
-        const adminRow1 = document.createElement('div'); adminRow1.className = "flex w-full justify-center gap-1.5 md:gap-2";
-        const adminRow2 = document.createElement('div'); adminRow2.className = "flex w-full justify-center gap-1.5 md:gap-2";
-
-        // Tạo nút filter theo Apple Style (Pill shape, Hairline border)
-        filterOptions.forEach((size, index) => {
-            const isSale = size === 'Sale';
-            const isNew = size === 'Mới Về';
-
-            // --- Nút Khách Hàng ---
+        // Tạo giao diện Nút Lọc Size
+        SIZE_OPTIONS.forEach(size => {
             const btn = document.createElement('button');
             const isActive = size.toString() === currentFilter;
             
-            // Base style: pill, text size, font weight
-            let baseClass = "filter-btn px-3 md:px-5 py-1.5 md:py-2 rounded-[980px] text-[12px] md:text-[13px] sf-body-strong transition-all flex-shrink-0 border ";
-            
-            if (isSale) {
-                btn.className = baseClass + (isActive 
-                    ? "bg-[#8B1A1A] text-white border-[#8B1A1A] shadow-sm" 
-                    : "bg-white text-[#8B1A1A] border-[#8B1A1A]/30 hover:bg-[#8B1A1A]/5");
-            } else if (isNew) {
-                btn.className = baseClass + (isActive 
-                    ? "bg-apple-primary text-white border-apple-primary shadow-sm" 
-                    : "bg-white text-apple-primary border-apple-primary/30 hover:bg-apple-primary/5");
-            } else {
-                btn.className = baseClass + (isActive 
-                    ? "bg-apple-ink text-white border-apple-ink shadow-sm" 
-                    : "bg-white text-apple-ink border-apple-hairline hover:border-apple-ink/30 hover:bg-apple-surfaceSubtle");
-            }
+            btn.className = `tag-btn ${isActive ? 'active' : ''}`;
             btn.innerText = size;
             btn.dataset.size = size; 
-            
-            if (index < 6) row1.appendChild(btn); else row2.appendChild(btn);
-
-            // --- Nút Checkbox Admin (Upload) ---
-            if (!isNew) {
-                const div = document.createElement('div');
-                if (isSale) {
-                    div.innerHTML = `<input type="checkbox" id="size-sale" value="Sale" class="size-checkbox size-checkbox-sale hidden"><label for="size-sale" class="cursor-pointer inline-block px-4 py-2 border border-apple-hairline rounded-[980px] text-xs sf-body-strong text-brand-red transition-all hover:bg-red-50">Sale</label>`;
-                } else {
-                    div.innerHTML = `<input type="checkbox" id="size-${size}" value="${size}" class="size-checkbox hidden"><label for="size-${size}" class="cursor-pointer inline-block px-4 py-2 border border-apple-hairline rounded-[980px] text-xs sf-body-strong text-apple-ink transition-all hover:bg-apple-surfaceSubtle">${size}</label>`;
-                }
-                sizeOptionsContainer.appendChild(div);
-            }
-
-            // --- Nút Filter Admin ---
-            const adminBtn = document.createElement('button');
-            const isAdminActive = size.toString() === currentAdminFilter;
-            let adminBaseClass = "admin-filter-btn px-3 md:px-4 py-1.5 rounded-[980px] text-[11px] md:text-[12px] sf-body-strong transition flex-shrink-0 border ";
-            
-            if (isSale) {
-                adminBtn.className = adminBaseClass + (isAdminActive 
-                    ? "bg-brand-red text-white border-brand-red" 
-                    : "bg-white text-brand-red border-brand-red/30");
-            } else if (isNew) {
-                adminBtn.className = adminBaseClass + (isAdminActive 
-                    ? "bg-apple-primary text-white border-apple-primary" 
-                    : "bg-white text-apple-primary border-apple-primary/30");
-            } else {
-                adminBtn.className = adminBaseClass + (isAdminActive 
-                    ? "bg-apple-ink text-white border-apple-ink" 
-                    : "bg-white text-apple-ink border-apple-hairline");
-            }
-            adminBtn.innerText = size;
-            adminBtn.dataset.size = size; 
-            
-            if (index < 6) adminRow1.appendChild(adminBtn); else adminRow2.appendChild(adminBtn);
+            tagsContainer.appendChild(btn);
         });
 
-        filterContainer.appendChild(row1); filterContainer.appendChild(row2);
-        adminSizeFilters.appendChild(adminRow1); adminSizeFilters.appendChild(adminRow2);
-
-        // Xử lý click lọc Khách hàng
-        filterContainer.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON' && e.target.classList.contains('filter-btn')) {
+        // Xử lý sự kiện Lọc Size
+        tagsContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON' && e.target.classList.contains('tag-btn')) {
                 currentFilter = e.target.dataset.size;
                 
-                document.querySelectorAll('#size-filters .filter-btn').forEach(btn => {
+                document.querySelectorAll('#tags-container .tag-btn').forEach(btn => {
                     const s = btn.dataset.size;
-                    const isActive = s === currentFilter;
-                    let baseClass = "filter-btn px-3 md:px-5 py-1.5 md:py-2 rounded-[980px] text-[12px] md:text-[13px] sf-body-strong transition-all flex-shrink-0 border ";
-                    
-                    if (s === 'Sale') {
-                        btn.className = baseClass + (isActive ? "bg-[#8B1A1A] text-white border-[#8B1A1A] shadow-sm" : "bg-white text-[#8B1A1A] border-[#8B1A1A]/30 hover:bg-[#8B1A1A]/5");
-                    } else if (s === 'Mới Về') {
-                        btn.className = baseClass + (isActive ? "bg-apple-primary text-white border-apple-primary shadow-sm" : "bg-white text-apple-primary border-apple-primary/30 hover:bg-apple-primary/5");
-                    } else {
-                        btn.className = baseClass + (isActive ? "bg-apple-ink text-white border-apple-ink shadow-sm" : "bg-white text-apple-ink border-apple-hairline hover:border-apple-ink/30 hover:bg-apple-surfaceSubtle");
-                    }
+                    btn.className = `tag-btn ${s === currentFilter ? 'active' : ''}`;
                 });
                 renderCatalog();
             }
         });
 
         function renderCatalog() {
-            if (isMaintenance) return;
             loader.classList.add('hidden');
             catalogGrid.classList.remove('hidden');
             catalogGrid.innerHTML = '';
 
-            let filteredShoes = [];
-            if (currentFilter === 'Mới Về') {
-                filteredShoes = shoesData.filter(shoe => !shoe.sizes || !shoe.sizes.includes('Sale')).slice(0, 40);
-            } else {
-                const parsedFilter = currentFilter === 'Sale' ? 'Sale' : parseInt(currentFilter);
-                filteredShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parsedFilter));
-            }
+            // Chỉ lọc theo đúng size số đang chọn
+            const parsedFilter = parseInt(currentFilter);
+            const filteredShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parsedFilter));
 
             if(filteredShoes.length === 0) {
-                catalogGrid.innerHTML = '<div class="col-span-full flex flex-col items-center justify-center py-16"><p class="text-center text-apple-muted text-[14px] sf-body-strong">Chưa có sản phẩm ở phân loại này.</p></div>';
+                catalogGrid.innerHTML = '<div class="col-span-full py-16 text-center"><p class="text-zinc-500 text-[14px] font-medium">Chưa có giày ở size này. Bạn xem size khác nhé!</p></div>';
                 return;
             }
 
             filteredShoes.forEach((shoe, index) => {
                 const card = document.createElement('div');
-                // Apple Card style: rounded-xl (28px), soft subtle background, 8% shadow
-                card.className = 'group animate-fade-up cursor-pointer relative bg-[#FAFAFC] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.06)] border border-black/[0.02]';
+                card.className = 'product-card cursor-pointer flex flex-col group animate-fade-up relative';
                 card.style.animationDelay = `${index * 0.05}s`;
                 
                 const optimizedUrl = shoe.imageUrl + "?tr=w-600,h-600,fo-auto,f-webp,q-80";
                 
                 card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square flex items-center justify-center">
+                    <div class="relative overflow-hidden aspect-square flex items-center justify-center bg-[#F4F4F5]">
                         <div class="skeleton-shimmer"></div>
-                        <img src="${optimizedUrl}" alt="Giày Auth" class="w-full h-full object-cover relative z-10 img-hover-zoom opacity-0" loading="lazy" onload="this.classList.remove('opacity-0'); this.previousElementSibling.remove();">
+                        <img src="${optimizedUrl}" alt="Giày Tiệm" class="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105 opacity-0" loading="lazy" onload="this.classList.remove('opacity-0'); this.previousElementSibling.remove();">
                     </div>
                 `;
 
@@ -574,322 +360,25 @@
 
         closeModalBtn.addEventListener('click', () => { productModal.classList.add('hidden'); modalImg.src = ''; });
 
-        adminTriggerBtn.addEventListener('click', () => {
-            passwordModal.classList.remove('hidden'); passInput.value = ''; passError.classList.add('hidden'); passInput.focus();
-        });
-        cancelPassBtn.addEventListener('click', () => passwordModal.classList.add('hidden'));
-        submitPassBtn.addEventListener('click', checkPass);
-        passInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkPass(); });
-
-        function checkPass() {
-            if (passInput.value === '3119') {
-                passwordModal.classList.add('hidden'); adminSection.classList.remove('hidden'); renderAdminList(); loadAnalytics();
-            } else { passError.classList.remove('hidden'); }
-        }
-        closeAdminBtn.addEventListener('click', () => adminSection.classList.add('hidden'));
-
-        adminSizeFilters.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON' && e.target.classList.contains('admin-filter-btn')) {
-                currentAdminFilter = e.target.dataset.size;
-                document.querySelectorAll('.admin-filter-btn').forEach(btn => {
-                    const s = btn.dataset.size;
-                    const isActive = s === currentAdminFilter;
-                    let adminBaseClass = "admin-filter-btn px-3 md:px-4 py-1.5 rounded-[980px] text-[11px] md:text-[12px] sf-body-strong transition flex-shrink-0 border ";
-                    
-                    if (s === 'Sale') {
-                        btn.className = adminBaseClass + (isActive ? "bg-brand-red text-white border-brand-red" : "bg-white text-brand-red border-brand-red/30");
-                    } else if (s === 'Mới Về') {
-                        btn.className = adminBaseClass + (isActive ? "bg-apple-primary text-white border-apple-primary" : "bg-white text-apple-primary border-apple-primary/30");
-                    } else {
-                        btn.className = adminBaseClass + (isActive ? "bg-apple-ink text-white border-apple-ink" : "bg-white text-apple-ink border-apple-hairline");
-                    }
-                });
-                renderAdminList();
-            }
-        });
-
-        async function uploadFileToImageKit(file) {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("fileName", file.name);
-            formData.append("folder", "/tiemgiay"); 
-
-            const response = await fetch(IK_UPLOAD_ENDPOINT, {
-                method: "POST",
-                headers: { "Authorization": "Basic " + IK_AUTH },
-                body: formData
-            });
-
-            if (!response.ok) throw new Error("Upload lên ImageKit bị lỗi.");
-            return await response.json();
-        }
-
-        async function deleteFileFromImageKit(fileId) {
-            if (!fileId) return;
-            try {
-                await fetch(IK_DELETE_ENDPOINT + fileId, {
-                    method: "DELETE",
-                    headers: { "Authorization": "Basic " + IK_AUTH }
-                });
-            } catch(e) { console.error("Lỗi xóa file ImageKit:", e); }
-        }
-
-        uploadBtn.addEventListener('click', async () => {
-            const files = imageInput.files;
-            if (files.length === 0) { showAlert("⚠️ Vui lòng chọn ít nhất 1 ảnh."); return; }
-
-            const selectedSizes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(cb => {
-                return cb.value === 'Sale' ? 'Sale' : parseInt(cb.value);
-            });
-
-            if (selectedSizes.length === 0) { showAlert("⚠️ Vui lòng tick chọn ít nhất 1 size."); return; }
-
-            uploadBtn.disabled = true;
-            let successCount = 0;
-            uploadBtn.classList.replace('bg-apple-primary', 'bg-apple-muted');
-            
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                uploadBtn.innerHTML = `Đang tải ảnh ${i + 1}/${files.length} ...`;
-                uploadStatus.innerHTML = `<span class="text-apple-primary sf-body-strong animate-pulse">⏳ Xin đừng tắt màn hình...</span>`;
-                
-                try {
-                    const ikData = await uploadFileToImageKit(file);
-                    await addDoc(collection(db, "shoes"), {
-                        imageUrl: ikData.url,
-                        imageKitFileId: ikData.fileId,
-                        sizes: selectedSizes,
-                        createdAt: serverTimestamp() 
-                    });
-                    successCount++;
-                } catch (err) { console.error("Lỗi ảnh thứ " + (i+1), err); }
-            }
-
-            uploadStatus.innerHTML = `<span class="text-green-600 sf-body-strong">✅ Hoàn tất! Đã đăng ${successCount}/${files.length} sản phẩm.</span>`;
-            imageInput.value = '';
-            document.querySelectorAll('.size-checkbox').forEach(cb => cb.checked = false);
-            
-            await fetchShoes();
-            renderCatalog();
-            renderAdminList();
-
-            setTimeout(() => { 
-                uploadBtn.disabled = false; 
-                uploadBtn.classList.replace('bg-apple-muted', 'bg-apple-primary');
-                uploadBtn.innerHTML = `Tải ảnh lên hệ thống`;
-                uploadStatus.innerHTML = ""; 
-            }, 3000);
-        });
-
-        function renderAdminList() {
-            adminProductList.innerHTML = '';
-            let filteredAdminShoes = [];
-            
-            if (currentAdminFilter === 'Mới Về') {
-                filteredAdminShoes = shoesData.filter(shoe => !shoe.sizes || !shoe.sizes.includes('Sale')).slice(0, 40);
-            } else {
-                const parsedAdminFilter = currentAdminFilter === 'Sale' ? 'Sale' : parseInt(currentAdminFilter);
-                filteredAdminShoes = shoesData.filter(shoe => shoe.sizes && shoe.sizes.includes(parsedAdminFilter));
-            }
-
-            if(filteredAdminShoes.length === 0) {
-                adminProductList.innerHTML = '<p class="text-center text-[13px] text-apple-muted py-10 col-span-full sf-body-strong">Kho rỗng ở phân loại này.</p>';
-                return;
-            }
-
-            filteredAdminShoes.forEach(shoe => {
-                const item = document.createElement('div');
-                item.className = 'relative group aspect-square bg-white rounded-[16px] overflow-hidden shadow-sm border border-apple-hairline/50';
-                
-                const sortedSizes = shoe.sizes ? shoe.sizes.sort((a,b) => {
-                    if (a === 'Sale') return -1;
-                    if (b === 'Sale') return 1;
-                    return a - b;
-                }) : [];
-                
-                const adminThumbUrl = shoe.imageUrl + "?tr=w-300,h-300,fo-auto,f-webp";
-
-                item.innerHTML = `
-                    <img src="${adminThumbUrl}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                    
-                    <div class="absolute bottom-2 left-2 flex flex-wrap gap-1 max-w-[80%] pointer-events-none">
-                        ${sortedSizes.map(s => {
-                            if (s === 'Sale') return `<span class="px-2 py-0.5 bg-brand-red text-[10px] sf-body-strong text-white rounded-[980px] shadow-sm">SALE</span>`;
-                            return `<span class="px-2 py-0.5 bg-apple-ink text-[10px] sf-body-strong text-white rounded-[980px] shadow-sm">${s}</span>`;
-                        }).join('')}
-                    </div>
-                    
-                    <button class="delete-single-btn absolute top-2 right-2 bg-brand-red hover:bg-red-700 text-white p-1.5 rounded-full transition-transform hover:scale-110 shadow-md z-10" title="Xóa">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
-                `;
-
-                const delBtn = item.querySelector('.delete-single-btn');
-                delBtn.addEventListener('click', () => {
-                    showConfirm("Xóa vĩnh viễn đôi giày này khỏi hệ thống?", async () => {
-                        try {
-                            delBtn.innerHTML = '<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>';
-                            delBtn.disabled = true;
-                            if (shoe.imageKitFileId) await deleteFileFromImageKit(shoe.imageKitFileId);
-                            await deleteDoc(doc(db, "shoes", shoe.id));
-                            await fetchShoes();
-                            renderCatalog();
-                            renderAdminList();
-                        } catch(e) { showAlert("Lỗi khi xóa: " + e.message); }
-                    });
-                });
-                adminProductList.appendChild(item);
-            });
-        }
-
-        deleteAllBtn.addEventListener('click', () => {
-            deleteAllBtn.classList.add('hidden');
-            deleteConfirmArea.classList.remove('hidden');
-            deleteStatus.classList.add('hidden');
-        });
-        cancelDeleteBtn.addEventListener('click', () => {
-            deleteConfirmArea.classList.add('hidden');
-            deleteAllBtn.classList.remove('hidden');
-        });
-
-        confirmDeleteBtn.addEventListener('click', async () => {
-            try {
-                confirmDeleteBtn.disabled = true; confirmDeleteBtn.innerText = "Đang dọn dẹp...";
-                cancelDeleteBtn.disabled = true;
-                deleteStatus.classList.remove('hidden');
-                deleteStatus.innerHTML = `<span class="text-apple-primary sf-body-strong">⏳ Đang quét sạch Data và máy chủ ảnh...</span>`;
-
-                const querySnapshot = await getDocs(collection(db, "shoes"));
-                const deletePromises = [];
-                
-                querySnapshot.forEach((document) => {
-                    const data = document.data();
-                    if (data.imageKitFileId) deletePromises.push(deleteFileFromImageKit(data.imageKitFileId)); 
-                    deletePromises.push(deleteDoc(doc(db, "shoes", document.id)));
-                });
-                
-                await Promise.all(deletePromises);
-
-                deleteStatus.innerHTML = `<span class="text-green-600 sf-body-strong">✅ Sạch sẽ! Kho hàng đã trống.</span>`;
-                await fetchShoes();
-                renderCatalog();
-                renderAdminList();
-
-                setTimeout(() => {
-                    deleteConfirmArea.classList.add('hidden');
-                    deleteAllBtn.classList.remove('hidden');
-                    confirmDeleteBtn.disabled = false;
-                    cancelDeleteBtn.disabled = false;
-                    confirmDeleteBtn.innerText = "Chắc chắn xóa";
-                }, 3000);
-            } catch (e) {
-                deleteStatus.innerHTML = `<span class="text-brand-red sf-body-strong">❌ Lỗi hệ thống: ${e.message}</span>`;
-                confirmDeleteBtn.disabled = false; cancelDeleteBtn.disabled = false;
-            }
-        });
-
-        function updateMaintenanceUI() {
-            if (isMaintenance) {
-                maintenanceOverlay.classList.remove('hidden');
-                loader.classList.add('hidden');
-                catalogGrid.classList.add('hidden');
-                sizeFiltersWrapper.classList.add('hidden');
-                toggleMaintenanceBtn.innerText = "🔴 Đang Khóa Bảo Trì (Bấm Mở)";
-                toggleMaintenanceBtn.classList.add('bg-red-50', 'text-brand-red', 'border-red-200');
-                toggleMaintenanceBtn.classList.remove('bg-apple-surfaceSubtle', 'text-apple-ink', 'border-apple-hairline');
-            } else {
-                maintenanceOverlay.classList.add('hidden');
-                sizeFiltersWrapper.classList.remove('hidden');
-                toggleMaintenanceBtn.innerText = "🟢 Đang Mở Hoạt Động (Bấm Khóa)";
-                toggleMaintenanceBtn.classList.add('bg-apple-surfaceSubtle', 'text-apple-ink', 'border-apple-hairline');
-                toggleMaintenanceBtn.classList.remove('bg-red-50', 'text-brand-red', 'border-red-200');
-            }
-        }
-
-        toggleMaintenanceBtn.addEventListener('click', async () => {
-            try {
-                toggleMaintenanceBtn.innerText = "Đang xử lý...";
-                const newState = !isMaintenance;
-                await setDoc(doc(db, "settings", "general"), { maintenance: newState }, { merge: true });
-                isMaintenance = newState;
-                updateMaintenanceUI();
-                if(!isMaintenance) {
-                    await fetchShoes();
-                    renderCatalog();
-                }
-            } catch (error) { showAlert("Lỗi đổi trạng thái: " + error.message); }
-        });
-
         async function fetchShoes() {
             try {
                 shoesData = [];
-                const querySnapshot = await getDocs(collection(db, "shoes"));
+                // Bảng dữ liệu: shoes (Hàng Thường duy nhất)
+                const q = query(collection(db, "shoes"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => { shoesData.push({ id: doc.id, ...doc.data() }); });
                 
-                shoesData.sort((a, b) => {
-                    const timeA = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0;
-                    const timeB = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0;
-                    return timeB - timeA;
-                });
-            } catch (error) { console.error("Lỗi tải dữ liệu:", error); }
-        }
+                // Cập nhật số sản phẩm trên Profile
+                document.getElementById('stat-product-count').innerText = shoesData.length;
 
-        async function recordVisit() {
-            if (sessionStorage.getItem('visited')) return;
-            sessionStorage.setItem('visited', 'true');
-            const now = new Date();
-            const yyyy = now.getFullYear();
-            const mm = String(now.getMonth() + 1).padStart(2, '0');
-            const dd = String(now.getDate()).padStart(2, '0');
-            
-            try {
-                await setDoc(doc(db, "analytics", `${yyyy}-${mm}`), {
-                    total_month: increment(1),
-                    [`day_${dd}`]: increment(1)
-                }, { merge: true });
-            } catch (e) { console.error("Lỗi đếm traffic:", e); }
-        }
-
-        async function loadAnalytics() {
-            const adminDailyViews = document.getElementById('admin-daily-views');
-            const adminMonthlyViews = document.getElementById('admin-monthly-views');
-            if (!adminDailyViews || !adminMonthlyViews) return;
-            
-            adminDailyViews.innerText = "..."; adminMonthlyViews.innerText = "...";
-            const now = new Date();
-            const yyyy = now.getFullYear();
-            const mm = String(now.getMonth() + 1).padStart(2, '0');
-            const dd = String(now.getDate()).padStart(2, '0');
-            
-            try {
-                const docSnap = await getDoc(doc(db, "analytics", `${yyyy}-${mm}`));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    adminDailyViews.innerText = data[`day_${dd}`] || 0;
-                    adminMonthlyViews.innerText = data.total_month || 0;
-                } else {
-                    adminDailyViews.innerText = 0; adminMonthlyViews.innerText = 0;
-                }
-            } catch(e) {
-                 adminDailyViews.innerText = "Lỗi"; adminMonthlyViews.innerText = "Lỗi";
+                renderCatalog();
+            } catch (error) { 
+                console.error("Lỗi tải dữ liệu:", error);
+                loader.innerHTML = '<span class="text-red-500 text-sm font-medium">Lỗi kết nối máy chủ. Vui lòng tải lại trang.</span>';
             }
         }
 
-        // BẢN VÁ LỖI RACE CONDITION KẸT MẠNG 
-        async function init() {
-            // 1. Ưu tiên load sản phẩm hiển thị ngay cho khách
-            await checkMaintenance();
-            await fetchShoes();
-            renderCatalog();
-            
-            // 2. Chờ 2 giây sau mới kết nối ghi nhận lượt truy cập
-            setTimeout(() => {
-                recordVisit(); 
-            }, 2000);
-        }
-
-        init();
+        fetchShoes();
     </script>
 </body>
 </html>
